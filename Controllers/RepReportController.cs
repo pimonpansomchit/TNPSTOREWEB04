@@ -150,21 +150,21 @@ namespace TNPSTOREWEB.Controllers
 
 
                 rdata = Getreptdata(rdata,"R");
+                
+               
+                //string filepath = "Reports/ReplRpt.xml";
 
-                string filepath = "Reports/ReplRpt.xml";
+                string filepath = Path.Combine(_env.ContentRootPath, "Reports", "ReplRpt.xml");
                 intofile.SaveToXml(rdata.dataRpt, filepath.Trim());
 
+               
                 WebReport webReport = new WebReport();
                 string reportpath = Path.Combine(_env.ContentRootPath, "Reports", "Relreport.frx");
                 webReport.Report.Load(reportpath);
                 webReport.Report.SetParameterValue("DateFm", datefm);
                 webReport.Report.SetParameterValue("DateTo", dateto);
                 webReport.Report.SetParameterValue("WLName", rdata.ModelClass.Users.WLName.Trim());
-                //foreach (ReportPage page in webReport.Report.Pages)
-                //{
-                //    page.PaperHeight = 210;
-                //    page.PaperWidth = 400;
-                //}
+               
 
                 webReport.Report.Prepare();
 
@@ -174,14 +174,13 @@ namespace TNPSTOREWEB.Controllers
 
                     webReport.Report.Export(pDFSimpleExport, ms);
                     ms.Position = 0;
-                    //string htmlContent =System.Text.Encoding.UTF8.GetString(ms.ToArray());
-                    //return Content(htmlContent, "text/html");
                     return File(ms.ToArray(), "application/pdf");
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                rdata.Message = rdata.Message+ex.Message;
                 return RedirectToAction("RepHistory", "RepReport", rdata);
             }
 
@@ -313,7 +312,9 @@ namespace TNPSTOREWEB.Controllers
 
                 rdata = Getreptdata(rdata, "O");
 
-                string filepath = "Reports/OutRpt.xml";
+               
+                string filepath = Path.Combine(_env.ContentRootPath, "Reports", "OutRpt.xml");
+
                 intofile.SaveToXml(rdata.dataOutRpt, filepath.Trim());
 
                 WebReport webReport = new WebReport();
@@ -322,12 +323,7 @@ namespace TNPSTOREWEB.Controllers
                 webReport.Report.SetParameterValue("DateFm", datefm);
                 webReport.Report.SetParameterValue("DateTo", dateto);
                 webReport.Report.SetParameterValue("WLName", rdata.ModelClass.Users.WLName.Trim());
-                //foreach (ReportPage page in webReport.Report.Pages)
-                //{
-                //    page.PaperHeight = 210;
-                //    page.PaperWidth = 400;
-                //}
-
+                
                 webReport.Report.Prepare();
 
                 using (MemoryStream ms = new MemoryStream())
@@ -336,8 +332,7 @@ namespace TNPSTOREWEB.Controllers
 
                     webReport.Report.Export(pDFSimpleExport, ms);
                     ms.Position = 0;
-                    //string htmlContent =System.Text.Encoding.UTF8.GetString(ms.ToArray());
-                    //return Content(htmlContent, "text/html");
+                    
                     return File(ms.ToArray(), "application/pdf");
 
                 }
@@ -419,8 +414,8 @@ namespace TNPSTOREWEB.Controllers
 
 
                 rdata = Getreptdata(rdata, "E");
-
-                string filepath = "Reports/ExpRpt.xml";
+               
+                string filepath = Path.Combine(_env.ContentRootPath, "Reports", "ExpRpt.xml");
                 intofile.SaveToXml(rdata.dataExpRpt, filepath.Trim());
 
                 WebReport webReport = new WebReport();
@@ -429,11 +424,7 @@ namespace TNPSTOREWEB.Controllers
                 webReport.Report.SetParameterValue("DateFm", datefm);
                 webReport.Report.SetParameterValue("DateTo", dateto);
                 webReport.Report.SetParameterValue("WLName", rdata.ModelClass.Users.WLName.Trim());
-                //foreach (ReportPage page in webReport.Report.Pages)
-                //{
-                //    page.PaperHeight = 210;
-                //    page.PaperWidth = 400;
-                //}
+               
 
                 webReport.Report.Prepare();
 

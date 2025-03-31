@@ -190,7 +190,7 @@
         </div>
        </div>
        </div>
-    
+   
  </form>
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -225,8 +225,10 @@
                let datefm="@Model.DateFm";
                let dateto="@Model.DateTo";
                let groupid ="@Model.SelectGroupNo";
-               let statusid ="@Model.SelectStatus"
-               let url='/RepReport/PreviewPDF?Id='+Id+'&barcode='+barcode+'&datefm='+datefm+'&dateto='+dateto+'&groupid='+groupid+'&sutatusid='+statusid ;
+               let statusid ="@Model.SelectStatus";
+               var path =window.location.href;
+               var host =path.split("/RepReport");
+               let url=host[0]+'/RepReport/PreviewPDF?Id='+Id+'&barcode='+barcode+'&datefm='+datefm+'&dateto='+dateto+'&groupid='+groupid+'&sutatusid='+statusid ;
                window.open(url,"_blank");
 
 
