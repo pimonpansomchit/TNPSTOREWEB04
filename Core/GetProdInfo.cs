@@ -707,7 +707,6 @@ namespace TNPSTOREWEB.Core
             }
             return query;
         }
-
         public List<DataStatus> GetrepStatus()
         {
             List<DataStatus> datalists = new();
@@ -722,5 +721,134 @@ namespace TNPSTOREWEB.Core
             
            
             return datalists;
+        }
+
+        public Messageinfo TrackDuplication(string type,string barcode,int recdno)
+        {
+            Messageinfo msg = new();
+
+            using (var dts = new TNPSTORESYSDBContext())
+            {
+                DateTime dt = DateTime.Now;
+                DateOnly d = new( dt.Year, dt.Month, dt.Day );
+
+                if (type == "R")
+                {
+                    var datalist = dts.TmpreplenishDs.Where(t => t.TranStatus == "CRE" && t.TranDate==d && t.Barcode==barcode.Trim() && t.RecdNo == (recdno-1)).ToList();
+                    if(datalist !=null && datalist.Count()>0)
+                    {
+                        msg.code = 1;
+                        msg.messsage = "บาร์โค้ดนี้ มีการสั่งเติมไปแล้วรายการก่อนหน้า !!!";
+                    }
+                    else
+                    {
+                        msg.code = 0;
+                        msg.messsage = "";
+                    }
+                }
+                else
+                {
+                    if (type == "O")
+                    {
+                        var datalist = dts.TrnoutofStockDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d && t.Barcode == barcode.Trim() && t.RecdNo == (recdno-1)).ToList();
+                        if (datalist != null && datalist.Count() > 0)
+                        {
+                            msg.code = 1;
+                            msg.messsage = "บาร์โค้ดนี้ มีการสั่งเติมไปแล้วรายการก่อนหน้า !!!";
+                        }
+                        else
+                        {
+                            msg.code = 0;
+                            msg.messsage = "";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "E")
+                        {
+                            var datalist = dts.TrnexpiredofGoodDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d && t.Barcode == barcode.Trim() && t.RecdNo == (recdno-1)).ToList();
+                            if (datalist != null && datalist.Count() > 0)
+                            {
+                                msg.code = 1;
+                                msg.messsage = "บาร์โค้ดนี้ มีการสั่งเติมไปแล้วรายการก่อนหน้า !!!";
+                            }
+                            else
+                            {
+                                msg.code = 0;
+                                msg.messsage = "";
+                            }
+                        }
+                    }
+                }
+
+               
+            }
+
+
+            return msg;
+        }
+
+        public int MaxTrackcount(string type)
+        {
+            int datalist = 0;
+
+            using (var dts = new TNPSTORESYSDBContext())
+            {
+                DateTime dst = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd 00:00:00"));
+                DateTime dte = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd 23:59:59"));
+                DateOnly d = new(dst.Year, dst.Month, dst.Day);
+
+                if (type == "R")
+                {
+                    var mx = dts.TrnreplenishDs.Where(t => t.CreateDtime >= dst && t.CreateDtime <= dte).ToList();
+                    var mxt= dts.TmpreplenishDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d).ToList();
+
+                    if (mx.Count() !=0 && mxt.Count() ==0)
+                    {
+                        datalist = dts.TrnreplenishDs.Where(t => t.CreateDtime >= dst && t.CreateDtime <= dte).OrderByDescending(p => p.RecdNo).Select(t => t.RecdNo).First();
+                    }
+                    else
+                    {
+                        if (mx.Count() != 0 && mxt.Count() != 0)
+                            {
+                             datalist = dts.TmpreplenishDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d).OrderByDescending(p => p.RecdNo).Select(t => t.RecdNo).First();
+
+                        }
+                    }
+                    
+
+                }
+                else
+                {
+                    if (type == "O")
+                    {
+                        var mx = dts.TrnoutofStockDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d).ToList();
+
+                        if (mx.Count() > 0)
+                        {
+                            datalist=dts.TrnoutofStockDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d).OrderByDescending(t => t.RecdNo).Select(t => t.RecdNo).First();
+
+                        }
+
+                       
+                    }
+                    else
+                    {
+                        if (type == "E")
+                        {
+                            var mx = dts.TrnexpiredofGoodDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d).ToList();
+                            if (mx.Count() > 0)
+                            {
+                                datalist = dts.TrnexpiredofGoodDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d).OrderByDescending(t => t.RecdNo).Select(t => t.RecdNo).First();
+                            }
+                        }
+                    }
+                }
+
+
+            }
+           
+
+            return datalist;
         }
     } }

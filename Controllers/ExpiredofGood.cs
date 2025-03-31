@@ -17,6 +17,8 @@ namespace TNPSTOREWEB.Controllers
         {
             info = new();
             rdata.pi = new();
+            Messageinfo msginfo = new();
+
             if (model.logid != 0 && rdata.Id == null)
             {
                 rdata.Id = model.logid;
@@ -24,13 +26,18 @@ namespace TNPSTOREWEB.Controllers
                 rdata.Message = "";
                 rdata.Saveflg = 0;
             }
+            rdata.maxcount = info.MaxTrackcount("E")+1;
 
             if (rdata.barcode != null) //after input barcode and display
             {
                 
                 rdata = info.SearchProduct(rdata);
-
+                msginfo = info.TrackDuplication("E", rdata.barcode, rdata.maxcount);
+                rdata.Message = msginfo.messsage;
+                rdata.Saveflg = msginfo.code;
+               
             }
+           
             return View(rdata);
 
         }
@@ -125,9 +132,9 @@ namespace TNPSTOREWEB.Controllers
             GetDBConnect dB = new();
             string SQL = $"use {DBname}" +
                          $" select isnull(max(RecdNo),0) " +
-                         $" from TRNOutofStockD" +
-                         $" where RecNo={Id}" +
-                         $" and wlid={wlcode}";
+                         $" from TRNExpiredofGoodD" +
+                         $" where wlid={wlcode}" +
+                         $" and TranDate =convert(date,Getdate()) ";
             if (dB.ExecuteReadData(SQL, DbConnext))
             {
                 if (dB.myReader.HasRows)

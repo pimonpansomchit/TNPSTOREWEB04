@@ -1,16 +1,24 @@
 ﻿@model TNPSTOREWEB.Model.ModelLayout
 @{
 
-    ViewData["Id"] = @ViewData["Logid"];
-    ViewData["Menukey"] = @ViewData["Menukey"];
-    ViewData["Message"] = @ViewData["Message"];
-    ViewData["ErrorID"] = @ViewData["ErrorID"];
+   
     await Html.RenderPartialAsync("~/Views/Shared/_MyLaoutMenu.cshtml", Model);
 
 }
 <h5 class ="ps-3">รายงานสินค้าใกล้หมดอายุ</h5>
-<p class="ps-3 fs-9">User Id:@ViewData["Logid"]</p>
-<p class="ps-3 text-success-light">@Model.Message</p>
+<p class="ps-3 fs-9">User Id:@Model.Id</p>
+@if (Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success">@Model.Message</p>
+
+}
+else
+{
+    <p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+
 <form class="mb-3 mbs-label-font-thai" method="POST" asp-controller="RepReport" id="searchForm">
 
 

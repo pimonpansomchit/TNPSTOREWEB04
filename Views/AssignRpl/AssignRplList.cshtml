@@ -7,8 +7,7 @@
     
   
 }
-
-<p class="ps-3 fs-9">User Id:@Model.Id</p>
+<p class="fs-9 ps-3">แสดงข้อมูลการจัดสินค้า</p>
 <p class="ps-3 text-success-light">@Model.Message</p>
 
 <div class="container">
@@ -16,7 +15,7 @@
     @if (Model.Options != null)
     {
         <form method="POST" id="Formoption" asp-controller="AssignRpl" asp-action="AssignRplList" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" >
-            <div class="row g-3 mt-1" data-bs-theme="dark">
+            <div class="row g-3 mt-1" >
                 @foreach (var option in Model.Options)
                 {
                     <div class="form-check">
@@ -49,7 +48,7 @@
 
         @if(Model.display == 1 || Model.display == 3)
             {
-                <div class="card bg-body-highlight" data-bs-theme="dark">
+                <div class="card bg-body-highlight" >
                     <div class="table-responsive mx-n1 px-1 scrollbar">
                         <table class="table table-sm fs-9 mb-0 ">
                             <tbody class="list">
@@ -91,7 +90,7 @@
             }
             else{                    
                 //2 docno
-                    <div class="card bg-body-highlight" data-bs-theme="dark">
+                    <div class="card bg-body-highlight" >
 
                         <div class="table-responsive mx-n1 px-1 scrollbar">
                             <table class="table table-sm fs-9 mb-0 ">
@@ -131,7 +130,7 @@
        
     
         <form method="POST" id="Formback" asp-controller="Home" asp-action="Indexweb" asp-route-id="@Model.Id">
-        <div class="row p-3" data-bs-theme="dark">
+        <div class="row p-3" >
             <button class="btn btn-phoenix-secondary me-1  d-block w-100 " type="submit" style="font-size:medium">ย้อนกลับเมนู</button>
         </div>
     </form>

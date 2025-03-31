@@ -32,9 +32,7 @@ namespace TNPSTOREWEB.Controllers
                 {
 
                     menu.ModelClass.Users = GetDBConnect.GetClassModel(model.logid);
-
-
-                    ViewData["Logid"] = model.logid;
+                    menu.Id = model.logid;
                 }
                 else
                 {
@@ -45,7 +43,7 @@ namespace TNPSTOREWEB.Controllers
                     else
                     {
                         menu.ModelClass.Users = GetDBConnect.GetClassModel(Id);
-                        ViewData["Logid"] = Id;
+                        menu.Id  = Id;
 
                     }
                 }
@@ -180,13 +178,11 @@ namespace TNPSTOREWEB.Controllers
             }
             catch (Exception ex)
             {
-                rdata.Message = rdata.Message+ex.Message;
+                rdata.Message = ex.Message;
                 return RedirectToAction("RepHistory", "RepReport", rdata);
             }
 
         }
-
-
 
         public IActionResult OutstkHistory(ClassModel model, decimal? Id, ModelLayout menu)
         {
@@ -200,7 +196,7 @@ namespace TNPSTOREWEB.Controllers
                     menu.ModelClass.Users = GetDBConnect.GetClassModel(model.logid);
 
 
-                    ViewData["Logid"] = model.logid;
+                    menu.Id = model.logid;
                 }
                 else
                 {
@@ -211,7 +207,7 @@ namespace TNPSTOREWEB.Controllers
                     else
                     {
                         menu.ModelClass.Users = GetDBConnect.GetClassModel(Id);
-                        ViewData["Logid"] = Id;
+                        menu.Id = Id;
 
                     }
                 }
@@ -337,8 +333,9 @@ namespace TNPSTOREWEB.Controllers
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                rdata.Message = ex.Message;
                 return RedirectToAction("RepHistory", "RepReport", rdata);
             }
 
@@ -355,9 +352,7 @@ namespace TNPSTOREWEB.Controllers
                 {
 
                     menu.ModelClass.Users = GetDBConnect.GetClassModel(model.logid);
-
-
-                    ViewData["Logid"] = model.logid;
+                    menu.Id = model.logid;
                 }
                 else
                 {
@@ -368,7 +363,7 @@ namespace TNPSTOREWEB.Controllers
                     else
                     {
                         menu.ModelClass.Users = GetDBConnect.GetClassModel(Id);
-                        ViewData["Logid"] = Id;
+                        menu.Id = Id;
 
                     }
                 }
@@ -406,7 +401,7 @@ namespace TNPSTOREWEB.Controllers
                 }
                 else
                 {
-
+                    
                     return RedirectToAction("Login", "Authen");
 
                 }
@@ -440,8 +435,9 @@ namespace TNPSTOREWEB.Controllers
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                rdata.Message = ex.Message;
                 return RedirectToAction("ExprieHistory", "RepReport", rdata);
             }
 

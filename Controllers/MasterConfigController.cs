@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.EMMA;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using TNPSTOREWEB.Context;
 using TNPSTOREWEB.Core;
 using TNPSTOREWEB.Model;
@@ -23,10 +24,7 @@ namespace TNPSTOREWEB.Controllers
                 {
 
                     menu.ModelClass.Users = GetDBConnect.GetClassModel(model.logid);
-
-
-                    ViewData["Logid"] = model.logid;
-                   
+                    menu.Id=model.logid;
                 }
                 else
                 {
@@ -37,8 +35,9 @@ namespace TNPSTOREWEB.Controllers
                     else
                     {
                         menu.ModelClass.Users = GetDBConnect.GetClassModel(Id);
-                        ViewData["Logid"] = Id;
-                       
+                        menu.Id = Id;
+
+
 
                     }
                 }
@@ -49,7 +48,7 @@ namespace TNPSTOREWEB.Controllers
             }
 
             catch (Exception) { }
-
+            
             return View(menu);
 
         }
@@ -64,8 +63,8 @@ namespace TNPSTOREWEB.Controllers
                 {
 
                     menu.ModelClass.Users = GetDBConnect.GetClassModel(menu.Id);
-                    ViewData["Logid"] = menu.Id;
-                   
+                    
+
                 }
                 else
                 {
@@ -76,7 +75,7 @@ namespace TNPSTOREWEB.Controllers
                     else
                     {
                         menu.ModelClass.Users = GetDBConnect.GetClassModel(Id);
-                        ViewData["Logid"] = Id;
+                        
                         menu.Id = Id;
                     }
                     
@@ -233,6 +232,51 @@ namespace TNPSTOREWEB.Controllers
             
             return RedirectToAction("TypeLocationAdd", "MasterConfig", rdata);
             
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(ModelLayout rdata, string actions, int type, string cat, decimal Id)
+        {
+
+            if (rdata.actions == "D")
+            {
+                rdata.Loccat = cat;
+                rdata.loctype = type;
+              
+                using (TNPSTORESYSDBContext _dbs = new())
+                {
+                    var data = _dbs.StLoctypes.Where(t => t.LocCat == rdata.Loccat.Trim() 
+                    && t.LocType == rdata.loctype).FirstOrDefault();
+                    
+                    var tdata = _dbs.Locprdds.Where(t => t.Loccat == rdata.Loccat.Trim()
+                    && t.LocType == rdata.loctype).FirstOrDefault();
+
+                    if (data != null && tdata == null)
+                    {
+                       
+                        _dbs.Remove(data);
+                        _dbs.SaveChanges();
+                        rdata.Saveflg = 0;
+                        rdata.Message = "ลบข้อมูลสำเร็จ";
+
+
+                    }
+                    else
+                    {
+                        rdata.Saveflg = 1;
+                        rdata.Message = "ไม่สามารถลบข้อมูลได้เนื่องจาก มีการใช้ข้อมูลนี้อยู่ !!";
+                    }
+
+
+                        rdata.Id = Id;
+                }
+
+                //Add
+            }
+
+            return RedirectToAction("TypeLocation", "MasterConfig", rdata);
+
         }
         private ModelLayout GetAdddata(ModelLayout data, string typereport)
         {

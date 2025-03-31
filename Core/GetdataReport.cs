@@ -47,7 +47,7 @@ namespace TNPSTOREWEB.Core
                             }
                             if (query.SelectStatus != "0")
                             {
-                                datalist = datalist.Where(t => t.TranStatus == query.SelectStatus).ToList();
+                                datalist = datalist.Where(t => t.TranStatus == query.SelectStatus.Trim()).ToList();
                                
                             }
                            

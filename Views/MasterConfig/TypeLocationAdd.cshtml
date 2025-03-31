@@ -1,24 +1,24 @@
 ﻿
 @model TNPSTOREWEB.Model.ModelLayout
 @{
-    ViewData["Id"] = @ViewData["Logid"];
+   
     Layout = "~/Views/Shared/_HHScanLayout.cshtml";
 
 }
 @if(Model.Loccat=="S")
 {
-    <p class="text-white ps-3 fs-9">การบันทึกสินประเภทตำแหน่งเก็บ: หน้าร้าน</p>
+    <p class="ps-3 fs-8">การบันทึกสินประเภทตำแหน่งเก็บ: หน้าร้าน</p>
 
 }
 else
 {
     @if (Model.Loccat == "R")
     {
-        <p class="text-white ps-3 fs-9">การบันทึกสินประเภทตำแหน่งเก็บ: คลังร้าน</p>
+        <p class="ps-3 fs-8">การบันทึกสินประเภทตำแหน่งเก็บ: คลังร้าน</p>
 
     }
 }
-<p class="text-white ps-3">User Id:@Model.Id</p>
+
 @if (Model.Saveflg is 0)
 {
     <p class="ps-3 text-success-light">@Model.Message</p>

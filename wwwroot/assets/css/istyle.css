@@ -175,13 +175,13 @@ height:30px;
     background-color: #e5f7ff80;
 }
 
-.mbs-text-pink {
-    color: #FF008C;
-    font-family: 'CS ChatThaiUI';
+.mbs-text-pink{
+    color: #FF008C;   
+    font-family: Superstore;   
 }
 .mbs-text-green {
     color: #00d27a;
-    font-family: 'CS ChatThaiUI';
+    font-family: Superstore;
 }
 .mbs-menu-font-thai {
     font-family:'CS ChatThaiUI';

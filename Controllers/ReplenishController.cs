@@ -21,6 +21,7 @@ namespace TNPSTOREWEB.Controllers
         {
             info = new();
             rdata.pi = new();
+            Messageinfo msginfo = new();
             if (rdata.Id != 0) 
             {
                 rdata.Id = rdata.Id;
@@ -32,19 +33,23 @@ namespace TNPSTOREWEB.Controllers
             }
             
             rdata.pi.stLoctypes = info.GetLoctype("S");
+            rdata.maxcount = info.MaxTrackcount("R")+1;
             if (rdata.barcode != null) //after input barcode and display
             {
                     rdata.barcode = rdata.barcode.ToString();
                     rdata.Loccat = "S";
-                    rdata = info.SearchProduct(rdata);
-                
+                    rdata = info.SearchProduct(rdata);   
+                    msginfo = info.TrackDuplication("R", rdata.barcode, rdata.maxcount);
+                    rdata.Message=msginfo.messsage;
+                    rdata.Saveflg = msginfo.code;
+
             }
-           
+            
             return View(rdata);
 
         }
 
-        public ActionResult RepSummary(decimal? Id, int error, string msg, int datakey)
+        public ActionResult RepSummary(decimal? Id, int error, string msg, int datakey,string docno)
         {
             ViewData["Menukey"] = datakey;
             ViewData["Logid"] = Id;
@@ -61,7 +66,18 @@ namespace TNPSTOREWEB.Controllers
                 DateOnly datenow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day) ; //ติด Dateonly
                 var qdata = _dbs.TmpreplenishDs.Where(t => t.TranDate== datenow && t.CreateUser==model.UserName && t.Wlid==model.WLCode ).OrderBy(t => t.RecdNo).ToList();
                 data.trp = qdata;
-                
+
+                if(docno!=null)
+                {
+                    data.Totalconfirm = _dbs.TrnreplenishDs.Where(t => t.DocNo == docno.Trim() && t.Wlid == model.WLCode).Count();
+                    data.SelectdocNo = docno.Trim();
+                }
+                else
+                {
+                    data.Totalconfirm = 0;
+                }
+
+
             }
             catch(Exception e) 
             {
@@ -254,6 +270,7 @@ namespace TNPSTOREWEB.Controllers
         {
             int errorid = 0;
             string message = string.Empty;
+            string docno = string.Empty;
             try
             {
                 //assgin replce production
@@ -263,7 +280,7 @@ namespace TNPSTOREWEB.Controllers
                     ClassModel model = new();
                     model = GetDBConnect.GetClassModel(Id);
                     GetDocRunning getDocRunning = new();
-                    string docno=getDocRunning.GenDoc(200, DateTime.Now.ToString("MM"), DateTime.Now.ToString("yyyy"), "RPL", model.DCcode, model.WHcode, model.ConnectString,model.WLCode);
+                    docno=getDocRunning.GenDoc(200, DateTime.Now.ToString("MM"), DateTime.Now.ToString("yyyy"), "RPL", model.DCcode, model.WHcode, model.ConnectString,model.WLCode);
                     if (docno != string.Empty)
                     {
                         if(InsertTRNreplenish(Id, model.MainDB, model.ConnectString, docno,model.WLCode,model.UserName))
@@ -273,6 +290,7 @@ namespace TNPSTOREWEB.Controllers
                                
                                 message = "สั่งเติมสินค้าเรียบร้อย >> เอกสารสั่งเติม :"+docno;
                             }
+
 
                             //Mssage
                         }
@@ -293,7 +311,7 @@ namespace TNPSTOREWEB.Controllers
                 message=ex.Message;
                
             }
-            return RedirectToAction("RepSummary", new { Id = Id, error = errorid, msg = message ,datakey=datakey});
+            return RedirectToAction("RepSummary", new { Id = Id, error = errorid, msg = message ,datakey=datakey, docno =docno});
         }
 
         [HttpPost]
@@ -347,7 +365,7 @@ namespace TNPSTOREWEB.Controllers
         {
             info = new();
             GetDBConnect dB = new();
-            int i = 1;
+            
             bool flg = true;
             string recno = DateTime.Now.ToString("yyMMddHHmmssfff");
             recno = wlcode.Trim() + recno;
@@ -364,7 +382,7 @@ namespace TNPSTOREWEB.Controllers
                                 $"	        ,isnull([LocIDTo],'')	" +
                                 $"	        ,isnull([LocIDFm],'')	" +
                                 $"	        ,[CreateUser]	" +
-                                $"	        ,[Logid],[wlid],[TranDate]" +
+                                $"	        ,[Logid],[wlid],[TranDate],max(recdno)" +
                                 $"	  FROM [TMPreplenishD]	" +
                                 $"	  where [TranDate] =convert(date,GETDATE())" +
                                 $"	  and [wlid] ='{wlcode}'	" +
@@ -399,7 +417,7 @@ namespace TNPSTOREWEB.Controllers
                                 {
                                     Wlid = dB.myReader[12].ToString(),
                                     RecNo = recno,
-                                    RecdNo = i++,
+                                    RecdNo = (int)dB.myReader[14],
                                     DocNo = docno,
                                     Barcode = dB.myReader[1].ToString(),
                                     ItemCode = dB.myReader[2].ToString(),
@@ -524,24 +542,49 @@ namespace TNPSTOREWEB.Controllers
         public int SerachMaxitemNo(string Id, string DBname, string DbConnext, string wlcode)
         {
             int itemno = 0;
+            int titemno = 0;
             GetDBConnect dB = new();
             string SQL = $"use {DBname}" +
                          $" select isnull(max(RecdNo),0) " +
-                         $" from TmpreplenishD" +
-                         $" where RecNo={Id}" +
-                         $" and wlid={wlcode}";
+                         $" from TRNreplenishD" +
+                         $" where wlid={wlcode}"+
+                         $" and convert(date,CreateDtime) =convert(date,Getdate()) ";
             if (dB.ExecuteReadData(SQL, DbConnext))
             {
                 if (dB.myReader.HasRows)
                 {
                     while (dB.myReader.Read())
                     {
-                        itemno = (int)dB.myReader[0];
+                       
+                            itemno = (int)dB.myReader[0];  
+                        
                     }
                 }
 
             }
 
+             SQL = $"use {DBname}" +
+                         $" select isnull(max(RecdNo),0) " +
+                         $" from TMPreplenishD" +
+                         $" where wlid={wlcode}" +
+                         $" and TranDate =convert(date,Getdate()) ";
+            if (dB.ExecuteReadData(SQL, DbConnext))
+            {
+                if (dB.myReader.HasRows)
+                {
+                    while (dB.myReader.Read())
+                    {
+
+                        titemno = (int)dB.myReader[0];
+                    }
+                }
+
+            }
+
+            if(titemno > itemno)
+            {
+                itemno= titemno;
+            }
             return itemno;
         }
 

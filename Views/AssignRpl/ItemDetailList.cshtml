@@ -6,8 +6,7 @@
 }
 
 
-<p class="ps-3 fs-9">User Id: @Model.Id</p>
-<p class="text-white ps-3">รายการสั่งเติม หมายเลขเอกสาร : @Model.SelectdocNo </p>
+<p class="fs-9 ps-3">รายการสั่งเติม หมายเลขเอกสาร : @Model.SelectdocNo </p>
 @if(Model.Saveflg is 0)
 {
     <p class="ps-3 text-success-light">@Model.Message</p>
@@ -22,12 +21,12 @@
         {
              @if(Model.rp.replenishD.Count() >0)
         {
-                <div class="row" data-bs-theme="dark">
+                <div class="row" >
                     <div class="col-10">
                         <input class="form-control" id="inputBarcode" placeholder="อ่านบาร์โค้ด" type="text" asp-for="barcode" autocomplete="off" />
                     </div>
                 </div>
-                <div class="card bg-body-highlight" data-bs-theme="dark">
+                <div class="card bg-body-highlight" >
 
                     <div class="table-responsive mx-n1 px-1 scrollbar">
                         <table class="table table-sm fs-9 mb-0 ">
@@ -46,7 +45,7 @@
                             <tbody class="list">
                                 @if (Model != null)
                                 {
-                                    <div class="card bg-body-highlight" data-bs-theme="dark">
+                                    <div class="card bg-body-highlight" >
 
                                         <div class="table-responsive mx-n1 px-1 scrollbar">
                                             <table class="table table-sm fs-9 mb-0 ">
@@ -92,7 +91,7 @@
 
                     </div>
                 </div>
-                <div class="row g-3 mt-1" data-bs-theme="dark">
+                <div class="row g-3 mt-1" >
                     <div class="col-5 col col-xl-6">
                         <button class="btn btn-phoenix-primary me-1  d-block w-100 " type="submit" style="font-size:medium" asp-action="AssignRplList" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-type="@Model.SelectedOption">กลับรายการ</button>
                 </div>

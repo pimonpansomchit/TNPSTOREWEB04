@@ -1,16 +1,24 @@
 ﻿@model TNPSTOREWEB.Model.ModelLayout
 @{
 
-    ViewData["Id"] = @ViewData["Logid"];
-    ViewData["Menukey"] = @ViewData["Menukey"];
-    ViewData["Message"] = @ViewData["Message"];
-    ViewData["ErrorID"] = @ViewData["ErrorID"];
+
     await Html.RenderPartialAsync("~/Views/Shared/_MyLaoutMenu.cshtml", Model);
 
 }
 <h5 class ="ps-3">รายงานการเติมสินค้า</h5>
-<p class="ps-3 fs-9">User Id:@ViewData["Logid"]</p>
-<p class="ps-3 text-success-light">@Model.Message</p>
+<p class="ps-3 fs-9">User Id:@Model.Id</p>
+@if (Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success">@Model.Message</p>
+
+}
+else
+{
+    <p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+
 <form class="mb-3 mbs-label-font-thai" method="POST" asp-controller="RepReport" id="searchForm">
 
 
@@ -92,18 +100,18 @@
             </div>
             @if (Model.dataRpt !=null)
             {
-                
-            
-            @if (Model.dataRpt.Count() >0)
-            {
-                <div class="btn-group position-static ps-1" role="group">
-                    <button class="btn btn-link text-body me-4 px-0" asp-action="ExportFile" asp-route-export="X" asp-route-Id="@Model.Id"><span class="fa-solid far fa-file-excel fs-8 me-2"></span>Export</button>
-                </div>
-                <div class="btn-group position-static ps-1" role="group">
-                    <button id="pdfclick" class="btn btn-link text-body me-4 px-0"><span class="fa-solid far fa-file-pdf fs-8 me-2"></span>Report</button>
-                </div>
+
+
+                @if (Model.dataRpt.Count() >0)
+                {
+                    <div class="btn-group position-static ps-1" role="group">
+                        <button class="btn btn-link text-body me-4 px-0" asp-action="ExportFile" asp-route-export="X" asp-route-Id="@Model.Id"><span class="fa-solid far fa-file-excel fs-8 me-2"></span>Export</button>
+                    </div>
+                    <div class="btn-group position-static ps-1" role="group">
+                        <button id="pdfclick" class="btn btn-link text-body me-4 px-0"><span class="fa-solid far fa-file-pdf fs-8 me-2"></span>Report</button>
+                    </div>
+                }
             }
-           }
         </div>
 
     </div>
@@ -111,66 +119,92 @@
 
     <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
         <div id="orderTable" data-list='{"valueNames":["DocNo","barcode","productName","GroupId","UnitName","LocIdfmName","LocIdtoName","ItemQty","ItemQtyRep","ChangeDtime","TranStatusname"],"page":10,"pagination":true}'>
-        <div class="table-responsive scrollbar mx-n1 px-1">
+            <div class="table-responsive scrollbar mx-n1 px-1">
                 <table class="table table-sm fs-9 mb-0">
-                <thead class="bg-primary-subtle">
-                    <tr>
-                      
-                        <th class="sort align-middle ps-2" scope="col" data-sort="DocNo"  style="width:150px;">เลขที่เอกสาร</th>
-                        <th class="sort align-middle ps-2" scope="col" data-sort="barcode" style="width:150px;">รหัสสินค้า</th>
-                        <th class="sort white-space-nowrap align-middle ps-4"  scope="col" style="width:400px;" data-sort="productName">ชื่อ</th>
-                        <th class="sort align-middle ps-2" scope="col" data-sort="GroupId" style="width:80px;">หมวด</th>
-                        <th class="sort align-middle ps-2" scope="col"  style="width:100px;">หน่วย</th>
-                        <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:180px;">ตำแหน่งจัด</th>
-                        <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:180px;">ตำแหน่งเติม</th>
-                        <th class="sort align-middle ps-2" scope="col"  style="width:100px;">สั่งเติม</th>
-                        <th class="sort align-middle ps-2" scope="col"  style="width:100px;">จัดเติม</th>
-                        <th class="sort align-middle ps-4" scope="col" data-sort="ChangeDtime" style="width:180px;">เวลาปรับปรุง</th>
-                        <th class="sort align-middle ps-4" scope="col" data-sort="TranStatus" style="width:150px;">สถานะ</th>
-                    </tr>
-                </thead>
+                    <thead class="bg-primary-subtle">
+                        <tr>
+
+                            <th class="sort align-middle ps-2" scope="col" data-sort="DocNo"  style="width:150px;">เลขที่เอกสาร</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="barcode" style="width:150px;">รหัสสินค้า</th>
+                            <th class="sort white-space-nowrap align-middle ps-4"  scope="col" style="width:400px;" data-sort="productName">ชื่อ</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="GroupId" style="width:80px;">หมวด</th>
+                            <th class="sort align-middle ps-2" scope="col"  style="width:100px;">หน่วย</th>
+                            <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:180px;">ตำแหน่งจัด</th>
+                            <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:180px;">ตำแหน่งเติม</th>
+                            <th class="sort align-middle ps-2" scope="col"  style="width:100px;">สั่งเติม</th>
+                            <th class="sort align-middle ps-2" scope="col"  style="width:100px;">จัดเติม</th>
+                            <th class="sort align-middle ps-4" scope="col" data-sort="ChangeDtime" style="width:180px;">เวลาปรับปรุง</th>
+                            <th class="sort align-middle ps-4" scope="col" data-sort="TranStatus" style="width:150px;">สถานะ</th>
+                        </tr>
+                    </thead>
                     <tbody class="list" id="order-table-body">
-                        
-                    @if (Model.dataRpt != null)
-                    {
-                        @foreach (var item in Model.dataRpt.ToList().OrderBy(t => t.DocNo))
+
+                        @if (Model.dataRpt != null)
                         {
+                            @foreach (var item in Model.dataRpt.ToList().OrderBy(t => t.DocNo))
+                            {
                                 <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                                <td class="fs-9 align-middle">
-                                    <p class="DocNo fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.DocNo)</p>
-                                </td>
-                                <td class="fs-9 align-middle">
-                                    <p class="barcode fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.barcode)</p>
-                                </td>
-                                 <td class="fs-9 align-middle">
-                                    <p class="productName fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.productName)</p>
-                                </td>
-                                 <td class="fs-9 align-middle">
-                                    <p class="GrouId fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.GroupId)</p>
-                                </td>
-                                <td class="fs-9 align-middle">
-                                    <p class="UnitName fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.UnitName)</p>
-                                </td>
-                                <td class="fs-9 align-middle">
-                                    <p class="fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocIdfmName)</p>
-                                </td>
-                                <td class="fs-9 align-middle">
-                                    <p class="fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.LocIdtoName)</p>
-                                </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="DocNo fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.DocNo)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="barcode fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.barcode)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="productName fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.productName)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="GrouId fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.GroupId)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="UnitName fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.UnitName)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocIdfmName)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.LocIdtoName)</p>
+                                    </td>
 
-                                <td class="fs-9 align-middle">
-                                    <p class="fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ItemQty)</p>
-                                </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ItemQty)</p>
+                                    </td>
 
-                                <td class="fs-9 align-middle">
-                                    <p class="fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ItemQtyRep)</p>
-                                </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ItemQtyRep)</p>
+                                    </td>
 
-                                <td class="fs-9 align-middle">
-                                    <p class="CreateDtime fs-10  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ChangeDtime)</p>
-                                </td>
-                                <td class="fs-9 align-middle">
-                                    <p class="TranStatusname fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+                                    <td class="fs-9 align-middle">
+                                        <p class="CreateDtime fs-10  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ChangeDtime)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        @if (item.TranStatusname == "ยกเลิกสั่งเติมสินค้า")
+                                        {
+                                            <p class="TranStatusname fs-9  font-body-mbsthai text-danger mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                        }else{
+                                            @if (item.TranStatusname == "เติมสินค้าเรียบร้อย")
+                                            {
+                                                <p class="TranStatusname fs-9  font-body-mbsthai text-success mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                            }
+                                            else
+                                            {
+                                                @if (item.TranStatusname == "จัดสินค้าบางส่วน")
+                                                {
+                                                    <p class="TranStatusname fs-9  font-body-mbsthai text-warning mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                                }
+                                                else
+                                                {
+                                                    @if (item.TranStatusname == "สร้างงานสั่งเติม")
+                                                    {
+                                                        <p class="TranStatusname fs-9  font-body-mbsthai text-info mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                                    }
+                                                }
+                                            }
+                                        }
                                 </td>
                             </tr>
                         }

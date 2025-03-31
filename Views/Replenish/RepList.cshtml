@@ -10,15 +10,14 @@
     ViewData["ErrorID"] = @ViewData["ErrorID"];
   
 }
-
-<p class="ps-3 fs-9">User Id:@ViewData["Logid"]</p>
+<p class="fs-9 ps-3">แสดงรายสั่งเติมสินค้าในชั้น</p>
 <p class="ps-3 text-success-light">@ViewData["Message"]</p>
 <div class="container">
 
     @if (Model.Options != null)
     {
         <form method="POST" id="Formoption" asp-controller="Replenish" asp-action="SelectType" asp-route-id="@ViewData["Logid"]" asp-route-datakey="@ViewData["Menukey"]" >
-            <div class="row g-3 mt-1" data-bs-theme="dark">
+            <div class="row g-3 mt-1" >
                 @foreach (var option in Model.Options)
                 {
                     <div class="form-check">
@@ -47,7 +46,7 @@
         
             @if(Model.display ==1)
             {
-                <div class="card bg-body-highlight" data-bs-theme="dark">
+                <div class="card bg-body-highlight" >
 
                     <div class="table-responsive mx-n1 px-1 scrollbar">
                         <table class="table table-sm fs-9 mb-0 ">
@@ -80,7 +79,7 @@
             }else{
                 @if (Model.display == 2)
                 {
-                    <div class="card bg-body-highlight" data-bs-theme="dark">
+                    <div class="card bg-body-highlight" >
 
                         <div class="table-responsive mx-n1 px-1 scrollbar">
                             <table class="table table-sm fs-9 mb-0 ">
@@ -113,7 +112,7 @@
 
                 }else{
 
-                    <div class="card bg-body-highlight" data-bs-theme="dark">
+                    <div class="card bg-body-highlight" >
 
                         <div class="table-responsive mx-n1 px-1 scrollbar">
                             <table class="table table-sm fs-9 mb-0 ">
@@ -148,7 +147,7 @@
        }
 
     <form method="POST" id="Formback" asp-controller="Home" asp-action="Indexweb" asp-route-id="@ViewData["Logid"]">
-        <div class="row mt-1 p-3" data-bs-theme="dark">
+        <div class="row mt-1 p-3" >
            
             <button class="btn btn-phoenix-secondary me-1  d-block w-100 " type="submit" style="font-size:medium">ย้อนกลับเมนู</button>
        

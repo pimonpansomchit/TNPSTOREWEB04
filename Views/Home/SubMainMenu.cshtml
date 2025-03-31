@@ -8,7 +8,7 @@
 
 <p class="text-white fs-9">User Id:@ViewData["Logid"]</p>
 <form method="POST" asp-controller="Home" >
-    <div class="card bg-body-highlight" data-bs-theme="dark">
+    <div class="card bg-body-highlight" >
         <div class="card-body p-4 p-sm-5">
 
             @if (Model != null)
@@ -23,7 +23,7 @@
                 </div>
 </div>
 
-<div class="row flex-between-center p-4" data-bs-theme="dark">
+<div class="row flex-between-center p-4" >
         <button class="btn btn-phoenix-secondary me-1 mb-1 d-block w-100 mt-1" type="submit" name="submit" style="font-size:medium" asp-action="Index" asp-route-id="@ViewData["Logid"]">ย้อนกลับ</button>
 </div>
 </form>

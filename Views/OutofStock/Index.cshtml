@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_HHScanLayout.cshtml";
     
 }
-<p class="text-white ps-3 fs-9">การบันทึกสินค้าขาดชั้น</p>
+<p class="ps-3 fs-8">การบันทึกสินค้าขาดชั้น => ลำดับ: @Model.maxcount</p>
 
-<p class="text-white ps-3">User Id:@Model.Id</p>
 @if (Model.Saveflg is 0)
 {
     <p class="ps-3 text-success-light">@Model.Message</p>
@@ -22,7 +21,7 @@ else
 
 <div class="container">
     <form method="POST" asp-controller="OutofStock" asp-action="Index" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" id="searchForm">
-    <div class="card bg-body-highlight" data-bs-theme="dark">
+    <div class="card bg-body-highlight" >
      <div class="card-body">
 
             <div class="row" >
@@ -39,7 +38,7 @@ else
                         <div class="col-10">
                             @if (Model.pi.MstProd != null)
                             {
-                            <label class="col-form-label text-white" id="skucode" type="text">@Model.pi.MstProd.ProdId</label>
+                            <label class="col-form-label text-primary" id="skucode" type="text">@Model.pi.MstProd.ProdId</label>
                             }
                            
                         </div>
@@ -51,7 +50,7 @@ else
                 <div class="col-10">
                     @if (Model.pi.MstProd != null)
                             {
-                        <label class="col-form-label font-body-mbsthai text-white" id="skuname" type="text">@Model.pi.MstProd.LongDescription</label>
+                            <label class="col-form-label font-body-mbsthai text-primary" id="skuname" type="text">@Model.pi.MstProd.LongDescription</label>
                             }
                 </div>
             </div>
@@ -62,7 +61,7 @@ else
                         <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนหน่วย</label>
                     @if (Model.pi.MstBarcode != null)
                     {
-                            <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Model.pi.MstBarcode.UnitName</label>
+                            <label class="col-form-label font-body-mbsthai text-primary" id="unitname" type="text">@Model.pi.MstBarcode.UnitName</label>
                     }
                 </div>
             
@@ -71,7 +70,7 @@ else
                         <label class="col-lg-4 col-form-label font-body-mbsthai">หมวดสินค้า</label>
                         @if (Model.pi.MstBarcode != null)
                         {
-                            <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Model.groupId</label>
+                            <label class="col-form-label font-body-mbsthai text-primary" id="unitname" type="text">@Model.groupId</label>
                         }
                     </div>
                 </div>
@@ -79,7 +78,7 @@ else
             <ul id="results"></ul>
         </div>
     </div>
-        <div class="row g-3 mt-2 " data-bs-theme="dark">
+        <div class="row g-3 mt-2 " >
 
             <div class="col-5 col col-xl-6">
                 <button class="btn btn-phoenix-success me-1 mb-1 d-block w-100" type="submit" style="font-size:medium" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-save="S">บันทึก</button>

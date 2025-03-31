@@ -24,6 +24,8 @@ namespace TNPSTOREWEB.Model
         public string? Loccat { get; set; }
         public string? Locidfm { get; set; }
         public string? Locidto { get; set; }
+        public int Totalconfirm { get; set; }
+        public int maxcount { get; set; }
         public List<DataStatus> Transtauts { get; set; }
 
         //Serach History

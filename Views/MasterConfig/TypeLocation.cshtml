@@ -1,14 +1,25 @@
 ﻿@model TNPSTOREWEB.Model.ModelLayout
 @{
 
-    ViewData["Id"] = @ViewData["Logid"];
-    ViewData["Menukey"] = @ViewData["Menukey"];
+   
     await Html.RenderPartialAsync("~/Views/Shared/_MyLaoutMenu.cshtml", Model);
 
 }
 <h5 class ="ps-3">กำหนดประเภทตำแหน่งเก็บ</h5>
-<p class="ps-3 fs-9">User Id:@ViewData["Logid"]</p>
-<p class="ps-3 text-success-light">@Model.Message</p>
+<p class="ps-3 fs-10 text-secondary-light">User Id:@Model.Id</p>
+
+@if (Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success">@Model.Message</p>
+
+}
+else
+{
+    <p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+
 <form class="mb-3 mbs-label-font-thai" method="POST" asp-controller="MasterConfig" asp-action="TypeLocation" asp-route-id="@Model.Id" id="searchForm">
 
     @* //section Serach *@
@@ -81,10 +92,10 @@
                         <tr>
                             
                             <th class="sort align-middle ps-2" scope="col" data-sort="locType" style="width:80px;">ประเภท</th>
-                            <th class="sort align-middle ps-2" scope="col" data-sort="locTypeName" style="width:150px;">ชื่อ</th>
+                            <th class="sort align-middle ps-2" scope="col"  style="width:150px;">ชื่อ</th>
                             <th class="sort align-middle ps-2" scope="col" data-sort="locCat" style="width:80px;">ตำแหน่งเก็บ</th>
                             <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;">แก้ไข</th>
-
+                            <th class="sort white-space-nowrap align-middle fs-10 ps-2" scope="col" style="width:70px;">ลบ</th>
                         </tr>
                     </thead>
                     <tbody class="list" id="order-table-body">
@@ -99,7 +110,7 @@
                                         <p class="locType fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocType)</p>
                                     </td>
                                     <td class="fs-9 align-middle">
-                                        <p class="locTypeName fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocTypeName)</p>
+                                        <p class="fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocTypeName)</p>
                                     </td>
                                     <td class="fs-9 align-middle">
                                         @if(item.LocCat=="R")
@@ -116,6 +127,11 @@
                                         <button class="btn btn-sm" asp-action="TypeLocationAdd" asp-route-actions="M" asp-route-type="@item.LocType" asp-route-cat="@item.LocCat" asp-route-name="@item.LocTypeName" asp-route-id="@Model.Id">
                                                 <span class="fas fa-edit text-info fs-9"></span>
                                             </button>
+                                    </td>
+                                    <td class="align-middle">
+                                        <button class="btn btn-sm" asp-action="Delete" asp-route-actions="D" asp-route-type="@item.LocType" asp-route-cat="@item.LocCat"  asp-route-id="@Model.Id">
+                                            <span class="far fa-trash-alt text-danger fs-9"></span>
+                                        </button>
                                     </td>
                                 </tr>
                             }

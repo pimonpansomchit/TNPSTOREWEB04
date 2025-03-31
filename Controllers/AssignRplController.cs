@@ -329,8 +329,10 @@ namespace TNPSTOREWEB.Controllers
                 //assgin tmp
                 if (Id != 0)
                 {
-                    rdata.Saveflg = 0;
-                    rdata.Message = "";
+                    if (rdata.Message == null) {
+                        rdata.Message = "";
+                    }
+
                     rdata.SelectdocNo = docno.Trim();
 
                 }
@@ -399,10 +401,12 @@ namespace TNPSTOREWEB.Controllers
                 //assgin tmp
                 if (Id != 0)
                 {
+                    rdata.rp = new() { checkQty = new() };
+
                     ClassModel model = new();
                     
                     model = GetDBConnect.GetClassModel(Id);
-                    rdata.rp.checkQty = new();
+                    
                     rdata.Saveflg = 0;
                     rdata.Message = "";
                     rdata.SelectdocNo = docno.Trim();
@@ -472,6 +476,136 @@ namespace TNPSTOREWEB.Controllers
             return RedirectToAction("ItemDetail", "AssignRpl", rdata);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Closed(ModelLayout rdata, decimal Id, int datakey, string barcodes, string docno, string status)
+        {
+
+
+            try
+            {
+                //assgin tmp
+                if (Id != 0)
+                {
+                    ClassModel model = new();
+
+                    model = GetDBConnect.GetClassModel(Id);
+                    rdata.rp = new()
+                    {
+                        checkQty = new()
+                    };
+                    rdata.Saveflg = 0;
+                    rdata.Message = "";
+                    rdata.SelectdocNo = docno.Trim();
+                    rdata.barcode = barcodes.Trim();
+                  
+                    rdata.rp.checkQty.status= status.Trim();
+                    rdata.rp.checkQty.docno=docno.Trim();
+                    rdata.rp.checkQty.barcode = barcodes.Trim();
+                    rdata.rp.checkQty.wlcode = model.WLCode.Trim();
+                    //check qty rpl can cnot more
+
+                    if (status=="CAN")
+                    {
+                        rdata.rp.checkQty.statuscode = 4;
+                    }
+                    else { rdata.rp.checkQty.statuscode = 3; }
+
+                    if (UpdateTRNreplenishclose(model.UserName.Trim(), model.DBKey, model.ConnectString, rdata.rp.checkQty))
+                    {
+                        rdata.Saveflg = 0;
+                        rdata.Message = "บันทึกข้อมูลสำเร็จ";
+                    }
+
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authen");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                rdata.Saveflg = 1;
+                rdata.Message = ex.Message;
+
+            }
+
+            rdata.menukey = datakey;
+            rdata.Id = Id;
+            rdata.barcode = string.Empty;
+            return RedirectToAction("ItemDetail", "AssignRpl", rdata);
+        }
+
+
+        private bool UpdateTRNreplenishclose(string Username, string DBname, string DbConnext,
+              CheckQty data)
+        {
+
+            GetDBConnect dB = new();
+
+            bool flg = true;
+            info = new();
+
+            try
+            {
+
+                string SQL = $" UPDATE [TRNreplenishD] set " +
+                            $"       [TranStatus] ='{data.status.Trim()}' " +
+                            $"      ,[TranFlag] ={data.statuscode} " +
+                            $"      ,[ChangeDtime]=GETDATE() " +
+                            $"      ,[ChangeUser] ='{Username.Trim()}'" +
+                            $"	where  wlid ='{data.wlcode.Trim()}'	" +
+                                $"	  and [TranFlag] =2	" +
+                                $"	  and [TranStatus] in ('OPN','PAL')" +
+                                $"    and [Barcode] ='{data.barcode.Trim()}'" +
+                                $"    and [DocNo] ='{data.docno.Trim()}'";
+
+                if (dB.ExecuteTransData(SQL, DbConnext))
+                {
+                    dB.CloseDB();
+
+                    SQL = $" UPDATE [TRNreplenish] " +
+                            $"  set TotalItemRep  = isnull((select count(*) from TRNreplenishD " +
+                                                        $"	where  wlid ='{data.wlcode}'	" +
+                                                            $"	  and [TranStatus] in ('RPL','CAN')" +
+                                                            $"    and [DocNo] ='{data.docno.Trim()}'),0)" +
+                             $"       ,[TranStatus] = case when" +
+                             $"                      isnull((select count(*) from TRNreplenishD " +
+                                                        $"	where  wlid ='{data.wlcode}'	" +
+                                                            $"	  and [TranStatus] in ('RPL','CAN')" +
+                                                            $"    and [DocNo] ='{data.docno.Trim()}'),0) = TotalItem then 'RPL' else 'OPN' end " +
+                              $"       ,[TranCode] = case when" +
+                              $"                      isnull((select count(*) from TRNreplenishD " +
+                                                        $"	where  wlid ='{data.wlcode}'	" +
+                                                            $"	  and [TranStatus] in ('RPL','CAN')" +
+                                                            $"    and [DocNo] ='{data.docno.Trim()}'),0) = TotalItem then 3 else 2 end " +
+                              $"       ,[ChangeDtime]=GETDATE() " +
+                              $"       ,[ChangeUser] ='{Username.Trim()}'" +
+                              $"	where  wlid ='{data.wlcode}'	" +
+                                $"	  and [Trancode] =2	" +
+                                $"	  and [TranStatus] ='OPN'" +
+                                $"    and [DocNo] ='{data.docno.Trim()}'";
+
+
+                    if (dB.ExecuteTransData(SQL, DbConnext))
+                    {
+                        dB.CloseDB();
+                    }
+                    flg = true;
+                }
+                else
+                {
+                    flg = false;
+                }
+
+                return flg;
+            }
+            catch (Exception) { return false; }
+
+        }
+
         //get function Update
 
         private bool UpdateTRNreplenish(string Username,string DBname, string DbConnext, 
@@ -505,20 +639,17 @@ namespace TNPSTOREWEB.Controllers
                     SQL = $" UPDATE [TRNreplenish] " +
                             $"  set TotalItemRep  = isnull((select count(*) from TRNreplenishD " +
                                                         $"	where  wlid ='{data.wlcode}'	" +
-                                                            $"	  and [TranFlag] =3	" +
-                                                            $"	  and [TranStatus] ='RPL'" +
+                                                            $"	  and [TranStatus] in ('RPL','CAN')" +
                                                             $"    and [DocNo] ='{data.docno.Trim()}'),0)"+
                              $"       ,[TranStatus] = case when" +
                              $"                      isnull((select count(*) from TRNreplenishD " +
                                                         $"	where  wlid ='{data.wlcode}'	" +
-                                                            $"	  and [TranFlag] =3	" +
-                                                            $"	  and [TranStatus] ='RPL'" +                          
+                                                            $"	  and [TranStatus] in ('RPL','CAN')" +                          
                                                             $"    and [DocNo] ='{data.docno.Trim()}'),0) = TotalItem then 'RPL' else 'OPN' end " +
                               $"       ,[TranCode] = case when" +
                               $"                      isnull((select count(*) from TRNreplenishD " +
                                                         $"	where  wlid ='{data.wlcode}'	" +
-                                                            $"	  and [TranFlag] =3	" +
-                                                            $"	  and [TranStatus] ='RPL'" +
+                                                            $"	  and [TranStatus] in ('RPL','CAN')" +
                                                             $"    and [DocNo] ='{data.docno.Trim()}'),0) = TotalItem then 3 else 2 end " +
                               $"       ,[ChangeDtime]=GETDATE() " +
                               $"       ,[ChangeUser] ='{Username.Trim()}'" +
