@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfExpRpt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ExpRpt>
+    <DocDate>30/03/2025</DocDate>
+    <Barcode>8850338015021</Barcode>
+    <ProductName>H เดนทีนไวท์ 3.6ก.เมนโทลิปตัส 2.</ProductName>
+    <GroupId>06</GroupId>
+    <UnitName>bกล่อง/50</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>3/30/2025</Expdate>
+    <LotNo>111</LotNo>
+    <CreateDtime>2025-03-30T16:15:42.227</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </ExpRpt>
+  <ExpRpt>
+    <DocDate>30/03/2025</DocDate>
+    <Barcode>8850332251135</Barcode>
+    <ProductName>อิมพีเรียลคุกกี้ 315ก.สูตรเดนมาร์ค WT</ProductName>
+    <GroupId>06</GroupId>
+    <UnitName>aกป/1</UnitName>
+    <LocIdtoName>โซน:12 เบย์:12 ชั้น:1</LocIdtoName>
+    <ItemQty>2</ItemQty>
+    <Expdate>4/5/2025</Expdate>
+    <LotNo>1111</LotNo>
+    <CreateDtime>2025-03-30T16:15:42.227</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </ExpRpt>
+  <ExpRpt>
+    <DocDate>30/03/2025</DocDate>
+    <Barcode>8850332251135</Barcode>
+    <ProductName>อิมพีเรียลคุกกี้ 315ก.สูตรเดนมาร์ค WT</ProductName>
+    <GroupId>06</GroupId>
+    <UnitName>aกป/1</UnitName>
+    <LocIdtoName>โซน:12 เบย์:12 ชั้น:1</LocIdtoName>
+    <ItemQty>1</ItemQty>
+    <Expdate>3/30/2025</Expdate>
+    <LotNo>111</LotNo>
+    <CreateDtime>2025-03-30T16:15:42.227</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </ExpRpt>
+</ArrayOfExpRpt>

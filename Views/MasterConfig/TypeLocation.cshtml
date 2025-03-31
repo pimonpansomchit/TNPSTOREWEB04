@@ -1,0 +1,156 @@
+﻿@model TNPSTOREWEB.Model.ModelLayout
+@{
+
+    ViewData["Id"] = @ViewData["Logid"];
+    ViewData["Menukey"] = @ViewData["Menukey"];
+    await Html.RenderPartialAsync("~/Views/Shared/_MyLaoutMenu.cshtml", Model);
+
+}
+<h5 class ="ps-3">กำหนดประเภทตำแหน่งเก็บ</h5>
+<p class="ps-3 fs-9">User Id:@ViewData["Logid"]</p>
+<p class="ps-3 text-success-light">@Model.Message</p>
+<form class="mb-3 mbs-label-font-thai" method="POST" asp-controller="MasterConfig" asp-action="TypeLocation" asp-route-id="@Model.Id" id="searchForm">
+
+    @* //section Serach *@
+
+    <div class="d-flex flex-wrap gap-3 mb-4 ps-2">
+
+        <div class="scrollbar overflow-hidden-y">
+            <div class="btn-group position-static" role="group">
+                <div class="btn-group position-static text-nowrap">
+                    @foreach (var option in Model.Options)
+                    {
+                        <input class="form-check-input" type="radio" asp-for="SelectedOption" name="options" value="@option" />
+                        @if (option == "S")
+                        {
+
+                            <div class="form-check form-check-inline">
+
+                                <label class="form-check-label" for="flexRadioDefault2">ตำแหน่งเก็บหน้าร้าน</label>
+                            </div>
+
+
+
+                        }
+                        else
+                        {
+                            if (option == "R")
+                            {
+                                <div class="form-check form-check-inline">
+
+                                    <label class="form-check-label" for="flexRadioDefault2">ตำแหน่งเก็บคลังร้าน</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-check form-check-inline">
+
+                                    <label class="form-check-label" for="flexRadioDefault2">ทั้งหมด</label>
+                                </div>
+                            }
+
+                        }
+
+                    }
+                </div>
+            </div>
+
+
+            <div class="form-check-inline">
+                <button class="btn btn-link text-secondary-light me-4 px-0" asp-action="TypeLocation" asp-route-clear="Y">เคลียร</button>
+            </div>
+
+            <div class="btn-group position-static form-check-inline" role="group">
+                @if(Model.SelectedOption!="A")
+                {
+                    <button class="btn btn-primary btn-sm" type="sumbit" asp-action="TypeLocationAdd" asp-route-id="@Model.Id" asp-route-actions="A" asp-route-cat="@Model.Loccat"> <span class="fas fa-plus pe-2 fs-10"></span>สร้างใหม่</button>
+
+                }
+               
+            </div>
+        </div>
+
+    </div>
+    @*//End Section*@
+
+    <div class="mx-n4 px-4 mx-lg-n4 px-lg-4 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
+        <div id="orderTable" data-list='{"valueNames":["locType","locTypeName","locCat"],"page":10,"pagination":true}'>
+            <div class="table-responsive scrollbar mx-n1 px-1">
+                <table class="table table-sm fs-9 mb-0">
+                    <thead class="bg-primary-subtle">
+                        <tr>
+                            
+                            <th class="sort align-middle ps-2" scope="col" data-sort="locType" style="width:80px;">ประเภท</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="locTypeName" style="width:150px;">ชื่อ</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="locCat" style="width:80px;">ตำแหน่งเก็บ</th>
+                            <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;">แก้ไข</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="list" id="order-table-body">
+
+                        @if (Model.loc!= null)
+                        {
+                            @foreach (var item in Model.loc)
+                            {
+                                <tr class="hover-actions-trigger btn-reveal-trigger position-static mb-0">
+                                    
+                                    <td class="fs-9 align-middle ps-2">
+                                        <p class="locType fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocType)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="locTypeName fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocTypeName)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        @if(item.LocCat=="R")
+                                        {
+                                            <p class="locCat fs-9  font-body-mbsthai  mb-0">ตำแหน่งเก็บคลังร้าน</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p class="locCat fs-9  font-body-mbsthai  mb-0">ตำแหน่งเก็บหน้าร้าน</p>
+                                        }
+                                    </td>
+                                    <td class="align-middle">
+                                        <button class="btn btn-sm" asp-action="TypeLocationAdd" asp-route-actions="M" asp-route-type="@item.LocType" asp-route-cat="@item.LocCat" asp-route-name="@item.LocTypeName" asp-route-id="@Model.Id">
+                                                <span class="fas fa-edit text-info fs-9"></span>
+                                            </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
+                <div class="col-auto d-flex">
+                    <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                </div>
+                <div class="col-auto d-flex">
+                    <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                    <ul class="mb-0 pagination"></ul>
+                    <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+ </form>
+
+ @* popup create from *@
+ 
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('input[type=radio][name=options]').change(function () {
+
+              $('#searchForm').submit();
+           });
+
+
+    </script>
+    }
+

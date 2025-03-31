@@ -1,0 +1,270 @@
+﻿
+@using Microsoft.AspNetCore;
+@model TNPSTOREWEB.Model.ModelLayout;
+<!DOCTYPE html>
+<html data-navigation-type="default" data-navbar-horizontal-shape="default" lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/TNPSTOREWEB.styles.css" asp-append-version="true" />
+    <style>
+        #grad1 {
+        height: 100%;
+        background-color: white; /* For browsers that do not support gradients */
+        }
+
+        #headmenu {
+        font-family: 'Superstore';
+        font-size: large;
+        }
+    </style>
+
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/img/logos/Logo02.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/img/logos/Logo02.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/logos/favicon.ico">
+    <link rel="manifest" href="~/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="~/assets/img/logos/Logo02.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="~/assets/js/config.js"></script>
+    <script src="~/vendors/simplebar/simplebar.min.js"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="~/vendors/flatpickr/flatpickr.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/vendors/choices/choices.min.css" rel="stylesheet" asp-append-version="true">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link href="~/vendors/simplebar/simplebar.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl" asp-append-version="true">
+    <link href="~/assets/css/theme.min.css" rel="stylesheet" id="style-default" asp-append-version="true">
+    <link href="~/assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl" asp-append-version="true">
+    <link href="~/assets/css/user.min.css" rel="stylesheet" id="user-style-default" asp-append-version="true">
+
+
+    <!-- ===============================================-->
+    <!--   Me Stylesheets-->
+    <!-- ===============================================-->
+
+    <link href="~/assets/css/istyle.css" rel="stylesheet">
+    <link href="~/vendors/dropzone/dropzone.min.css" rel="stylesheet" />
+    <link href="~/vendors/leaflet/leaflet.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/vendors/leaflet.markercluster/MarkerCluster.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/vendors/leaflet.markercluster/MarkerCluster.Default.css" rel="stylesheet" asp-append-version="true">
+
+
+    <!-- ===============================================-->
+    <!--    Sweetalert Stylesheets and Script-->
+    <!-- ===============================================-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert-dev.js"></script>
+    <script type="text/javascript" src='https://cdn.jsdelivr.net/sweetalert2/6.3.8/sweetalert2.min.js'> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href='https://cdn.jsdelivr.net/sweetalert2/6.3.8/sweetalert2.min.css' media="screen" />
+    <link rel="stylesheet" href='https://cdn.jsdelivr.net/sweetalert2/6.3.8/sweetalert2.css' media="screen" />
+
+
+ 
+
+    <script>
+        var phoenixIsRTL = window.config.config.phoenixIsRTL;
+        if (phoenixIsRTL) {
+        var linkDefault = document.getElementById('style-default');
+        var userLinkDefault = document.getElementById('user-style-default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+        } else {
+        var linkRTL = document.getElementById('style-rtl');
+        var userLinkRTL = document.getElementById('user-style-rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+        }
+    </script>
+
+
+
+</head>
+
+<body class="bg-body">
+    <main role="main" id="top">
+        <partial name="_MyLaoutMenu"></partial>
+       
+            <nav class="navbar navbar-vertical navbar-expand-lg">
+                <script>
+                    var navbarStyle = window.config.config.phoenixNavbarStyle;
+                    if (navbarStyle && navbarStyle !== 'transparent') {
+                    document.querySelector('body').classList.add(`navbar-${navbarStyle}`);
+                    }
+                </script>
+                <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+                    <!-- scrollbar removed-->
+                    <div class="navbar-vertical-content">
+                        <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+
+                            @foreach (var root in Model.ModelClass.stClasses.Where(t => t.RootKey == 0 && t.ParentKey == 0 && t.Menutype == 0).ToList().OrderBy(o => o.Menuseq))
+                            {
+                                <li class="nav-item">
+                                    @* Heder Menu name *@
+                                    <p id="headmenu" class="navbar-vertical-label">
+                                        @Html.DisplayFor(modelItem => root.ThaiName)
+                                    </p>
+                                    <hr class="navbar-vertical-line">
+                                    @foreach (var menu in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.ParentKey == 0).ToList().OrderBy(o => o.Menuseq))
+                                    {
+                                        @if (menu.Menutype == 0)
+                                        {
+                                            <div class="nav-item-wrapper pb-0">
+                                                <a class="nav-link dropdown-indicator label-1 active" href="#@menu.MenuId" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-menulist">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="dropdown-indicator-icon">
+                                                        </div><span class="nav-link-icon"><span class="@menu.Icons"></span></span><span class="nav-link-text mbs-menu-font-thai"> @Html.DisplayFor(modelItem => menu.ThaiName)</span>
+                                                    </div>
+                                                </a>
+                                                <div class="parent-wrapper label-1">
+                                                    <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="@menu.MenuId">
+                                                        <li class="collapsed-nav-item-title d-none">
+                                                            MenuList
+                                                        </li>
+
+                                                        @foreach (var progrm in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.ParentKey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
+
+                                                        {
+                                                            <li class="nav-item">
+                                                            <a class="nav-link active" aria-expanded="false" role="button" asp-controller="@progrm.Controllerid" asp-action="@progrm.Actionid" asp-route-id="@Model.Id" asp-route-menukey="@progrm.Menukey" asp-route-root="@root.Menukey" asp-route-parent="@menu.Menukey">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <span class="text-primary-darker mbs-submenu-font-thai">@Html.DisplayFor(modelItem => progrm.ThaiName)</span>
+                                                                    </div>
+                                                                </a>
+                                                                <!-- more inner pages-->
+                                                            </li>
+
+                                                        }
+                                                    </ul>
+
+                                                </div>
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="nav-item-wrapper pb-0">
+
+                                                @foreach (var progrm in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.Menukey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
+                                                {
+                                                <a class="nav-link dropdown-indicator label-1 active" aria-expanded="false" role="button" asp-controller="@progrm.Controllerid" asp-action="@progrm.Actionid" asp-route-id="@Model.Id" asp-route-menukey="@progrm.Menukey" asp-route-root="@root.Menukey" asp-route-parent="@menu.Menukey">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="nav-link-icon"><span class="@progrm.Icons"></span></span><span class="nav-link-text mbs-submenu-font-thai">@Html.DisplayFor(modelItem => progrm.ThaiName)</span>
+                                                        </div>
+                                                    </a>
+                                                }
+                                            </div>
+
+                                        }
+
+                                    }
+
+                                </li>
+                            }
+
+
+                        </ul>
+
+                        <div class="nav-item-wrapper pb-0 pt-4 p-4">
+                            <a class="nav-link dropdown-indicator label-1 active" aria-expanded="false" role="button" asp-controller="Home" asp-action="LogOut" asp-route-id="@ViewData["Id"]">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-icon"><span class="fas fa-sign-in-alt text-danger"></span></span><span class="nav-link-text mbs-submenu-font-thai">ออกจากโปรแกรม</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @* End MenuList *@
+                <div class="navbar-vertical-footer">
+
+                    <button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center"><span class="uil uil-left-arrow-to-left fs-8"></span><span class="uil uil-arrow-from-right fs-8"></span><span class="navbar-vertical-footer-text ms-2">Collapsed View</span></button>
+                </div>
+                @* End MenuList *@
+
+            </nav>
+            <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="navbar-logo">
+                        <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+                        <a class="navbar-brand me-1 me-sm-3" href="../../index.html">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="~/assets/img/logos/Logo02.png" alt="phoenix" width="27" />
+                                <p class="logo-text ms-2 d-none d-sm-block text-primary mbs-submenu-font-thai" style="font-size:medium">ระบบจัดการหน้าร้าน - สาขา @Model.ModelClass.Users.WLCode @Model.ModelClass.Users.WLName ,Id:@Model.Id</p>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        
+          <div class="content">
+           
+                    <script>
+                        var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+                        if (isFluid) {
+                            var container = document.querySelector('[data-layout]');
+                            container.classList.remove('container');
+                            container.classList.add('container-fluid');
+                        }
+                    </script>
+                    @RenderBody()
+            </div>
+      
+    </main>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="~/vendors/popper/popper.min.js"></script>
+    <script src="~/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="~/vendors/anchorjs/anchor.min.js"></script>
+    <script src="~/vendors/is/is.min.js"></script>
+    <script src="~/vendors/fontawesome/all.min.js"></script>
+    <script src="~/vendors/lodash/lodash.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="~/vendors/list.js/list.min.js"></script>
+    <script src="~/vendors/feather-icons/feather.min.js"></script>
+    <script src="~/vendors/dayjs/dayjs.min.js"></script>
+    <script src="~/vendors/echarts/echarts.min.js"></script>
+    <script src="~/vendors/leaflet/leaflet.js"></script>
+    <script src="~/vendors/leaflet.markercluster/leaflet.markercluster.js"></script>
+    <script src="~/vendors/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js"></script>
+    <script src="~/assets/js/ecommerce-dashboard.js"></script>
+    <script src="~/vendors/glightbox/glightbox.min.js"></script>
+    <script src="~/assets/js/phoenix.js"></script>
+    <script src="~/vendors/choices/choices.min.js"></script>
+    <script src="~/vendors/dropzone/dropzone-min.js"></script>
+    <script src="~/vendors/flatpickr/flatpickr.min.js"></script>
+
+   
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOutofSRpt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <OutofSRpt>
+    <DocDate>3/30/2025</DocDate>
+    <Barcode>8850338015687</Barcode>
+    <ProductName>H เดนทีนไวท์ 3.6ก.บูลเบอร์รี่ 2.-</ProductName>
+    <LocIdtoName />
+    <UnitName>aชิ้น/1</UnitName>
+    <GroupId>06</GroupId>
+    <ItemQty>0</ItemQty>
+    <CreateDtime>2025-03-30T15:42:32.837</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </OutofSRpt>
+  <OutofSRpt>
+    <DocDate>3/30/2025</DocDate>
+    <Barcode>8850338015021</Barcode>
+    <ProductName>H เดนทีนไวท์ 3.6ก.เมนโทลิปตัส 2.</ProductName>
+    <LocIdtoName />
+    <UnitName>bกล่อง/50</UnitName>
+    <GroupId>06</GroupId>
+    <ItemQty>0</ItemQty>
+    <CreateDtime>2025-03-30T15:42:32.837</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </OutofSRpt>
+  <OutofSRpt>
+    <DocDate>3/30/2025</DocDate>
+    <Barcode>8850338015496</Barcode>
+    <ProductName>H เดนทีนไอซ์ 8 เม็ด เมนโทลิปตัส (แผง)</ProductName>
+    <LocIdtoName />
+    <UnitName>aชิ้น/1</UnitName>
+    <GroupId>06</GroupId>
+    <ItemQty>0</ItemQty>
+    <CreateDtime>2025-03-30T15:42:32.837</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </OutofSRpt>
+  <OutofSRpt>
+    <DocDate>3/30/2025</DocDate>
+    <Barcode>8850338015496</Barcode>
+    <ProductName>H เดนทีนไอซ์ 8 เม็ด เมนโทลิปตัส (แผง)</ProductName>
+    <LocIdtoName />
+    <UnitName>aชิ้น/1</UnitName>
+    <GroupId>06</GroupId>
+    <ItemQty>0</ItemQty>
+    <CreateDtime>2025-03-30T15:42:32.837</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </OutofSRpt>
+  <OutofSRpt>
+    <DocDate>3/30/2025</DocDate>
+    <Barcode>8850332251135</Barcode>
+    <ProductName>อิมพีเรียลคุกกี้ 315ก.สูตรเดนมาร์ค WT</ProductName>
+    <LocIdtoName>โซน:12 เบย์:12 ชั้น:1</LocIdtoName>
+    <UnitName>aกป/1</UnitName>
+    <GroupId>06</GroupId>
+    <ItemQty>0</ItemQty>
+    <CreateDtime>2025-03-30T15:42:32.837</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </OutofSRpt>
+  <OutofSRpt>
+    <DocDate>3/30/2025</DocDate>
+    <Barcode>8850332251135</Barcode>
+    <ProductName>อิมพีเรียลคุกกี้ 315ก.สูตรเดนมาร์ค WT</ProductName>
+    <LocIdtoName>โซน:12 เบย์:12 ชั้น:1</LocIdtoName>
+    <UnitName>aกป/1</UnitName>
+    <GroupId>06</GroupId>
+    <ItemQty>0</ItemQty>
+    <CreateDtime>2025-03-30T15:42:32.837</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+  </OutofSRpt>
+</ArrayOfOutofSRpt>

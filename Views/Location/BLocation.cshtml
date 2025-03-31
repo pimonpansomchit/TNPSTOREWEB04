@@ -1,0 +1,162 @@
+﻿
+@model TNPSTOREWEB.Model.ModelLayout
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HHScanLayout.cshtml";
+   
+}
+<p class="text-white ps-3 fs-9">การบันทึกสินตำแหน่งเก็บหน้าร้าน</p>
+<p class="text-white ps-3">User Id:@Model.Id</p>
+@if (Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success-light">@Model.Message</p>
+
+}
+else
+{
+    <p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+
+<div class="container">
+   
+    <form method="POST" asp-controller="Location" asp-action="BLocation" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-actions="A" asp-route-loccat="S" id="searchForm">
+        <div class="card bg-body-highlight" data-bs-theme="dark">
+            <div class="card-body">
+                @if(Model !=null)
+                {
+                   
+                <div class="row">
+
+                    <label class="col-lg-4 col-form-label font-body-mbsthai">ประเภทตำแหน่งเก็บ</label>
+                    <div class="col-10">
+                            <select class="form-select  mbs-label-font-thai" id="selecttype" asp-for="selectLoctype"
+                                    asp-items="@(new SelectList(Model.pi.stLoctypes, "LocType", "LocTypeName"))">
+                                @if (Model.selectLoctype != 0)
+                                {
+                                <option value="@Model.pi.iprodinv.LocType">@Model.pi.iprodinv.LocTypeName</option>
+
+                                }
+                               
+                            
+                        </select>
+                    </div>
+                </div>
+                <div class="row" >
+                <label class="col-lg-4 col-form-label font-body-mbsthai">อ่านบาร์โค้ด</label>
+                <div class="col-10">
+                    
+                    <input class="form-control" id="inputBarcode" type="text" asp-for="barcode" autocomplete="off" />
+                            @if (Model.barcode!=null)
+                            {
+                                <input type="hidden" asp-for="pi.iprodinv.Barcode" value="@Model.barcode" />
+                            }
+                   
+                </div>  
+                </div>                      
+                <div class="row mt-1">
+
+                        <label class="col-lg-4 col-form-label font-body-mbsthai">ชื่อสินค้า</label>
+                    <div class="col-10">
+                        @if (Model.pi.MstProd != null)
+                                {
+                            <label class="col-form-label font-body-mbsthai text-white" id="skuname" type="text">@Model.pi.MstProd.LongDescription</label>
+                                }
+                    </div>
+                </div>
+                <div class="row g-3 mt-1">
+
+                        <div class="col-6 col col-xl-7">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนหน่วย</label>
+                        @if (Model.pi.MstBarcode != null)
+                        {
+                                <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Model.pi.MstBarcode.UnitName</label>
+                        }
+                    </div>
+                        <div class="col-6 col col-xl-7">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">หมวดสินค้า</label>
+                            @if (Model.pi.MstBarcode != null)
+                            {
+                                <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Model.groupId</label>
+                            }
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-1">
+                     <div class="col-4 col col-xl-4">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">โซน</label>
+                            <input class="form-control" id="inputzone" type="text" asp-for="pi.iprodinv.Loczone" autocomplete="off" />
+                        </div>
+                        <div class="col-4 col col-xl-4">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">เบย์</label>
+                            <input class="form-control" id="inputzone" type="number" asp-for="pi.iprodinv.Locrack" autocomplete="off" />
+                        </div>
+                        <div class="col-4 col col-xl-4">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">ชั้น</label>
+                            <input class="form-control" id="inputzone" type="number" asp-for="pi.iprodinv.Loclev" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-1">
+                        <div class="col-4 col col-xl-4">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนขา</label>
+                            <input class="form-control" id="inputzone" type="number" asp-for="pi.iprodinv.StackPos" autocomplete="off" />
+                        </div>
+                        <div class="col-4 col col-xl-4">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนลึก</label>
+                            <input class="form-control" id="inputzone" type="number" asp-for="pi.iprodinv.StackDep" autocomplete="off" />
+                        </div>
+                        <div class="col-4 col col-xl-4">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนชั้น</label>
+                            <input class="form-control" id="inputzone" type="number" asp-for="pi.iprodinv.StackHgt" autocomplete="off" />
+                        </div>
+                    </div>
+
+                }
+        </div>
+    </div>
+        <div class="row g-3 mt-0" data-bs-theme="dark">
+
+            <div class="col-5 col col-xl-6">
+                <button class="btn btn-phoenix-success me-1 mb-1 d-block w-100 mt-1" type="submit" style="font-size:medium" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-actions="S" asp-route-loccat="S">บันทึก</button>
+           </div>
+            <div class="col-5 col col-xl-6">
+                <button class="btn btn-phoenix-secondary me-1 mb-1 d-block w-100" type="submit" style="font-size:medium" asp-controller="Home" asp-action="Indexweb" asp-route-id="@Model.Id">ย้อนกลับเมนู</button>
+            </div>
+    </div>
+
+    </form>
+   
+    
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+         $(document).ready(function () {
+
+            var inputBarcodevalue =$('#inputBarcode').val();
+             if(inputBarcodevalue === "")
+              {
+                 $('#inputBarcode').focus();
+              }else{
+                 $('#inputzone').focus();
+              }
+             
+             // Logic to handle selection (optional)
+             $('#inputBarcode').on('keypress', function (e) {
+             if (e.which == 13) { // Check for "Enter" key
+                 e.preventDefault(); // Prevent the default form submission
+                 var barcodevalue =$(this).val();
+                 if(barcodevalue === "")
+                 {
+                     $('#inputBarcode').focus();
+                 }else{
+                      $('#searchForm').submit(); // Submit the form via AJAX
+                 }
+                
+             } 
+            });
+              
+         });
+       
+    </script>
+}

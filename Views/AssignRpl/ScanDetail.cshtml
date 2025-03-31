@@ -1,0 +1,112 @@
+﻿@model TNPSTOREWEB.Model.ModelLayout
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HHScanLayout.cshtml";
+
+}
+<p class="text-white ps-3 fs-9">User Id:@Model.Id</p>
+<p class="text-white ps-3">รายละเอียดสินค้า ของเอกสาร : @Model.SelectdocNo</p>
+
+@if (Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success-light">@Model.Message</p>
+
+}
+else
+{
+    <p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+
+<div class="container">
+    <form method="POST" asp-controller="AssignRpl" asp-action="ScanQty" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" id="searchForm">
+   
+       <div class="card bg-body-highlight" data-bs-theme="dark">
+        <div class="card-body">
+                @foreach (var item in Model.rp.replenishD.ToList().OrderBy(t => t.LocIdfm).Take(10))
+                {
+                    @foreach (var i in Model.rp.locprdds.Where(t => t.barcode == item.Barcode && t.DocNo==item.DocNo).ToList())
+                    {
+                    <div class="row">
+
+                    <label class="col-lg-4 col-form-label font-body-mbsthai">รหัสบาร์โค้ด</label>
+                    <div class="col-10">
+                            <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Html.DisplayFor(modelItem => item.Barcode)</label>
+                    </div>  
+                </div>           
+                    <div class="row pb-0">
+
+                        <label class="col-lg-4 col-form-label font-body-mbsthai">ชื่อสินค้า</label>
+                    <div class="col-10">
+
+                            <label class="col-form-label font-body-mbsthai text-white" id="skuname" type="text">@Html.DisplayFor(modelItem => item.ItemName)</label>
+                                
+                    </div>
+                </div>
+                    <div class="row g-3 pb-0">
+                        <div class="col-6 col col-xl-7">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">หน่วยเติม</label>
+                            <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Html.DisplayFor(modelItem => item.UnitName)</label>
+                        
+                    </div>
+                        <div class="col-6 col col-xl-7">
+                            <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนสั่งเติม</label>
+                            <label class="col-form-label font-body-mbsthai text-white" id="reqQty" type="text">@Html.DisplayFor(modelItem => item.ItemQty)</label>
+                             <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">หน่วยจัด :@Html.DisplayFor(modelItem => i.UnitConvert)</p>
+                        </div>
+                    </div>
+                    <div class="row g-3 pb-0">
+                            <div class="col-6 col col-xl-7">
+                                <label class="col-lg-4 col-form-label font-body-mbsthai">ตำแหน่งจัด</label>
+                                <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Html.DisplayFor(modelItem => i.LocIdfmName)</label>
+
+                            </div>
+                            <div class="col-6 col col-xl-7">
+                                <label class="col-lg-4 col-form-label font-body-mbsthai">ตำแหน่งเติม</label>
+                                <label class="col-form-label font-body-mbsthai text-white" id="reqQty" type="text">@Html.DisplayFor(modelItem => i.LocIdtoName)</label>
+
+                            </div>
+                        </div>
+                  
+                    }
+                <div class="row g-3 pb-0">
+                    <div class="col-6 col col-xl-7">
+                        <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนจัดแล้ว</label>
+                        <label class="col-form-label font-body-mbsthai text-white" id="unitname" type="text">@Html.DisplayFor(modelItem => item.ItemQtyRep)</label>
+                    </div>
+                    <div class="col-6 col col-xl-6">
+                        <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนจัด</label>
+                        <input class="form-control" id="inputQty" type=number asp-for="Qtyrpl" autocomplete="off" value=""   />
+                    </div>
+                </div>
+                <div class="row g-3 mt-0 " data-bs-theme="dark">
+
+                    <div class="col-5 col col-xl-6">
+                        <button class="btn btn-phoenix-primary e-1 mb-1 d-block w-100 mt-0" type="submit" style="font-size:medium" asp-action="ScanQty" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-docno="@Model.SelectdocNo" asp-route-barcode="@Model.barcode" asp-route-boh="Y">สต็อกไม่พอ</button>
+                    </div>
+                    <div class="col-5 col col-xl-6">
+                        <button class="btn btn-phoenix-success me-1 mb-1 d-block w-100 mt-0" type="submit" style="font-size:medium" asp-action="ScanQty" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-docno="@Model.SelectdocNo" asp-route-barcode="@Model.barcode" asp-route-boh="N">บันทึก</button>
+                    </div>
+                </div>
+                }
+        </div>
+            
+           
+
+     </div>
+    
+    </form>
+
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+         $(document).ready(function () {
+                  $('#inputQty').focus();
+              
+             // Logic to handle selection (optional)
+         });
+       
+    </script>
+}

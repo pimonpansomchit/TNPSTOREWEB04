@@ -1,0 +1,30 @@
+﻿
+@model TNPSTOREWEB.Model.ClassMenu
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HHLayout.cshtml";
+    ViewData["Id"] = @ViewData["Logid"];
+}
+
+<p class="text-white fs-9">User Id:@ViewData["Logid"]</p>
+<form method="POST" asp-controller="Home" >
+    <div class="card bg-body-highlight" data-bs-theme="dark">
+        <div class="card-body p-4 p-sm-5">
+    @if (Model != null)
+    {
+        @foreach (var item in Model.stClasses)
+        {
+            <div class="row flex-between-center mb-1" data-bs-theme="dark">
+                <button class="btn btn-subtle-primary me-1 mb-1 d-block w-100 mt-1" type="submit" name="submit" style="font-size:medium" asp-action="@item.Actionid" asp-route-id="@ViewData["Logid"]" asp-route-datakey="@item.Menukey" asp-route-submenukey="0">@Html.DisplayFor(modelItem => item.ThaiName)</button>
+            </div>
+           
+        }
+    }
+    </div>
+    </div>
+ <div class="row flex-between-center p-4 " data-bs-theme="dark">
+        <button class="btn btn-phoenix-secondary me-1 mb-1 d-block w-100 mt-1" type="submit" name="submit" style="font-size:medium" asp-action="LogOut" asp-route-id="@ViewData["Logid"]">ออกจากโปรแกรม</button>
+</div>
+</form>
+

@@ -1,0 +1,133 @@
+﻿
+@model TNPSTOREWEB.Model.LocdataList
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HHScanLayout.cshtml";
+   
+}
+
+<p class="ps-3 fs-9">User Id:@Model.Id</p>
+<p class="ps-3 text-success-light">@Model.Message</p>
+<div class="container">
+        <form method="POST" id="searchForm" asp-controller="Location" asp-action="SerachData" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey">
+        <div class="row" data-bs-theme="dark">
+                <label class="col-lg-4 col-form-label font-body-mbsthai">อ่านบาร์โค้ด</label>
+                <div class="col-10">
+
+                    <input class="form-control" id="inputBarcode" type="text" asp-for="barcode" autocomplete="off" />
+                   
+                </div>
+            </div>
+         <div class="row g-2 mt-0">
+            <div class="col-8 col col-xl-9">
+                <label class="col-lg-4 col-form-label font-body-mbsthai">ชื่อสินค้า</label>
+                    @if (Model.MstProd != null)
+                    {
+                        <label class="col-form-label font-body-mbsthai text-white fs-8" id="skuname" type="text">@Model.MstProd.LongDescription</label>
+                    }
+                </div>
+            </div>
+         <div class="row g-3">
+                <div class="col-6 col col-xl-7">
+                    <label class="col-lg-4 col-form-label font-body-mbsthai">จำนวนหน่วย</label>
+                    @if (Model.MstBarcode != null)
+                    {
+                    <label class="col-form-label font-body-mbsthai text-white fs-8" id="unitname" type="text">@Model.MstBarcode.UnitName</label>
+                    }
+                </div>
+                <div class="col-6 col col-xl-7">
+                    <label class="col-lg-4 col-form-label font-body-mbsthai">หมวดสินค้า</label>
+                    @if (Model.MstBarcode != null)
+                    {
+                    <label class="col-form-label font-body-mbsthai text-white fs-8" id="unitname" type="text">@Model.groupid</label>
+                    }
+                </div>
+            </div>
+            @if(Model.locinfo != null)
+            {
+                <div class="card bg-body-highlight" data-bs-theme="dark">
+
+                    <div class="table-responsive mx-n1 px-1 scrollbar">
+                        <table class="table table-sm fs-9 mb-0 ">
+
+                            <tbody class="list">
+ 
+                                    @foreach (var item in Model.locinfo.ToList().OrderByDescending(t => t.Loccat))
+                                    {
+                                        <tr>
+                                            <td class="pt-1 pb-0">
+                                                <h6 class="p-1 pb-0">@Html.DisplayFor(modelItem => item.LocTypeName)</h6>
+                                                <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">@Html.DisplayFor(modelItem => item.Locdetail)</p>
+                                            </td>
+                                            <td>
+                                                 <h6 class="p-1 pb-0">@Html.DisplayFor(modelItem => item.Loccat)</h6>
+                                            </td>
+                                            <td class="pt-0 pb-0">
+                                        <button class="btn btn-sm" asp-action="Delete" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-barcode="@Model.barcode" asp-route-locid="@item.LocId" asp-route-loccat="@item.Loccat" asp-route-logid="@item.Id">
+                                                    <span class="far fa-trash-alt text-danger"></span>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                       
+                                    }
+                                
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            }
+       
+        <div class="row g-3 mt-2" data-bs-theme="dark">
+            <div class="col-5 col col-xl-6">
+                <button class="btn btn-phoenix-info me-1  d-block w-100 " type="submit" style="font-size:medium" asp-action="ClearData" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-submenukey="1">เคลียร์ข้อมูล</button>
+
+            </div>
+
+            <div class="col-5 col col-xl-6">
+                <button class="btn btn-phoenix-secondary me-1 mb-1 d-block w-100" type="submit" style="font-size:medium" asp-controller="Home" asp-action="Indexweb" asp-route-id="@Model.Id">ย้อนกลับเมนู</button>
+
+            </div>
+        </div>
+
+    </form>
+
+   
+
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        
+          $(document).ready(function () {
+
+             var inputBarcodevalue =$('#inputBarcode').val();
+              if(inputBarcodevalue === "")
+               {
+                  $('#inputBarcode').focus();
+               }
+
+              // Logic to handle selection (optional)
+              $('#inputBarcode').on('keypress', function (e) {
+              if (e.which == 13) { // Check for "Enter" key
+                  e.preventDefault(); // Prevent the default form submission
+                  var barcodevalue =$(this).val();
+                  if(barcodevalue === "")
+                  {
+                      $('#inputBarcode').focus();
+                  }else{
+                       $('#searchForm').submit(); // Submit the form via AJAX
+                  }
+
+              }
+             });
+
+          });
+
+   
+    </script>
+    }
+

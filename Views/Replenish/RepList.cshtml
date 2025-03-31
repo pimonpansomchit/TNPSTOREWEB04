@@ -1,0 +1,171 @@
+﻿
+@model TNPSTOREWEB.Model.ModelLayout
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HHScanLayout.cshtml";
+    ViewData["Id"] = @ViewData["Logid"];
+    ViewData["Menukey"] = @ViewData["Menukey"];
+    ViewData["Message"] = @ViewData["Message"];
+    ViewData["ErrorID"] = @ViewData["ErrorID"];
+  
+}
+
+<p class="ps-3 fs-9">User Id:@ViewData["Logid"]</p>
+<p class="ps-3 text-success-light">@ViewData["Message"]</p>
+<div class="container">
+
+    @if (Model.Options != null)
+    {
+        <form method="POST" id="Formoption" asp-controller="Replenish" asp-action="SelectType" asp-route-id="@ViewData["Logid"]" asp-route-datakey="@ViewData["Menukey"]" >
+            <div class="row g-3 mt-1" data-bs-theme="dark">
+                @foreach (var option in Model.Options)
+                {
+                    <div class="form-check">
+
+                        <input class="form-check-input" type="radio" asp-for="SelectedOption" name="options" value="@option"  />
+                        @if(option=="1")
+                        {
+                           <label class="form-check-label" for="flexRadioDefault1">แสดง 50 รายการล่าสุด</label>
+                        }else{
+                        @if (option == "2")
+                            {
+                                <label class="form-check-label" for="flexRadioDefault2">แสดงตามรายการสินค้า</label>
+                            }
+                         else
+                            {
+                                <label class="form-check-label" for="flexRadioDefault3">แสดงตามเลขที่เอกสาร</label>
+                            }
+                        }
+
+                    </div>
+                   
+                }
+            </div>
+
+         </form>
+        
+            @if(Model.display ==1)
+            {
+                <div class="card bg-body-highlight" data-bs-theme="dark">
+
+                    <div class="table-responsive mx-n1 px-1 scrollbar">
+                        <table class="table table-sm fs-9 mb-0 ">
+
+                            <tbody class="list">
+                                @if (Model.rp.replenishD != null)
+                                {
+
+                                    @foreach (var item in Model.rp.replenishD.ToList().OrderByDescending(t => t.CreateDtime).Take(50))
+                                    {
+                                        <tr>
+                                            <td class="pt-0 pb-0">
+                                                <h5 class="p-1 pb-0">@Html.DisplayFor(modelItem => item.Barcode)</h5>
+                                                <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">@Html.DisplayFor(modelItem => item.ItemName) , @Html.DisplayFor(modelItem => item.UnitName)</p>
+                                            </td>
+                                            <td class="pt-0 pb-0">
+                                                <p class="fs-8 font-body-mbsthai p-1 pb-0">Qty: @Html.DisplayFor(modelItem => item.ItemQty)</p>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+
+            }else{
+                @if (Model.display == 2)
+                {
+                    <div class="card bg-body-highlight" data-bs-theme="dark">
+
+                        <div class="table-responsive mx-n1 px-1 scrollbar">
+                            <table class="table table-sm fs-9 mb-0 ">
+
+                                <tbody class="list">
+                                    @if (Model.rp.replenishD != null)
+                                    {
+
+                                        @foreach (var item in Model.rp.replenishD.ToList().OrderBy(t => t.ItemCode).Take(50))
+                                        {
+                                            <tr>
+                                                <td class="pt-0 pb-0">
+                                                    <h5 class="p-1 pb-0">@Html.DisplayFor(modelItem => item.Barcode)</h5>
+                                                    <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">@Html.DisplayFor(modelItem => item.ItemName) , @Html.DisplayFor(modelItem => item.UnitName)</p>
+                                                </td>
+                                                <td class="pt-0 pb-0">
+                                                    <p class="fs-8 font-body-mbsthai p-1 pb-0">Qty: @Html.DisplayFor(modelItem => item.ItemQty)</p>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+
+                }else{
+
+                    <div class="card bg-body-highlight" data-bs-theme="dark">
+
+                        <div class="table-responsive mx-n1 px-1 scrollbar">
+                            <table class="table table-sm fs-9 mb-0 ">
+
+                                <tbody class="list">
+                                    @if (Model.rp.replenish != null)
+                                    {
+
+                                        @foreach (var item in Model.rp.replenish.ToList().OrderByDescending(t => t.DocNo).Take(50))
+                                        {
+                                           
+                                            <tr>
+                                                <td class="pt-0 pb-0">
+                                                    <h5 class="p-1 pb-0">@Html.DisplayFor(modelItem => item.DocNo)</h5>
+                                                <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">วันที่สร้าง : @Html.DisplayFor(modelItem => item.TranDate)</p>
+                                                </td>
+                                                <td class="pt-0 pb-0">
+                                                    <p class="fs-8 font-body-mbsthai p-1 pb-0">รายการทั้งหมด: @Html.DisplayFor(modelItem => item.TotalItem)</p>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                }
+            }
+       }
+
+    <form method="POST" id="Formback" asp-controller="Home" asp-action="Indexweb" asp-route-id="@ViewData["Logid"]">
+        <div class="row mt-1 p-3" data-bs-theme="dark">
+           
+            <button class="btn btn-phoenix-secondary me-1  d-block w-100 " type="submit" style="font-size:medium">ย้อนกลับเมนู</button>
+       
+        </div>
+    </form>
+   
+
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+         $('input[type=radio][name=options]').change(function () {
+              
+               $('#Formoption').submit();
+            });
+        
+       
+    </script>
+    }
+

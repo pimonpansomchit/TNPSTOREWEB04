@@ -1,0 +1,141 @@
+﻿@model TNPSTOREWEB.Model.ModelLayout
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HHScanLayout.cshtml";
+
+}
+
+
+<p class="ps-3 fs-9">User Id: @Model.Id</p>
+<p class="text-white ps-3">รายการสั่งเติม หมายเลขเอกสาร : @Model.SelectdocNo </p>
+@if(Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success-light">@Model.Message</p>
+
+}else{<p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+<div class="container">
+    <form method="POST" asp-controller="AssignRpl" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-action="ScanDetail" asp-route-docno="@Model.SelectdocNo" id="AssgForm">
+
+        @if (Model.rp.replenishD != null)
+        {
+
+            @if(Model.rp.replenishD.Count() >0)
+        {
+        <div class="row" data-bs-theme="dark">
+            <div class="col-10">
+                <input class="form-control" id="inputBarcode" placeholder="อ่านบาร์โค้ด" type="text" asp-for="barcode" autocomplete="off" />
+            </div>
+        </div>
+        }
+      
+            <div class="card bg-body-highlight" data-bs-theme="dark">
+
+         <div class="table-responsive mx-n1 px-1 scrollbar">
+                <table class="table table-sm fs-9 mb-0 ">
+                    <thead>
+                        <tr>
+                           <th class="pb-0">
+                                <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">รายการทั้งหมด:</p>
+
+                           </th>
+                            <th class="pb-0">
+                                <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">@Model.rp.replenishD.Count()</p>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @if (Model != null)
+                        {
+                            <div class="card bg-body-highlight" data-bs-theme="dark">
+
+                                <div class="table-responsive mx-n1 px-1 scrollbar">
+                                    <table class="table table-sm fs-9 mb-0 ">
+
+                                        <tbody class="list">
+                                            @if (Model.rp.replenishD != null)
+                                            {
+                                                @foreach (var item in Model.rp.replenishD.ToList().OrderBy(t => t.LocIdfm).Take(10))
+                                                {
+                                                    @foreach (var i in Model.rp.locprdds.Where(t => t.barcode == item.Barcode && t.DocNo==item.DocNo).ToList())
+                                                    {
+                                                        <tr class="pb-0">
+                                                            <td class="pt-0 pb-0 col-10">
+                                                                <h5 class="p-1 pb-0 ">@Html.DisplayFor(modelItem => item.ItemName) , @Html.DisplayFor(modelItem => item.UnitName)</h5>
+                                                                <p class="fs-9  font-body-mbsthai p-1 pt-0 pb-0">
+                                                                     รหัสสินค้า : @Html.DisplayFor(modelItem => item.Barcode),
+                                                                     หน่วยจัด : @Html.DisplayFor(modelItem => i.UnitConvert)
+                                                                     จัด=>@Html.DisplayFor(modelItem => i.LocIdfmName)
+                                                                     เติม=>@Html.DisplayFor(modelItem => i.LocIdtoName)
+                                                                </p>
+                                                            </td>
+                                                            <td class="pt-0 pb-0">
+                                                                <p class="fs-8 font-body-mbsthai p-1 pb-0">@Html.DisplayFor(modelItem => item.ItemQty) / @Html.DisplayFor(modelItem => item.ItemQtyRep) </p>
+                                                              
+                                                            </td>
+                                                           
+                                                        </tr>
+                                                       
+                                                    }
+                                                   
+
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+       
+        <div class="row g-3 p-3" data-bs-theme="dark">
+            <div class="col-5 col col-xl-6">
+                <button class="btn btn-phoenix-primary me-1  d-block w-100 " type="submit" style="font-size:medium" asp-action="Index" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey">กลับรับสั่งเติม</button>
+        </div>
+            <div class="col-5 col col-xl-6">
+                    <button class="btn btn-phoenix-secondary me-1  d-block w-100 " type="submit" style="font-size:medium" asp-controller="Home" asp-action="Indexweb" asp-route-id="@Model.Id">ย้อนกลับเมนู</button>
+            </div>
+        </div>
+
+        </div>
+        }
+ </form>
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+           var inputBarcodevalue =$('#inputBarcode').val();
+            if(inputBarcodevalue === "")
+             {
+                $('#inputBarcode').focus();
+             }
+            
+            // Logic to handle selection (optional)
+            $('#inputBarcode').on('keypress', function (e) {
+            if (e.which == 13) { // Check for "Enter" key
+                e.preventDefault(); // Prevent the default form submission
+                var barcodevalue =$(this).val();
+                if(barcodevalue === "")
+                {
+                    $('#inputBarcode').focus();
+                }else{
+                     $('#AssgForm').submit(); // Submit the form via AJAX
+                }
+
+            }
+           });
+
+        });
+
+    </script>
+}

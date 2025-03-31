@@ -1,0 +1,5 @@
+﻿@model TNPSTOREWEB.Model.ModelLayout
+@{
+    ViewData["Id"] = @ViewData["Logid"];
+    await Html.RenderPartialAsync("~/Views/Shared/_MyLaoutMenu.cshtml", Model);
+}
