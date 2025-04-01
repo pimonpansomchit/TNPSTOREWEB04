@@ -207,28 +207,36 @@
             <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
                 <div class="collapse navbar-collapse justify-content-between">
                    
-                    <div class="row align-items-center justify-content-between g-3">
-                        <div class="col-12 col-md-auto">
-                            <div class="navbar-logo col-10">
+                    
+                            <div class="navbar-logo ">
                                 <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
                                 <a class="navbar-brand me-1 me-sm-3">
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex align-items-center">
                                             <img src="~/assets/img/logos/Logo02.png" alt="phoenix" width="27" />
-                                            <p class="logo-text ms-2 d-none d-sm-block text-primary mbs-submenu-font-thai" style="font-size:small">ระบบจัดการหน้าร้าน - สาขา @Model.ModelClass.Users.WLCode @Model.ModelClass.Users.WLName</p>
+                                              <p class="logo-text ms-2 d-none d-sm-block text-primary mbs-submenu-font-thai" style="font-size:small">ระบบจัดการหน้าร้าน</p>
+
                                         </div>
                                     </div>
                                 </a>
-                            </div>
-                        </div>
+                          </div>
+                          <div class="search-box navbar-top-search-box d-none d-lg-block" data-list='{"valueNames":["title"]}' style="width:10 rem;">
 
-                        <div class="col-12 col-md-auto">
-                            <p class="logo-text ms-2 d-none d-sm-block mbs-submenu-font-thai fs-9">Id: @Model.Id</p>
+                          </div>
+
+
+                        <ul class="navbar-nav navbar-nav-icons flex-row">
+                    <li class="nav-item">
+                        <div class="theme-control-toggle fa-icon-wait px-2">
+                            <p class="logo-text ms-2 d-none d-sm-block mbs-submenu-font-thai fs-9">สาขา @Model.ModelClass.Users.WLCode @Model.ModelClass.Users.WLName Id: @Model.Id</p>
 
                         </div>
-                    </div>
+                    </li>
+                    </ul>
                         
                     </div>
+                        
+                   
                 
             </nav>
         
