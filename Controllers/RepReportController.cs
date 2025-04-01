@@ -1,5 +1,6 @@
 ﻿#nullable disable
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using FastReport.Export.PdfSimple;
 using FastReport.Web;
 using Microsoft.AspNetCore.Mvc;
@@ -48,9 +49,21 @@ namespace TNPSTOREWEB.Controllers
                     }
                 }
 
+                
+
                 menu = Getreptdata(menu,"R");
+                if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
+                {
+                    menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+                    menu.wls = menu.wls.Where(t=>t.WlId==menu.Selectedadd).ToList();
+                    menu.disable = "disable";
+                }
+                else
+                {
+                    menu.disable = "none";
+                }
 
-
+                
             }
 
             catch (Exception) { }
@@ -84,22 +97,25 @@ namespace TNPSTOREWEB.Controllers
                 {
                     var worksheet = workbook.Worksheets.Add("Report");
                     worksheet.Cell(1, 1).InsertTable(menu.dataRpt);
-                    worksheet.Cell(1, 1).Value = "เลขที่เอกสาร";
-                    worksheet.Cell(1, 2).Value = "วันที่เอกสาร";
-                    worksheet.Cell(1, 3).Value = "รหัสสินค้า";
-                    worksheet.Cell(1, 4).Value = "ชื่อ";
-                    worksheet.Cell(1, 5).Value = "หมวด";
-                    worksheet.Cell(1, 6).Value = "หน่วย";
-                    worksheet.Cell(1, 7).Value = "ตำแหน่งจัด";
-                    worksheet.Cell(1, 8).Value = "ตำแหน่งเติม";
-                    worksheet.Cell(1, 9).Value = "จำนวนสั่งเติม";
-                    worksheet.Cell(1, 10).Value = "จำนวนเติม";
-                    worksheet.Cell(1, 11).Value = "สถานะ";
-                    worksheet.Cell(1, 12).Value = "เวลาสร้าง";
-                    worksheet.Cell(1, 13).Value = "ผู้สร้าง";
-                    worksheet.Cell(1, 14).Value = "เวลาปรับปรุง";
-                    worksheet.Cell(1, 15).Value = "ผู้แก้ไข";
+                    worksheet.Cell(1, 1).Value = "สาขา";
+                    worksheet.Cell(1, 2).Value = "เลขที่เอกสาร";
+                    worksheet.Cell(1, 3).Value = "วันที่เอกสาร";
+                    worksheet.Cell(1, 4).Value = "รหัสสินค้า";
+                    worksheet.Cell(1, 5).Value = "ชื่อ";
+                    worksheet.Cell(1, 6).Value = "หมวด";
+                    worksheet.Cell(1, 7).Value = "หน่วย";
+                    worksheet.Cell(1, 8).Value = "ตำแหน่งจัด";
+                    worksheet.Cell(1, 9).Value = "ตำแหน่งเติม";
+                    worksheet.Cell(1, 10).Value = "จำนวนสั่งเติม";
+                    worksheet.Cell(1, 11).Value = "จำนวนเติม";
+                    worksheet.Cell(1, 12).Value = "สถานะ";
+                    worksheet.Cell(1, 13).Value = "เวลาสร้าง";
+                    worksheet.Cell(1, 14).Value = "ผู้สร้าง";
+                    worksheet.Cell(1, 15).Value = "เวลาปรับปรุง";
+                    worksheet.Cell(1, 16).Value = "ผู้แก้ไข";
                     worksheet.Columns().AdjustToContents();
+                    worksheet.Column(17).Hide();
+                    worksheet.Column(18).Hide();
 
                     using (var stream = new MemoryStream())
                     {
@@ -118,7 +134,7 @@ namespace TNPSTOREWEB.Controllers
 
         }
 
-        public IActionResult PreviewPDF(decimal Id, string barcode, string datefm, string dateto, string groupid, string statusid)
+        public IActionResult PreviewPDF(decimal Id, string barcode, string datefm, string dateto, string groupid, string statusid ,string wl)
         {
 
             ModelLayout rdata = new();
@@ -127,6 +143,12 @@ namespace TNPSTOREWEB.Controllers
                 TNPSYSCTLDBContext db = new();
                 intofile = new();
                 rdata.ModelClass = new();
+
+                if (wl == null)
+                {
+                    wl = "0";
+                }
+
                 if (Id != 0)
                 {
                     rdata.Id = Id;
@@ -135,6 +157,7 @@ namespace TNPSTOREWEB.Controllers
                     rdata.DateTo = dateto;
                     rdata.SelectGroupNo = groupid;
                     rdata.SelectStatus = statusid;
+                    rdata.Selectedadd = wl.Trim();
                     rdata.ModelClass.Users = GetDBConnect.GetClassModel(rdata.Id);
 
                 }
@@ -161,9 +184,6 @@ namespace TNPSTOREWEB.Controllers
                 webReport.Report.Load(reportpath);
                 webReport.Report.SetParameterValue("DateFm", datefm);
                 webReport.Report.SetParameterValue("DateTo", dateto);
-                webReport.Report.SetParameterValue("WLName", rdata.ModelClass.Users.WLName.Trim());
-               
-
                 webReport.Report.Prepare();
 
                 using (MemoryStream ms = new MemoryStream())
@@ -212,8 +232,16 @@ namespace TNPSTOREWEB.Controllers
                     }
                 }
 
-                menu = Getreptdata(menu,"O");
+                
 
+                menu = Getreptdata(menu,"O");
+                if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
+                {
+                    menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+                    menu.wls = menu.wls.Where(t => t.WlId == menu.Selectedadd).ToList();
+                    menu.disable = "disable";
+                }
+                else { menu.disable = ""; }
 
             }
 
@@ -249,16 +277,19 @@ namespace TNPSTOREWEB.Controllers
                 {
                     var worksheet = workbook.Worksheets.Add("Report");
                     worksheet.Cell(1, 1).InsertTable(menu.dataOutRpt);
-                    worksheet.Cell(1, 1).Value = "วันที่เอกสาร";
-                    worksheet.Cell(1, 2).Value = "รหัสสินค้า";
-                    worksheet.Cell(1, 3).Value = "ชื่อ";
-                    worksheet.Cell(1, 4).Value = "หมวด";
-                    worksheet.Cell(1, 5).Value = "หน่วย";
-                    worksheet.Cell(1, 6).Value = "ตำแหน่ง";
-                    worksheet.Cell(1, 7).Value = "จำนวน";
-                    worksheet.Cell(1, 8).Value = "เวลาสร้าง";
-                    worksheet.Cell(1, 9).Value = "ผู้สร้าง";
+                    worksheet.Cell(1, 1).Value = "สาขา";
+                    worksheet.Cell(1, 2).Value = "วันที่เอกสาร";
+                    worksheet.Cell(1, 3).Value = "รหัสสินค้า";
+                    worksheet.Cell(1, 4).Value = "ชื่อ";
+                    worksheet.Cell(1, 5).Value = "หมวด";
+                    worksheet.Cell(1, 6).Value = "หน่วย";
+                    worksheet.Cell(1, 7).Value = "ตำแหน่ง";
+                    worksheet.Cell(1, 8).Value = "จำนวน";
+                    worksheet.Cell(1, 9).Value = "เวลาสร้าง";
+                    worksheet.Cell(1, 10).Value = "ผู้สร้าง";
                     worksheet.Columns().AdjustToContents();
+                    worksheet.Column(11).Hide();
+                    worksheet.Column(12).Hide();
 
                     using (var stream = new MemoryStream())
                     {
@@ -277,7 +308,7 @@ namespace TNPSTOREWEB.Controllers
 
         }
 
-        public IActionResult OutPreviewPDF(decimal Id, string barcode, string datefm, string dateto, string groupid, string statusid)
+        public IActionResult OutPreviewPDF(decimal Id, string barcode, string datefm, string dateto, string groupid, string statusid,string wl)
         {
 
             ModelLayout rdata = new();
@@ -286,6 +317,10 @@ namespace TNPSTOREWEB.Controllers
                 TNPSYSCTLDBContext db = new();
                 intofile = new();
                 rdata.ModelClass = new();
+                if (wl == null)
+                {
+                    wl = "0";
+                }
                 if (Id != 0)
                 {
                     rdata.Id = Id;
@@ -294,6 +329,7 @@ namespace TNPSTOREWEB.Controllers
                     rdata.DateTo = dateto;
                     rdata.SelectGroupNo = groupid;
                     rdata.SelectStatus = statusid;
+                    rdata.Selectedadd = wl.Trim();
                     rdata.ModelClass.Users = GetDBConnect.GetClassModel(rdata.Id);
 
                 }
@@ -318,8 +354,8 @@ namespace TNPSTOREWEB.Controllers
                 webReport.Report.Load(reportpath);
                 webReport.Report.SetParameterValue("DateFm", datefm);
                 webReport.Report.SetParameterValue("DateTo", dateto);
-                webReport.Report.SetParameterValue("WLName", rdata.ModelClass.Users.WLName.Trim());
                 
+
                 webReport.Report.Prepare();
 
                 using (MemoryStream ms = new MemoryStream())
@@ -368,8 +404,16 @@ namespace TNPSTOREWEB.Controllers
                     }
                 }
 
-                menu = Getreptdata(menu, "E");
+                
 
+                menu = Getreptdata(menu, "E");
+                if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
+                {
+                    menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+                    menu.wls = menu.wls.Where(t => t.WlId == menu.Selectedadd).ToList();
+                    menu.disable = "disable";
+                }
+                else { menu.disable = ""; }
 
             }
 
@@ -379,7 +423,7 @@ namespace TNPSTOREWEB.Controllers
 
         }
 
-        public IActionResult ExpPreviewPDF(decimal Id, string barcode, string datefm, string dateto, string groupid, string statusid)
+        public IActionResult ExpPreviewPDF(decimal Id, string barcode, string datefm, string dateto, string groupid, string statusid, string wl)
         {
 
             ModelLayout rdata = new();
@@ -388,6 +432,11 @@ namespace TNPSTOREWEB.Controllers
                 TNPSYSCTLDBContext db = new();
                 intofile = new();
                 rdata.ModelClass = new();
+                if (wl == null)
+                {
+                    wl = "0";
+                }
+
                 if (Id != 0)
                 {
                     rdata.Id = Id;
@@ -396,6 +445,7 @@ namespace TNPSTOREWEB.Controllers
                     rdata.DateTo = dateto;
                     rdata.SelectGroupNo = groupid;
                     rdata.SelectStatus = statusid;
+                    rdata.Selectedadd = wl.Trim();
                     rdata.ModelClass.Users = GetDBConnect.GetClassModel(rdata.Id);
 
                 }
@@ -418,8 +468,6 @@ namespace TNPSTOREWEB.Controllers
                 webReport.Report.Load(reportpath);
                 webReport.Report.SetParameterValue("DateFm", datefm);
                 webReport.Report.SetParameterValue("DateTo", dateto);
-                webReport.Report.SetParameterValue("WLName", rdata.ModelClass.Users.WLName.Trim());
-               
 
                 webReport.Report.Prepare();
 
@@ -468,19 +516,21 @@ namespace TNPSTOREWEB.Controllers
                 {
                     var worksheet = workbook.Worksheets.Add("Report");
                     worksheet.Cell(1, 1).InsertTable(menu.dataExpRpt);
-                    worksheet.Cell(1, 1).Value = "วันที่เอกสาร";
-                    worksheet.Cell(1, 2).Value = "รหัสสินค้า";
-                    worksheet.Cell(1, 3).Value = "ชื่อ";
-                    worksheet.Cell(1, 4).Value = "หมวด";
-                    worksheet.Cell(1, 5).Value = "หน่วย";
-                    worksheet.Cell(1, 6).Value = "ตำแหน่ง";
-                    worksheet.Cell(1, 7).Value = "จำนวน";
-                    worksheet.Cell(1, 8).Value = "วันที่หมดอายุ";
-                    worksheet.Cell(1, 9).Value = "LotNo";
-                    worksheet.Cell(1, 10).Value = "เวลาสร้าง";
-                    worksheet.Cell(1, 11).Value = "ผู้สร้าง";
+                    worksheet.Cell(1, 1).Value = "สาขา";
+                    worksheet.Cell(1, 2).Value = "วันที่เอกสาร";
+                    worksheet.Cell(1, 3).Value = "รหัสสินค้า";
+                    worksheet.Cell(1, 4).Value = "ชื่อ";
+                    worksheet.Cell(1, 5).Value = "หมวด";
+                    worksheet.Cell(1, 6).Value = "หน่วย";
+                    worksheet.Cell(1, 7).Value = "ตำแหน่ง";
+                    worksheet.Cell(1, 8).Value = "จำนวน";
+                    worksheet.Cell(1, 9).Value = "วันที่หมดอายุ";
+                    worksheet.Cell(1, 10).Value = "LotNo";
+                    worksheet.Cell(1, 11).Value = "เวลาสร้าง";
+                    worksheet.Cell(1, 12).Value = "ผู้สร้าง";
                     worksheet.Columns().AdjustToContents();
-
+                    worksheet.Column(13).Hide();
+                    worksheet.Column(14).Hide();
                     using (var stream = new MemoryStream())
                     {
                         workbook.SaveAs(stream);
@@ -828,6 +878,12 @@ namespace TNPSTOREWEB.Controllers
                 {
                     data.SelectGroupNo = "0";
                 }
+
+                if (data.Selectedadd == null)
+                {
+                    data.Selectedadd = "0";
+                }
+
                 if (data.DateFm == null && data.DateTo == null)
                 {
                     data.DateFm = DateTime.Now.ToString("yyyy-MM-dd");
@@ -845,10 +901,11 @@ namespace TNPSTOREWEB.Controllers
 
                 }
 
-
+               
                 data.wlcode = data.ModelClass.Users.WLCode.Trim();
                 data.ModelClass.stClasses = getClassMenu.GetStClassesweb(data.ModelClass.Users.ClassId, 0, 0, 0, 0);
-                switch(typereport)
+                data.wls = getClassMenu.Getlis();
+                switch (typereport)
                 {
                     case "R":
                     data = inforpt.RelListHistory(data);

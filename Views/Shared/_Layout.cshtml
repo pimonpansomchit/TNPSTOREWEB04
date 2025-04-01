@@ -163,17 +163,19 @@
                                         }
                                         else
                                         {
-                                            <div class="nav-item-wrapper pb-0">
-
-                                                @foreach (var progrm in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.Menukey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
-                                                {
-                                                <a class="nav-link dropdown-indicator label-1 active" aria-expanded="false" role="button" asp-controller="@progrm.Controllerid" asp-action="@progrm.Actionid" asp-route-id="@Model.Id" asp-route-menukey="@progrm.Menukey" asp-route-root="@root.Menukey" asp-route-parent="@menu.Menukey">
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="nav-link-icon"><span class="@progrm.Icons"></span></span><span class="nav-link-text mbs-submenu-font-thai">@Html.DisplayFor(modelItem => progrm.ThaiName)</span>
-                                                        </div>
-                                                    </a>
+                                        
+                                           
+                                            @foreach (var progrm in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.Menukey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
+                                            {
+                                                    <div class="nav-item-wrapper">
+                                                        <a class="nav-link active label-1" aria-expanded="false" role="button" data-bs-toggle="" asp-controller="@progrm.Controllerid" asp-action="@progrm.Actionid" asp-route-id="@Model.Id" asp-route-menukey="@progrm.Menukey" asp-route-root="@root.Menukey" asp-route-parent="@menu.Menukey">
+                                                                <div class="d-flex align-items-center">
+                                                        <span class="nav-link-icon"><span class="@progrm.Icons"></span></span><span class="nav-link-text-wrapper mbs-submenu-font-thai"><span class="nav-link-text">@Html.DisplayFor(modelItem => progrm.ThaiName)</span></span>
+                                                                </div>
+                                                            </a>
+                                                    </div>
                                                 }
-                                            </div>
+                                       
 
                                         }
 
@@ -204,21 +206,35 @@
             </nav>
             <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
                 <div class="collapse navbar-collapse justify-content-between">
-                    <div class="navbar-logo">
-                        <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-                        <a class="navbar-brand me-1 me-sm-3" href="../../index.html">
-                            <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <img src="~/assets/img/logos/Logo02.png" alt="phoenix" width="27" />
-                                     <p class="logo-text ms-2 d-none d-sm-block text-primary mbs-submenu-font-thai" style="font-size:small">ระบบจัดการหน้าร้าน - สาขา @Model.ModelClass.Users.WLCode @Model.ModelClass.Users.WLName ,Id:@Model.Id</p>
-                                </div>
-
+                   
+                    <div class="row align-items-center justify-content-between g-3">
+                        <div class="col-12 col-md-auto">
+                            <div class="navbar-logo col-10">
+                                <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+                                <a class="navbar-brand me-1 me-sm-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="~/assets/img/logos/Logo02.png" alt="phoenix" width="27" />
+                                            <p class="logo-text ms-2 d-none d-sm-block text-primary mbs-submenu-font-thai" style="font-size:small">ระบบจัดการหน้าร้าน - สาขา @Model.ModelClass.Users.WLCode @Model.ModelClass.Users.WLName</p>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
+
+                        <div class="col-12 col-md-auto">
+                            <p class="logo-text ms-2 d-none d-sm-block mbs-submenu-font-thai fs-9">Id: @Model.Id</p>
+
+                        </div>
                     </div>
-                </div>
+                        
+                    </div>
+                
             </nav>
         
+
+
+
           <div class="content">
            
                     <script>

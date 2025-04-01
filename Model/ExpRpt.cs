@@ -5,7 +5,10 @@ namespace TNPSTOREWEB.Model
     [XmlRoot("ExpSRpt")]
     public class ExpRpt
     {
-       
+
+        [XmlElement("WlName")]
+        public string? WlName { get; set; }
+
         [XmlElement("DocDate")]
         public string? DocDate { get; set; }
         [XmlElement("Barcode")]
@@ -36,7 +39,13 @@ namespace TNPSTOREWEB.Model
 
         [XmlElement("CreateUser")]
         public string? CreateUser { get; set; }
-        
+        [XmlElement("Totalitem")]
+        public int? Totalitem { get; set; }
+
+        [XmlElement("WlCode")]
+        public string? WlCode { get; set; }
+
+
 
 
     }

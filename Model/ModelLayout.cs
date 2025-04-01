@@ -1,5 +1,6 @@
 ﻿using TNPSTOREWEB.Models;
 
+
 namespace TNPSTOREWEB.Model
 {
     public class ModelLayout
@@ -10,8 +11,10 @@ namespace TNPSTOREWEB.Model
         public int Saveflg { get; set; }
         public string? Message { get; set; }
         public string? wlcode { get; set; }
+        public string? wlname { get; set; }
         public string? actions { get; set; }
         public int? display { get; set; }
+        public string disable { get; set; }
         public string[]? Options { get; set; }
         public string? Clear { get; set; }
         public int selectLoctype { get; set; }
@@ -49,10 +52,14 @@ namespace TNPSTOREWEB.Model
         public RepdataList? rp { get; set; }
         public ClassMenuWeb? ModelClass { get; set; }
         public RepdataHistory? ModelHis { get; set; }
+        public StUserlogin addusr { get; set; }
+        public List<StUserlogin>? usr { get; set; }
         public List<ExpRpt>? dataExpRpt { get; set; }
         public List<OutofSRpt>? dataOutRpt { get; set; }
         public List<ReplRpt>? dataRpt { get; set; }
         public List<StLoctype>? loc {get; set;}
         public List<TmpreplenishD> trp { get; set; }
+        public List<MstWl> wls{ get; set; }
+        public List<StClassinfo> cinfo { get; set; }
     }
 }

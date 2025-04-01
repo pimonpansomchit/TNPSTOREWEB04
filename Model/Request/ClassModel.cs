@@ -13,7 +13,7 @@ namespace TNPSTOREWEB.Models.Request
         public string UserName { get; set; } = null!;
         public string ClassId { get; set; }
         public string DBKey { get; set; }
-
+        public decimal wlKey { get; set; }
         public string MainDB { get; set; }
         public decimal logid { get; set; }
         public string language { get; set; }

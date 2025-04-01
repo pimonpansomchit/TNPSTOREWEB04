@@ -1,4 +1,7 @@
-﻿using TNPSTOREWEB.Context;
+﻿#nullable disable
+using Humanizer;
+using TNPSTOREWEB.Context;
+using TNPSTOREWEB.Model;
 using TNPSTOREWEB.Models;
 
 namespace TNPSTOREWEB.Core
@@ -76,6 +79,69 @@ namespace TNPSTOREWEB.Core
             }
 
             return Model;
+        }
+
+
+        public ModelLayout Getuserlogin(ModelLayout data)
+        {
+            data.usr = new();
+            data.wls = new();
+            data.cinfo = new();
+            GetClassMenu getClassMenu = new();
+            TNPSYSCTLDBContext dbc = new();
+            using (var db = new TNPSTORESYSDBContext())
+            {
+                if(data.actions !="A")
+                {
+                    var datalist = db.StUserlogins.OrderBy(t => t.WlCode).ToList();
+                    if (datalist != null)
+                    {
+                        if (data.SelectedOption != "0")
+                        {
+                            datalist = datalist.Where(t => t.WlCode == (data.SelectedOption).Trim()).ToList();
+                        }
+
+                        if (data.SelectGroupNo != "0" && data.SelectGroupNo != null)
+                        {
+                            var clssid = db.StClassinfos.Where(t => t.ClassCode == data.SelectGroupNo.Trim()).Select(t => t.ClassName).First();
+
+                            datalist = datalist.Where(t => t.ClassId == clssid.Trim()).ToList();
+
+                        }
+                        if(data.Selectedadd != null)
+                        {
+                            datalist = datalist.Where(t => t.UserName == data.Selectedadd.Trim()).ToList();
+                        }
+                        data.usr = datalist;
+                        if (data.actions == "M")
+                        {
+                            if(datalist != null)
+                            {
+                                data.addusr = datalist.First();
+                            }
+                           
+                        }
+                    }
+                }
+
+
+                data.wls = Getlis();
+                data.cinfo = db.StClassinfos.OrderBy(t => t.ClassCode).ToList();
+                data.ModelClass.stClasses = getClassMenu.GetStClassesweb(data.ModelClass.Users.ClassId, 0, 0, 0, 0);
+
+
+            }
+            return data;
+        }
+
+        public List<MstWl> Getlis()
+        {
+           List<MstWl> wl = new();
+            TNPSYSCTLDBContext db = new();
+                wl= db.MstWls.Where(t => t.CustKey != null).OrderBy(t => t.WlId).ToList();
+
+            return wl;
+
         }
     }
 }

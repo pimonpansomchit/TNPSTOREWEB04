@@ -1,0 +1,114 @@
+﻿
+@model TNPSTOREWEB.Model.ModelLayout
+@{
+   
+    Layout = "~/Views/Shared/_MyLayoutMnt.cshtml";
+
+}
+
+<p class="ps-3 fs-8">บันทึกข้อมูลผู้ใช้งาน</p>
+
+@if (Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success-light">@Model.Message</p>
+
+}
+else
+{
+    <p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+
+<div class="container">
+
+    <form method="POST" asp-controller="Admin" asp-action="UserloginAdd" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-actions="A" asp-route-loccat="@Model.Loccat" id="searchForm">
+        <div class="card bg-body-highlight">
+            <div class="card-body">
+                @if(Model !=null)
+                {
+
+                    <div class="row g-3 flex-center">
+                        <div class="col-md-10 col-lg-8 col-xl-0 col-xxl-8">
+                            <div class="row gy-3">
+                                <div class="col-sm-6 col-md-6">
+                                   
+                                        <select class="form-select mbs-label-font-thai fs-9" id="groupselect" asp-for="SelectedOption"
+                                                asp-items="@(new SelectList(Model.wls, "WlId", "WlName"))">
+                                            <option value="0">---เลือกร้านสาขา---</option>
+                                        </select>
+                                  
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                  
+                                        <select class="form-select mbs-label-font-thai fs-9" id="groupselect" asp-for="SelectGroupNo"
+                                                asp-items="@(new SelectList(Model.cinfo, "ClassCode", "ClassName"))">
+                                            <option value="0">---เลือกกลุ่มผู้ใช้งาน---</option>
+                                        </select>
+                                   
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <input class="form-control mbs-label-font-thai fs-8" id="ifirstname" placeholder="ชื่อ" type="text" asp-for="addusr.Firstname" autocomplete="off" />
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+
+                                    <input class="form-control mbs-label-font-thai" id="ilastname" placeholder="นามสกุล" type="text" asp-for="addusr.Lastname" autocomplete="off" />
+
+                                  
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <input class="form-control mbs-label-font-thai" id="iusername" placeholder="รหัสผู้ใช้" type="text" asp-for="addusr.UserName" autocomplete="off" />
+                                    <span asp-validation-for="addusr.UserName" class="text-danger"></span>
+
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+
+                                    <input class="form-control mbs-label-font-thai" id="ipassword" placeholder="พาสเวิร์ค" type="password" asp-for="addusr.CurrPasswd" autocomplete="off" />
+                                    <span asp-validation-for="addusr.CurrPasswd" class="text-danger"></span>
+
+                                   
+                                </div>
+                                    
+                                </div>
+
+                                
+                            </div>
+
+                        </div>
+                   
+                   
+                }
+        </div>
+        </div>
+        <div class="row g-3 mt-0">
+
+            <div class="col-5 col col-xl-6">
+                <button class="btn btn-phoenix-success me-1 mb-1 d-block w-100 mt-1" type="submit" style="font-size:medium" asp-controller="Admin" asp-action="Add" asp-route-id="@Model.Id" asp-route-actionx="S" asp-route-actions="@Model.actions">บันทึก</button>
+           </div>
+            <div class="col-5 col col-xl-6">
+                <button class="btn btn-phoenix-secondary me-1 mb-1 d-block w-100" type="submit" style="font-size:medium" asp-controller="Admin" asp-action="Userlogin" asp-route-id="@Model.Id">ย้อนกลับเมนู</button>
+            </div>
+    </div>
+
+    </form>
+   
+    
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+         $(document).ready(function () {
+
+           var inputBarcodevalue =$('#inputtype').val();
+             if(inputBarcodevalue === "")
+              {
+                $('#inputtype').focus();
+              }else{
+                $('#inputtypename').focus();
+              }
+             
+          
+         });
+       
+    </script>
+}

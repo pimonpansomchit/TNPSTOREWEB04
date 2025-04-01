@@ -5,6 +5,8 @@ namespace TNPSTOREWEB.Model
     [XmlRoot("ReplRpt")]
     public class ReplRpt
     {
+        [XmlElement("WlName")]
+        public string? WlName { get; set; }
         [XmlElement("DocNo")]
         public string? DocNo { get; set; }
         [XmlElement("DocDate")]
@@ -41,6 +43,14 @@ namespace TNPSTOREWEB.Model
         public DateTime? ChangeDtime { get; set; }
         [XmlElement("ChangeUser")]
         public string? ChangeUser { get; set; }
-       
+
+        [XmlElement("Totalitem")]
+        public int? Totalitem { get; set; }
+
+        [XmlElement("WlCode")]
+        public string? WlCode { get; set; }
+
+
+
     }
 }

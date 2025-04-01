@@ -33,6 +33,7 @@ public partial class TNPSTORESYSDBContext : DbContext
     public virtual DbSet<StClassweb> StClasswebs { get; set; }
     public virtual DbSet<StMenuweb> StMenuwebs { get; set; }
     public virtual DbSet<StStatus> StStatuses { get; set; }
+    public virtual DbSet<StClassinfo> StClassinfos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -44,6 +45,17 @@ public partial class TNPSTORESYSDBContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseCollation("Thai_CI_AS");
+        modelBuilder.Entity<StClassinfo>(entity =>
+        {
+            entity.HasKey(e => e.ClassCode);
+
+            entity.ToTable("st_classinfo");
+
+            entity.Property(e => e.ClassCode)
+                .HasMaxLength(1)
+                .IsFixedLength();
+            entity.Property(e => e.ClassName).HasMaxLength(50);
+        });
         modelBuilder.Entity<StMessage>(entity =>
         {
             entity.HasKey(e => e.MsgCode);

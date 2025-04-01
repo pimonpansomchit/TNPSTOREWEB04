@@ -102,7 +102,7 @@ namespace TNPSTOREWEB.Controllers
                 {
 
                     menu.ModelClass.Users = GetDBConnect.GetClassModel(Id);
-                    ViewData["Logid"] = Id;
+                    
 
                 }
                 else

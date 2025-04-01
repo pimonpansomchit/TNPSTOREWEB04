@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/28/2025 15:17:31" ReportInfo.Modified="03/30/2025 16:53:09" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/28/2025 15:17:31" ReportInfo.Modified="04/02/2025 03:08:40" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqKf5RzgGWjk6SYgnsOh2z+/asM/o1f5xizrh/zW/N4ZGYSiRGomJrlqSH4tryk96tOKebIdN8kUh7g5zW3Wdg6GDNyMWcePvhDDN4ZwAH8To=">
+    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqKf5RzgGWjk6SYgnsOh2z+/asM/o1f5xizrh/zW/N4ZGYSiRGomJrlqSH4tryk96tOKebIdN8kUh7g5zW3Wdg6AIeQDbLGj+0c0ClCQiH7OQ=">
       <TableDataSource Name="ExpRpt" DataType="System.Int32" Enabled="true" TableName="ExpRpt">
+        <Column Name="WlName" DataType="System.String"/>
         <Column Name="DocDate" DataType="System.String"/>
         <Column Name="Barcode" DataType="System.String"/>
         <Column Name="ProductName" DataType="System.String"/>
@@ -14,6 +15,8 @@
         <Column Name="LotNo" DataType="System.String"/>
         <Column Name="CreateDtime" DataType="System.DateTime"/>
         <Column Name="CreateUser" DataType="System.String"/>
+        <Column Name="Totalitem" DataType="System.Int32"/>
+        <Column Name="WlCode" DataType="System.String"/>
       </TableDataSource>
     </XmlDataConnection>
     <Parameter Name="DateFm" DataType="System.String" AsString=""/>
@@ -22,46 +25,47 @@
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" TopMargin="5" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
-      <TextObject Name="Text1" Left="340.2" Width="302.4" Height="28.35" Text="รายงานข้อมูลสินค้าใกล้หมดอายุ" HorzAlign="Center" Font="Arial, 16pt, style=Bold"/>
-      <TextObject Name="Text24" Left="897.75" Top="9.45" Width="47.25" Height="18.9" Text="[Page#]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text25" Left="945" Top="9.45" Width="85.05" Height="18.9" Text="[TotalPages#]" Font="Arial, 10pt"/>
-      <TextObject Name="Text26" Left="935.55" Top="9.45" Width="18.9" Height="18.9" Text="/" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text1" Left="340.2" Top="9.45" Width="302.4" Height="28.35" Text="รายงานข้อมูลสินค้าใกล้หมดอายุ" HorzAlign="Center" Font="Arial, 16pt, style=Bold"/>
       <TextObject Name="Text27" Left="85.05" Top="9.45" Width="85.05" Height="18.9" Text="[DateFm]" Font="Arial, 10pt"/>
       <TextObject Name="Text28" Left="198.45" Top="9.45" Width="85.05" Height="18.9" Text="[DateTo]" Font="Arial, 10pt"/>
       <TextObject Name="Text31" Top="9.45" Width="75.6" Height="18.9" Text="วันที่ค้นหา:" HorzAlign="Right" Font="Arial, 10pt"/>
       <TextObject Name="Text32" Left="170.1" Top="9.45" Width="18.9" Height="18.9" Text="-" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text35" Left="746.55" Top="9.45" Width="151.2" Height="18.9" Text="[WLName]" Font="Arial, 10pt"/>
-      <TextObject Name="Text36" Left="689.85" Top="9.45" Width="56.7" Height="18.9" Text="สาขา:" HorzAlign="Right" Font="Arial, 10pt"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="1047.06" Height="37.8">
-      <TextObject Name="Text4" Left="18.9" Top="9.45" Width="85.05" Height="18.9" Text="วันที่" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text5" Left="122.85" Top="9.45" Width="94.5" Height="18.9" Text="รหัสสินค้า" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text6" Left="245.7" Top="9.45" Width="56.7" Height="18.9" Text="ชื่อ" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text7" Left="519.75" Top="9.45" Width="47.25" Height="18.9" Text="หน่วย" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text8" Left="453.6" Top="9.45" Width="47.25" Height="18.9" Text="หมวด" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text10" Left="585.9" Top="9.45" Width="75.6" Height="18.9" Text="ตำแหน่ง" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text11" Left="699.3" Top="9.45" Width="56.7" Height="18.9" Text="จำนวนสั่ง" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text12" Left="831.6" Top="9.45" Width="66.15" Height="18.9" Text="LotNo." HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text13" Left="916.65" Top="9.45" Width="103.95" Height="18.9" Text="วันเวลาสร้าง" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <LineObject Name="Line1" Top="37.8" Width="1058.4"/>
-      <LineObject Name="Line2" Width="1058.4"/>
-      <TextObject Name="Text34" Left="-9.45" Top="9.45" Width="28.35" Height="18.9" Text="No" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text37" Left="756" Top="9.45" Width="66.15" Height="18.9" Text="หมดอายุ" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
-    </PageHeaderBand>
-    <DataBand Name="Data1" Top="83.6" Width="1047.06" Height="37.8" DataSource="ExpRpt" MaxRows="20">
-      <TextObject Name="Text33" Left="-9.45" Top="9.45" Width="28.35" Height="18.9" Text="[Row#]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text38" Left="18.9" Top="9.45" Width="94.5" Height="18.9" Text="[ExpRpt.DocDate]" Font="Arial, 10pt"/>
-      <TextObject Name="Text39" Left="113.4" Top="9.45" Width="103.95" Height="18.9" Text="[ExpRpt.Barcode]" Font="Arial, 10pt"/>
-      <TextObject Name="Text40" Left="217.35" Top="9.45" Width="226.8" Height="28.35" Text="[ExpRpt.ProductName]" Font="Arial, 10pt"/>
-      <TextObject Name="Text41" Left="453.6" Top="9.45" Width="56.7" Height="18.9" Text="[ExpRpt.GroupId]" Font="Arial, 10pt"/>
-      <TextObject Name="Text42" Left="510.3" Top="9.45" Width="66.15" Height="18.9" Text="[ExpRpt.UnitName]" Font="Arial, 10pt"/>
-      <TextObject Name="Text43" Left="576.45" Top="9.45" Width="132.3" Height="18.9" Text="[ExpRpt.LocIdtoName]" Font="Arial, 10pt"/>
-      <TextObject Name="Text44" Left="699.3" Top="9.45" Width="56.7" Height="18.9" Text="[ExpRpt.ItemQty]" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text45" Left="756" Top="9.45" Width="85.05" Height="18.9" Text="[ExpRpt.Expdate]" Format="Custom" Format.Format="dd/MM/yyyy" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text46" Left="841.05" Top="9.45" Width="75.6" Height="18.9" Text="[ExpRpt.LotNo]" Font="Arial, 10pt"/>
-      <TextObject Name="Text47" Left="888.3" Top="9.45" Width="160.65" Height="18.9" Text="[ExpRpt.CreateDtime]" Format="Custom" Format.Format="dd/MM/yyyy HH:mm:ss" HorzAlign="Center" Font="Arial, 9pt"/>
-    </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="125.4" Width="1047.06" Height="28.35">
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="1047.06"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="45.8" Width="1047.06" Height="66.15" StartNewPage="true" Condition="[ExpRpt.WlName]" ResetPageNumber="true">
+      <LineObject Name="Line1" Top="66.15" Width="1058.4"/>
+      <TextObject Name="Text6" Left="245.7" Top="37.8" Width="56.7" Height="18.9" Text="ชื่อ" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="18.9" Top="37.8" Width="85.05" Height="18.9" Text="วันที่" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="122.85" Top="37.8" Width="94.5" Height="18.9" Text="รหัสสินค้า" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="519.75" Top="37.8" Width="47.25" Height="18.9" Text="หน่วย" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="453.6" Top="37.8" Width="47.25" Height="18.9" Text="หมวด" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="585.9" Top="37.8" Width="75.6" Height="18.9" Text="ตำแหน่ง" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="699.3" Top="37.8" Width="56.7" Height="18.9" Text="จำนวนสั่ง" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Left="831.6" Top="37.8" Width="66.15" Height="18.9" Text="LotNo." HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Left="916.65" Top="37.8" Width="103.95" Height="18.9" Text="วันเวลาสร้าง" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text34" Left="-9.45" Top="37.8" Width="28.35" Height="18.9" Text="No" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text37" Left="756" Top="37.8" Width="66.15" Height="18.9" Text="หมดอายุ" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line2" Top="28.35" Width="1058.4"/>
+      <TextObject Name="Text36" Left="9.45" Top="9.45" Width="56.7" Height="18.9" Text="สาขา:" HorzAlign="Right" Font="Arial, 10pt"/>
+      <TextObject Name="Text48" Left="151.2" Top="9.45" Width="56.7" Height="18.9" Text="รายการทั้งหมด:" HorzAlign="Right" Font="Arial, 10pt"/>
+      <TextObject Name="Text49" Left="66.15" Top="9.45" Width="94.5" Height="18.9" Text="[ExpRpt.WlName]" Font="Arial, 10pt"/>
+      <TextObject Name="Text50" Left="207.9" Top="9.45" Width="94.5" Height="18.9" Text="[ExpRpt.Totalitem]" Font="Arial, 10pt"/>
+      <TextObject Name="Text51" Left="973.35" Top="9.45" Width="94.5" Height="18.9" Text="[PageN]" Font="Arial, 10pt"/>
+      <DataBand Name="Data1" Top="115.95" Width="1047.06" Height="37.8" DataSource="ExpRpt" MaxRows="20">
+        <TextObject Name="Text33" Left="-9.45" Top="9.45" Width="28.35" Height="18.9" Text="[Row#]" HorzAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text38" Left="18.9" Top="9.45" Width="94.5" Height="18.9" Text="[ExpRpt.DocDate]" Font="Arial, 10pt"/>
+        <TextObject Name="Text39" Left="113.4" Top="9.45" Width="103.95" Height="18.9" Text="[ExpRpt.Barcode]" Font="Arial, 10pt"/>
+        <TextObject Name="Text40" Left="217.35" Top="9.45" Width="226.8" Height="28.35" Text="[ExpRpt.ProductName]" Font="Arial, 10pt"/>
+        <TextObject Name="Text41" Left="453.6" Top="9.45" Width="56.7" Height="18.9" Text="[ExpRpt.GroupId]" Font="Arial, 10pt"/>
+        <TextObject Name="Text42" Left="510.3" Top="9.45" Width="66.15" Height="18.9" Text="[ExpRpt.UnitName]" Font="Arial, 10pt"/>
+        <TextObject Name="Text43" Left="576.45" Top="9.45" Width="132.3" Height="18.9" Text="[ExpRpt.LocIdtoName]" Font="Arial, 10pt"/>
+        <TextObject Name="Text44" Left="699.3" Top="9.45" Width="56.7" Height="18.9" Text="[ExpRpt.ItemQty]" HorzAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text45" Left="756" Top="9.45" Width="85.05" Height="18.9" Text="[ExpRpt.Expdate]" Format="Custom" Format.Format="dd/MM/yyyy" HorzAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text46" Left="841.05" Top="9.45" Width="75.6" Height="18.9" Text="[ExpRpt.LotNo]" Font="Arial, 10pt"/>
+        <TextObject Name="Text47" Left="888.3" Top="9.45" Width="160.65" Height="18.9" Text="[ExpRpt.CreateDtime]" Format="Custom" Format.Format="dd/MM/yyyy HH:mm:ss" HorzAlign="Center" Font="Arial, 9pt"/>
+      </DataBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="157.75" Width="1047.06" Height="28.35">
       <TextObject Name="Text29" Left="926.1" Top="9.45" Width="122.85" Height="18.9" Text="[Date]" Format="Custom" Format.Format="dd/MM/yyyy" HorzAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text30" Left="784.35" Top="9.45" Width="132.3" Height="18.9" Text="วันที่ออกรายงาน:" HorzAlign="Right" Font="Arial, 10pt"/>
     </PageFooterBand>

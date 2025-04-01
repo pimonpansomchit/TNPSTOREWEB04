@@ -1,11 +1,11 @@
 ﻿@model TNPSTOREWEB.Model.ModelLayout
 @{
 
-   
+
     await Html.RenderPartialAsync("~/Views/Shared/_MyLaoutMenu.cshtml", Model);
 
 }
-<h5 class ="ps-3">รายงานสินค้าใกล้หมดอายุ</h5>
+<h5 class ="ps-3">รายงานสินค้าขาดชั้น</h5>
 <p class="ps-3 fs-9">User Id:@Model.Id</p>
 @if (Model.Saveflg is 0)
 {
@@ -19,6 +19,7 @@ else
     </p>
 }
 
+
 <form class="mb-3 mbs-label-font-thai" method="POST" asp-controller="RepReport" id="searchForm">
 
 
@@ -27,6 +28,12 @@ else
 
     <div class="row gx-3 ps-2 form-check">
         <div class=" col-md-10">
+            <div class="form-check-inline col-md-3">
+                <select class="form-select mbs-label-font-thai fs-9" id="groupselect" asp-for="Selectedadd" disabled="@Model.disable"
+                        asp-items="@(new SelectList(Model.wls, "WlId", "WlName"))">
+                    <option value="0">---เลือกร้านสาขา---</option>
+                </select>
+            </div>
             <div class="form-check-inline col-md-3">
                 <input class="form-control" id="inputBarcode" placeholder="ค้นหา อ่านบาร์โค้ด" type="text" asp-for="barcode" autocomplete="off" />
             </div>
@@ -69,7 +76,7 @@ else
                 <input class="form-control datetimepicker " id="EndDatepicker" type="date" asp-for="DateTo" autocomplete="off" value="@Model.DateTo"/>
             </div>
             <div class="btn-group position-static ps-2" role="group">
-                <button class="btn btn-link  text-info me-4 px-0" asp-action="Outofstkistory" asp-route-clear="S"><span class="fa-solid far fab fa-sistrix fs-8 me-2"></span>ค้นหา</button>
+                <button class="btn btn-link  text-info me-4 px-0" asp-action="OutstkHistory" asp-route-clear="S"><span class="fa-solid far fab fa-sistrix fs-8 me-2"></span>ค้นหา</button>
 
             </div>
             @if (Model.dataOutRpt !=null)
@@ -196,9 +203,10 @@ else
                let dateto="@Model.DateTo";
                let groupid ="@Model.SelectGroupNo";
                let statusid ="@Model.SelectStatus";
+               let wl ="@Model.Selectedadd";
                var path =window.location.href;
                var host =path.split("/RepReport");
-               let url=host[0]+'/RepReport/OutPreviewPDF?Id='+Id+'&barcode='+barcode+'&datefm='+datefm+'&dateto='+dateto+'&groupid='+groupid+'&sutatusid='+statusid ;
+               let url=host[0]+'/RepReport/OutPreviewPDF?Id='+Id+'&barcode='+barcode+'&datefm='+datefm+'&dateto='+dateto+'&groupid='+groupid+'&sutatusid='+statusid+'&wl='+wl ;
                window.open(url,"_blank");
 
 

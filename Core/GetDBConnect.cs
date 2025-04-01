@@ -46,7 +46,7 @@ namespace TNPSTOREWEB.Core
                                           join t2 in db.Ctlconfigs
                                           on t.DbName equals t2.StoreDb
                                           where t.UserName == sysUserLog.UserLogin
-                                          select new { t.UserName, t.ClassId, t.WlCode, t.DbName,t1.DbNameString,t2.MainMstDb,t2.Dcid,t2.Whid }).FirstOrDefault();
+                                          select new { t.UserName, t.ClassId, t.WlCode, t.DbName,t1.DbNameString,t2.MainMstDb,t2.Dcid,t2.Whid,t.WlKey }).FirstOrDefault();
 
 
 
@@ -69,6 +69,7 @@ namespace TNPSTOREWEB.Core
                                 Model.logid = (decimal)Logid;
                             }
                             else { Model.logid = 0; }
+                            Model.wlKey = flgService.WlKey;
                         return Model;
                     }
                         else

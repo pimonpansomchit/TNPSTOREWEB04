@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TNPSTOREWEB.Models;
 
 public partial class StUserlogin
 {
+    [Required(ErrorMessage = "ไม่สามารถใส่ค่าว่างได้ ใส่ข้อมูลให้ครบถ้วน")]
     public string UserName { get; set; } = null!;
 
     public string? Firstname { get; set; }
@@ -13,6 +15,7 @@ public partial class StUserlogin
 
     public string? ClassId { get; set; }
 
+    [Required(ErrorMessage = "ไม่สามารถใส่ค่าว่างได้ ใส่ข้อมูลให้ครบถ้วน")]
     public string? CurrPasswd { get; set; }
 
     public string? OldPasswd { get; set; }

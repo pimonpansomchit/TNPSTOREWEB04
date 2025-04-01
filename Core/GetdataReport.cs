@@ -1,15 +1,15 @@
 ﻿#nullable disable
-using System.Net;
+using Microsoft.CodeAnalysis.Operations;
 using TNPSTOREWEB.Context;
 using TNPSTOREWEB.Model;
-using TNPSTOREWEB.Models.Request;
 using TNPSTOREWEB.Models;
+using TNPSTOREWEB.Models.Request;
 
 namespace TNPSTOREWEB.Core
 {
     public class GetdataReport
     {
-
+        private TNPSYSCTLDBContext db;
         public ModelLayout RelListHistory(ModelLayout query)
         {
 
@@ -26,11 +26,22 @@ namespace TNPSTOREWEB.Core
 
                     List<TrnreplenishD> datalist = new();
                    
+                    if(query.Selectedadd =="0")
+                    {
                         query.ModelHis.replenishD = (from t1 in dts.TrnreplenishDs
                                                      join t in dts.Trnreplenishes
                                                      on t1.DocNo equals t.DocNo
-                                                     where t1.Wlid == query.wlcode
                                                      select t1).ToList();
+
+                    }
+                    else
+                    {
+                        query.ModelHis.replenishD = (from t1 in dts.TrnreplenishDs
+                                                     join t in dts.Trnreplenishes
+                                                     on t1.DocNo equals t.DocNo
+                                                     where t1.Wlid == query.Selectedadd.Trim()
+                                                     select t1).ToList();
+                    }
 
                         datalist = query.ModelHis.replenishD;
 
@@ -50,8 +61,13 @@ namespace TNPSTOREWEB.Core
                                 datalist = datalist.Where(t => t.TranStatus == query.SelectStatus.Trim()).ToList();
                                
                             }
-                           
-                                if (query.DateFm != null && query.DateTo != null)
+                           if(query.Selectedadd!="0")
+                            {
+                                datalist = datalist.Where(t => t.Wlid == query.Selectedadd.Trim()).ToList();
+
+                            }
+
+                        if (query.DateFm != null && query.DateTo != null)
                                 {
                                     DateTime datastart = Convert.ToDateTime(query.DateFm + " 00:00:00");
                                     DateTime dataend = Convert.ToDateTime(query.DateTo + " 23:59:59");
@@ -60,11 +76,8 @@ namespace TNPSTOREWEB.Core
                                 }
                             
                         }
-                      
-                    
-                    
 
-                    if (datalist != null)
+                         if (datalist != null)
                     {
                         ClassModel model = new();
                         model = GetDBConnect.GetClassModel(query.Id);
@@ -73,7 +86,8 @@ namespace TNPSTOREWEB.Core
                         string mapto = "";
                         string statusname = "";
                         query.dataRpt = new();
-                        foreach (var i in datalist)
+                        db = new();
+                        foreach (var i in datalist.OrderBy(t => t.Wlid).ThenBy(t => t.CreateDtime))
                         {
                            statusname = query.Transtauts.Where(t => t.StatusId.Trim() == i.TranStatus.Trim()).Select(t => t.StatusName).FirstOrDefault();
 
@@ -117,24 +131,29 @@ namespace TNPSTOREWEB.Core
                                     }
                                 }
                             }
-                            query.dataRpt.Add(new ReplRpt {
-                                    DocNo=i.DocNo,
-                                    DocDate=i.CreateDtime.ToString(),
-                                    barcode=i.Barcode.Trim(),
-                                    productName=i.ItemName.Trim(),
-                                    LocIdfmName=mapfm,
-                                    LocIdtoName=mapto,
-                                    UnitName=i.UnitName.Trim(),
-                                    GroupId=i.GroupId.Trim(),
-                                    ItemQty=i.ItemQty,
-                                    ItemQtyRep=i.ItemQtyRep,
-                                    TranStatusname= statusname,
-                                    CreateDtime =i.CreateDtime,
-                                    CreateUser=i.CreateUser,
-                                    ChangeDtime=i.ChangeDtime,
-                                    ChangeUser=i.ChangeUser,
-                                                
-                                    });
+
+
+                            query.dataRpt.Add(new ReplRpt
+                            {
+                                WlName = db.MstWls.Where(t => t.WlId == i.Wlid.Trim()).Select(t => t.WlName).First(),
+                                DocNo = i.DocNo,
+                                DocDate = i.CreateDtime.ToString(),
+                                barcode = i.Barcode.Trim(),
+                                productName = i.ItemName.Trim(),
+                                LocIdfmName = mapfm,
+                                LocIdtoName = mapto,
+                                UnitName = i.UnitName.Trim(),
+                                GroupId = i.GroupId.Trim(),
+                                ItemQty = i.ItemQty,
+                                ItemQtyRep = i.ItemQtyRep,
+                                TranStatusname = statusname,
+                                CreateDtime = i.CreateDtime,
+                                CreateUser = i.CreateUser,
+                                ChangeDtime = i.ChangeDtime,
+                                ChangeUser = i.ChangeUser,
+                                Totalitem = datalist.Where(t => t.Wlid == i.Wlid.Trim()).Count(),
+                                WlCode = i.Wlid,
+                            });
 
                         }
 
@@ -149,20 +168,19 @@ namespace TNPSTOREWEB.Core
                                 var orderdata = query.dataRpt.Where(t => t.CreateDtime >= datastarts).Where(t => t.CreateDtime<= dataends).ToList().OrderBy(t => t.DocNo);
                                 query.dataRpt = orderdata.ToList();
                             }
+                            query.dataRpt= query.dataRpt.ToList().OrderBy(t=>t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
                         }
                       
-
+                         
                         
                     }
                     
-
 
                 }
                 
                 return query;
             }
         }
-
 
         public ModelLayout OutListHistory(ModelLayout query)
         {
@@ -179,9 +197,19 @@ namespace TNPSTOREWEB.Core
 
                     List<TrnoutofStockD> datalist = new();
 
-                    query.ModelHis.outofstock = (from t1 in dts.TrnoutofStockDs
-                                                 where t1.Wlid == query.wlcode
-                                                 select t1).ToList();
+                    if(query.Selectedadd == "0")
+
+                    {
+                        query.ModelHis.outofstock = (from t1 in dts.TrnoutofStockDs
+                                                     select t1).ToList();
+                    }
+                    else
+                    {
+                        query.ModelHis.outofstock = (from t1 in dts.TrnoutofStockDs
+                                                     where t1.Wlid == query.Selectedadd
+                                                     select t1).ToList();
+                    }
+                        
 
                     datalist = query.ModelHis.outofstock;
 
@@ -201,11 +229,16 @@ namespace TNPSTOREWEB.Core
                             datalist = datalist.Where(t => t.TranStatus == query.SelectStatus).ToList();
 
                         }
+                        if (query.Selectedadd != "0")
+                        {
+                            datalist = datalist.Where(t => t.Wlid == query.Selectedadd.Trim()).ToList();
+
+                        }
 
                         if (query.DateFm != null && query.DateTo != null)
                         {
                             DateTime x = Convert.ToDateTime(query.DateFm);
-                            DateTime y = Convert.ToDateTime(query.DateFm);
+                            DateTime y = Convert.ToDateTime(query.DateTo);
 
                             DateOnly datastart = new DateOnly(x.Year, x.Month, x.Day); 
                             DateOnly dataend = new DateOnly(y.Year, y.Month, y.Day);
@@ -223,11 +256,13 @@ namespace TNPSTOREWEB.Core
                         ClassModel model = new();
                         model = GetDBConnect.GetClassModel(query.Id);
                         GetDBConnect dB = new();
+                        db = new();
                         string mapfm = "";
                         string mapto = "";
-                     
+                        int? j = 0;
+                        string k = string.Empty;
                         query.dataOutRpt = new();
-                        foreach (var i in datalist)
+                        foreach (var i in datalist.OrderBy(t => t.Wlid).ThenBy(t=>t.CreateDtime))
                         {
 
                             //select location
@@ -270,23 +305,27 @@ namespace TNPSTOREWEB.Core
                                     }
                                 }
                             }
+
                             query.dataOutRpt.Add(new OutofSRpt
                             {
+                                WlName = db.MstWls.Where(t => t.WlId == i.Wlid.Trim()).Select(t => t.WlName).First(),
                                 DocDate = i.TranDate.ToString("dd/MM/yyyy"),
                                 barcode = i.Barcode.Trim(),
                                 productName = i.ItemName.Trim(),
                                 GroupId = i.GroupId.Trim(),
                                 UnitName = i.UnitName.Trim(),
                                 LocIdtoName = mapto,
-                                ItemQty = i.ItemQty,
+                                ItemQty = j,
                                 CreateUser = i.CreateUser,
-                                CreateDtime=i.CreateDtime,
+                                CreateDtime = i.CreateDtime,
+                                Totalitem = datalist.Where(t => t.Wlid == i.Wlid.Trim()).Count(),
+                                 WlCode = i.Wlid,
                             });
+
 
                         }
 
-                        
-
+                        query.dataRpt = query.dataRpt.ToList().OrderBy(t => t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
 
                     }
 
@@ -313,11 +352,20 @@ namespace TNPSTOREWEB.Core
 
                     List<TrnexpiredofGoodD> datalist = new();
 
-                    query.ModelHis.expriegood = (from t1 in dts.TrnexpiredofGoodDs
-                                                 where t1.Wlid == query.wlcode
-                                                 select t1).ToList();
+                    if (query.Selectedadd == "0")
 
-                    datalist = query.ModelHis.expriegood;
+                    {
+                        query.ModelHis.expriegood = (from t1 in dts.TrnexpiredofGoodDs
+                                                     select t1).ToList();
+
+                    }
+                    else
+                    {
+                        query.ModelHis.expriegood = (from t1 in dts.TrnexpiredofGoodDs
+                                                     where t1.Wlid == query.Selectedadd
+                                                     select t1).ToList();
+                    }
+                        datalist = query.ModelHis.expriegood;
 
                     if (datalist != null)
                     {
@@ -335,11 +383,16 @@ namespace TNPSTOREWEB.Core
                             datalist = datalist.Where(t => t.TranStatus == query.SelectStatus).ToList();
 
                         }
+                        if (query.Selectedadd != "0")
+                        {
+                            datalist = datalist.Where(t => t.Wlid == query.Selectedadd.Trim()).ToList();
+
+                        }
 
                         if (query.DateFm != null && query.DateTo != null)
                         {
                             DateTime x = Convert.ToDateTime(query.DateFm);
-                            DateTime y = Convert.ToDateTime(query.DateFm);
+                            DateTime y = Convert.ToDateTime(query.DateTo);
 
                             DateOnly datastart = new DateOnly(x.Year, x.Month, x.Day);
                             DateOnly dataend = new DateOnly(y.Year, y.Month, y.Day);
@@ -359,9 +412,9 @@ namespace TNPSTOREWEB.Core
                         GetDBConnect dB = new();
                         string mapfm = "";
                         string mapto = "";
-
+                        db = new();
                         query.dataExpRpt = new();
-                        foreach (var i in datalist)
+                        foreach (var i in datalist.OrderBy(t => t.Wlid).ThenBy(t => t.CreateDtime))
                         {
 
                             //select location
@@ -406,6 +459,7 @@ namespace TNPSTOREWEB.Core
                             }
                             query.dataExpRpt.Add(new ExpRpt
                             {
+                                WlName = db.MstWls.Where(t=>t.WlId==i.Wlid.Trim()).Select(t=>t.WlName).First(),
                                 DocDate = i.TranDate.ToString("dd/MM/yyyy"),
                                 barcode = i.Barcode.Trim(),
                                 productName = i.ItemName.Trim(),
@@ -417,11 +471,14 @@ namespace TNPSTOREWEB.Core
                                 LotNo = i.LotNo.Trim(),
                                 CreateUser = i.CreateUser,
                                 CreateDtime = i.CreateDtime,
+                                Totalitem = datalist.Where(t => t.Wlid == i.Wlid.Trim()).Count(),
+                                WlCode = i.Wlid,
                             });
 
                         }
 
 
+                        query.dataRpt = query.dataRpt.ToList().OrderBy(t => t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
 
 
                     }
@@ -433,7 +490,6 @@ namespace TNPSTOREWEB.Core
                 return query;
             }
         }
-
 
         public ModelLayout ConfigTypeLoc(ModelLayout query)
         {
