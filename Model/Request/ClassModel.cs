@@ -18,6 +18,7 @@ namespace TNPSTOREWEB.Models.Request
         public decimal logid { get; set; }
         public string language { get; set; }
         public string ConnectString { get; set; }
+        public string Connectmain { get; set; }
         public int menukey { get; set; }
         public int submenukey { get; set; }
 

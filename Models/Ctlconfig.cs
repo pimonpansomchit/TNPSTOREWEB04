@@ -14,4 +14,6 @@ public partial class Ctlconfig
     public string? Whid { get; set; }
 
     public string? ServerIp { get; set; }
+
+    public string? Mainconnect { get; set; }
 }

@@ -438,7 +438,7 @@ namespace TNPSTOREWEB.Core
                         }
 
 
-                        UnitBarcode unitBarcode = GetUnitBarcode(i.ItemCode, model.MainDB, model.ConnectString.Trim());
+                        UnitBarcode unitBarcode = GetUnitBarcode(i.ItemCode, model.MainDB, model.Connectmain.Trim());
                         //แตกเป็น unit ชิ้น ตามหน่วยการ input
 
                         int unitqty = (int)i.Unit * (int)i.ItemQty;
@@ -579,7 +579,13 @@ namespace TNPSTOREWEB.Core
                         unitBarcode.UnitC = 0;
                     }
                 }
-                dB.CloseDB();
+                else {
+                    unitBarcode.groupid = string.Empty;
+                    unitBarcode.UnitU = 0;
+                    unitBarcode.UnitI = 0;
+                    unitBarcode.UnitC = 0;
+                }
+                    dB.CloseDB();
             }
             catch (Exception) { }
             return unitBarcode;

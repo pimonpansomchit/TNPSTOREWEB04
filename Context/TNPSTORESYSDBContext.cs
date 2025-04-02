@@ -623,6 +623,9 @@ public partial class TNPSTORESYSDBContext : DbContext
             entity.Property(e => e.MainMstDb)
                 .HasMaxLength(50)
                 .HasColumnName("MainMstDB");
+            entity.Property(e => e.Mainconnect)
+                .HasMaxLength(1000)
+                .HasColumnName("mainconnect");
             entity.Property(e => e.ServerIp)
                 .HasMaxLength(50)
                 .HasColumnName("ServerIP");

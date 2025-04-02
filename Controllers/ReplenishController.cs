@@ -283,7 +283,7 @@ namespace TNPSTOREWEB.Controllers
                     docno=getDocRunning.GenDoc(200, DateTime.Now.ToString("MM"), DateTime.Now.ToString("yyyy"), "RPL", model.DCcode, model.WHcode, model.ConnectString,model.WLCode);
                     if (docno != string.Empty)
                     {
-                        if(InsertTRNreplenish(Id, model.MainDB, model.ConnectString, docno,model.WLCode,model.UserName))
+                        if(InsertTRNreplenish(Id, model.MainDB, model.ConnectString, docno,model.WLCode,model.UserName,model.Connectmain.Trim()))
                         {
                             if(InsertTRNreplenishH(Id, model.MainDB, model.ConnectString, docno, model.WLCode))
                             {
@@ -361,7 +361,7 @@ namespace TNPSTOREWEB.Controllers
             return RedirectToAction("RepList", new { Id = Id,  datakey = datakey, type = data.Options[0] });
         }
         //GET Fuction: ReplenishController
-        private bool InsertTRNreplenish(decimal Id, string DBname, string DbConnext, string docno, string wlcode,string username)
+        private bool InsertTRNreplenish(decimal Id, string DBname, string DbConnext, string docno, string wlcode,string username,string MainConnect)
         {
             info = new();
             GetDBConnect dB = new();
@@ -407,7 +407,7 @@ namespace TNPSTOREWEB.Controllers
                     {
                         while (dB.myReader.Read())
                         {
-                            UnitBarcode unitBarcode = info.GetUnitBarcode(dB.myReader[2].ToString(), DBname, DbConnext);
+                            UnitBarcode unitBarcode = info.GetUnitBarcode(dB.myReader[2].ToString(), DBname, MainConnect);
                             
 
                             using (var _dbs = new TNPSTORESYSDBContext())
