@@ -815,7 +815,7 @@ namespace TNPSTOREWEB.Core
                     }
                     else
                     {
-                        if (mx.Count() != 0 && mxt.Count() != 0)
+                        if(mxt.Count() != 0)
                             {
                              datalist = dts.TmpreplenishDs.Where(t => t.TranStatus == "CRE" && t.TranDate == d).OrderByDescending(p => p.RecdNo).Select(t => t.RecdNo).First();
 

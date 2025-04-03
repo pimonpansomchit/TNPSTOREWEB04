@@ -1,5 +1,4 @@
 ﻿#nullable disable
-using Humanizer;
 using TNPSTOREWEB.Context;
 using TNPSTOREWEB.Model;
 using TNPSTOREWEB.Models;
