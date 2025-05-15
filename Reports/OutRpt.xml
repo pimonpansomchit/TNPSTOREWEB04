@@ -2,54 +2,30 @@
 <ArrayOfOutofSRpt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <OutofSRpt>
     <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocDate>01/04/2025</DocDate>
-    <Barcode>0068850336240043</Barcode>
-    <ProductName>ปืนไขว้ ผงกะหรี่วอร์ส 100ก. WT</ProductName>
-    <GroupId>09</GroupId>
-    <UnitName>bแพ็ค/6</UnitName>
+    <DocDate>15/05/2025</DocDate>
+    <Barcode>8850002022225</Barcode>
+    <ProductName>//108ช็อปผงซักฟอก 1000ก. ATO</ProductName>
+    <GroupId>01</GroupId>
+    <UnitName>a ถุง/1</UnitName>
     <LocIdtoName />
     <ItemQty>0</ItemQty>
-    <CreateDtime>2025-04-01T01:50:17.427</CreateDtime>
+    <CreateDtime>2025-05-15T09:33:55.953</CreateDtime>
     <CreateUser>tnp01</CreateUser>
-    <Totalitem>3</Totalitem>
+    <Totalitem>2</Totalitem>
+    <WlCode>01</WlCode>
   </OutofSRpt>
   <OutofSRpt>
     <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocDate>01/04/2025</DocDate>
-    <Barcode>8850332251135</Barcode>
-    <ProductName>อิมพีเรียลคุกกี้ 315ก.สูตรเดนมาร์ค WT</ProductName>
-    <GroupId>06</GroupId>
-    <UnitName>aกป/1</UnitName>
-    <LocIdtoName>โซน:12 เบย์:12 ชั้น:1</LocIdtoName>
+    <DocDate>15/05/2025</DocDate>
+    <Barcode>8850124091963</Barcode>
+    <ProductName>เนสท์เล่ 330 มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdtoName />
     <ItemQty>0</ItemQty>
-    <CreateDtime>2025-04-01T01:49:23.277</CreateDtime>
+    <CreateDtime>2025-05-15T09:33:08.26</CreateDtime>
     <CreateUser>tnp01</CreateUser>
-    <Totalitem>3</Totalitem>
-  </OutofSRpt>
-  <OutofSRpt>
-    <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocDate>01/04/2025</DocDate>
-    <Barcode>8850338015496</Barcode>
-    <ProductName>H เดนทีนไอซ์ 8 เม็ด เมนโทลิปตัส (แผง)</ProductName>
-    <GroupId>06</GroupId>
-    <UnitName>aชิ้น/1</UnitName>
-    <LocIdtoName>โซน:2 เบย์:2 ชั้น:2</LocIdtoName>
-    <ItemQty>0</ItemQty>
-    <CreateDtime>2025-04-01T01:47:03.237</CreateDtime>
-    <CreateUser>tnp01</CreateUser>
-    <Totalitem>3</Totalitem>
-  </OutofSRpt>
-  <OutofSRpt>
-    <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocDate>01/04/2025</DocDate>
-    <Barcode>8850338015496</Barcode>
-    <ProductName>H เดนทีนไอซ์ 8 เม็ด เมนโทลิปตัส (แผง)</ProductName>
-    <GroupId>06</GroupId>
-    <UnitName>aชิ้น/1</UnitName>
-    <LocIdtoName>โซน:2 เบย์:2 ชั้น:2</LocIdtoName>
-    <ItemQty>0</ItemQty>
-    <CreateDtime>2025-04-01T01:48:43.4</CreateDtime>
-    <CreateUser>tnp01</CreateUser>
-    <Totalitem>3</Totalitem>
+    <Totalitem>2</Totalitem>
+    <WlCode>01</WlCode>
   </OutofSRpt>
 </ArrayOfOutofSRpt>

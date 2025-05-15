@@ -325,7 +325,7 @@ namespace TNPSTOREWEB.Core
 
                         }
 
-                        query.dataRpt = query.dataRpt.ToList().OrderBy(t => t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
+                        query.dataOutRpt = query.dataOutRpt.ToList().OrderBy(t => t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
 
                     }
 
@@ -416,7 +416,10 @@ namespace TNPSTOREWEB.Core
                         query.dataExpRpt = new();
                         foreach (var i in datalist.OrderBy(t => t.Wlid).ThenBy(t => t.CreateDtime))
                         {
-
+                            if(i.LotNo==null)
+                            {
+                                i.LotNo = string.Empty;
+                            }
                             //select location
                             string locationto = $"	SELECT Loczone,Locrack,Loclev" +
                                                   $" FROM LOCprdd{i.Wlid.Trim()} t join " +
@@ -478,7 +481,7 @@ namespace TNPSTOREWEB.Core
                         }
 
 
-                        query.dataRpt = query.dataRpt.ToList().OrderBy(t => t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
+                        query.dataExpRpt = query.dataExpRpt.ToList().OrderBy(t => t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
 
 
                     }

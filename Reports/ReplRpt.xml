@@ -2,82 +2,42 @@
 <ArrayOfReplRpt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ReplRpt>
     <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocNo>RPL0125040005</DocNo>
-    <DocDate>4/1/2025 1:07:33 AM</DocDate>
-    <Barcode>8850332251135</Barcode>
-    <ProductName>อิมพีเรียลคุกกี้ 315ก.สูตรเดนมาร์ค WT</ProductName>
-    <GroupId>06</GroupId>
-    <UnitName>aกป/1</UnitName>
-    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
-    <LocIdtoName>โซน:12 เบย์:12 ชั้น:1</LocIdtoName>
+    <DocNo>RPL0125050001</DocNo>
+    <DocDate>5/15/2025 9:30:49 AM</DocDate>
+    <Barcode>8850124091963</Barcode>
+    <ProductName>เนสท์เล่ 330 มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdfmName />
+    <LocIdtoName />
     <ItemQty>10</ItemQty>
-    <ItemQtyRep>0</ItemQtyRep>
-    <TranStatusname>สร้างงานสั่งเติม</TranStatusname>
-    <CreateDtime>2025-04-01T01:07:33.357</CreateDtime>
+    <ItemQtyRep>8</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>2025-05-15T09:30:49.62</CreateDtime>
     <CreateUser>tnp01</CreateUser>
-    <ChangeDtime>2025-04-01T01:07:33.357</ChangeDtime>
+    <ChangeDtime>2025-05-15T09:32:23.67</ChangeDtime>
     <ChangeUser>tnp01</ChangeUser>
-    <Totalitem>3</Totalitem>
+    <Totalitem>2</Totalitem>
     <WlCode>01</WlCode>
   </ReplRpt>
   <ReplRpt>
     <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocNo>RPL0125040006</DocNo>
-    <DocDate>4/1/2025 1:10:13 AM</DocDate>
-    <Barcode>8850338015496</Barcode>
-    <ProductName>H เดนทีนไอซ์ 8 เม็ด เมนโทลิปตัส (แผง)</ProductName>
-    <GroupId>06</GroupId>
-    <UnitName>aชิ้น/1</UnitName>
-    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
-    <LocIdtoName>โซน:2 เบย์:2 ชั้น:2</LocIdtoName>
-    <ItemQty>2</ItemQty>
-    <ItemQtyRep>0</ItemQtyRep>
-    <TranStatusname>สร้างงานสั่งเติม</TranStatusname>
-    <CreateDtime>2025-04-01T01:10:13.743</CreateDtime>
-    <CreateUser>tnp01</CreateUser>
-    <ChangeDtime>2025-04-01T01:10:13.743</ChangeDtime>
-    <ChangeUser>tnp01</ChangeUser>
-    <Totalitem>3</Totalitem>
-    <WlCode>01</WlCode>
-  </ReplRpt>
-  <ReplRpt>
-    <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocNo>RPL0125040007</DocNo>
-    <DocDate>4/1/2025 1:46:39 AM</DocDate>
-    <Barcode>8850338015496</Barcode>
-    <ProductName>H เดนทีนไอซ์ 8 เม็ด เมนโทลิปตัส (แผง)</ProductName>
-    <GroupId>06</GroupId>
-    <UnitName>aชิ้น/1</UnitName>
-    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
-    <LocIdtoName>โซน:2 เบย์:2 ชั้น:2</LocIdtoName>
-    <ItemQty>2</ItemQty>
-    <ItemQtyRep>0</ItemQtyRep>
-    <TranStatusname>สร้างงานสั่งเติม</TranStatusname>
-    <CreateDtime>2025-04-01T01:46:39.803</CreateDtime>
-    <CreateUser>tnp01</CreateUser>
-    <ChangeDtime>2025-04-01T01:46:39.803</ChangeDtime>
-    <ChangeUser>tnp01</ChangeUser>
-    <Totalitem>3</Totalitem>
-    <WlCode>01</WlCode>
-  </ReplRpt>
-  <ReplRpt>
-    <WlName>บ้านดู่ (ดู่)</WlName>
-    <DocNo>RPL0425040008</DocNo>
-    <DocDate>4/2/2025 1:33:54 AM</DocDate>
-    <Barcode>8850338015496</Barcode>
-    <ProductName>H เดนทีนไอซ์ 8 เม็ด เมนโทลิปตัส (แผง)</ProductName>
-    <GroupId>06</GroupId>
-    <UnitName>aชิ้น/1</UnitName>
-    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
-    <LocIdtoName>โซน:2 เบย์:2 ชั้น:2</LocIdtoName>
+    <DocNo>RPL0125050001</DocNo>
+    <DocDate>5/15/2025 9:30:49 AM</DocDate>
+    <Barcode>8858779903051</Barcode>
+    <ProductName>ของแถม กระดาษทิชชู่เบลล์ 230 แผ่น*48 (เบอร์ลีย์เซลล็อกซ์)</ProductName>
+    <GroupId>901</GroupId>
+    <UnitName>a ห่อ/1</UnitName>
+    <LocIdfmName />
+    <LocIdtoName />
     <ItemQty>10</ItemQty>
-    <ItemQtyRep>0</ItemQtyRep>
-    <TranStatusname>สร้างงานสั่งเติม</TranStatusname>
-    <CreateDtime>2025-04-02T01:33:54.32</CreateDtime>
-    <CreateUser>admin</CreateUser>
-    <ChangeDtime>2025-04-02T01:33:54.32</ChangeDtime>
-    <ChangeUser>admin</ChangeUser>
-    <Totalitem>1</Totalitem>
-    <WlCode>04</WlCode>
+    <ItemQtyRep>5</ItemQtyRep>
+    <TranStatusname>จัดสินค้าบางส่วน</TranStatusname>
+    <CreateDtime>2025-05-15T09:30:49.727</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+    <ChangeDtime>2025-05-15T09:32:31.053</ChangeDtime>
+    <ChangeUser>tnp01</ChangeUser>
+    <Totalitem>2</Totalitem>
+    <WlCode>01</WlCode>
   </ReplRpt>
 </ArrayOfReplRpt>

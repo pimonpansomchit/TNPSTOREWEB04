@@ -137,7 +137,7 @@ namespace TNPSTOREWEB.Core
         {
            List<MstWl> wl = new();
             TNPSYSCTLDBContext db = new();
-                wl= db.MstWls.Where(t => t.CustKey != null).OrderBy(t => t.WlId).ToList();
+                wl= db.MstWls.OrderBy(t => t.WlId).ToList();
 
             return wl;
 

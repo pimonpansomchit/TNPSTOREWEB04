@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/28/2025 15:17:31" ReportInfo.Modified="04/02/2025 03:08:51" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/28/2025 15:17:31" ReportInfo.Modified="05/15/2025 21:29:57" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqKf5RzgGWjk6SYgnsOh2z+/asM/o1f5xizrh/zW/N4ZGYSiRGomJrlqSH4tryk96tOKebIdN8kUh7g5zW3Wdg6DsvWeDWNnfd8N71k0pD9Vc=">
+    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqKf5RzgGWjk6SYgnsOh2z+/asM/o1f5xizrh/zW/N4ZFJlTe1LL3LoEfAglw+H4FtyvzSGncrRNQrr6eu76SMKINGNSrRMtnVo258Q2T8WCo=">
       <TableDataSource Name="OutofSRpt" DataType="System.Int32" Enabled="true" TableName="OutofSRpt">
         <Column Name="WlName" DataType="System.String"/>
         <Column Name="DocDate" DataType="System.DateTime"/>
@@ -19,7 +19,6 @@
     </XmlDataConnection>
     <Parameter Name="DateFm" DataType="System.String" AsString=""/>
     <Parameter Name="DateTo" DataType="System.String" AsString=""/>
-    <Parameter Name="WLName" DataType="System.String" AsString=""/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" TopMargin="5" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
@@ -33,7 +32,7 @@
       <TextObject Name="Text36" Left="9.45" Top="9.45" Width="56.7" Height="18.9" Text="สาขา:" HorzAlign="Right" Font="Arial, 10pt"/>
       <TextObject Name="Text45" Left="66.15" Top="9.45" Width="94.5" Height="18.9" Text="[OutofSRpt.WlName]" Font="Arial, 10pt"/>
       <TextObject Name="Text46" Left="160.65" Top="9.45" Width="56.7" Height="18.9" Text="รายการทั้งหมด:" HorzAlign="Right" Font="Arial, 10pt"/>
-      <TextObject Name="Text47" Left="217.35" Top="9.45" Width="94.5" Height="18.9" Text="[OutofSRpt.Totalitem]" Font="Arial, 10pt"/>
+      <TextObject Name="Text47" Left="217.35" Top="9.45" Width="189" Height="18.9" Text="[OutofSRpt.Totalitem]" Font="Arial, 10pt"/>
       <TextObject Name="Text48" Left="945" Top="9.45" Width="85.05" Height="18.9" Text="[PageN]" Font="Arial, 10pt"/>
     </PageHeaderBand>
     <GroupHeaderBand Name="GroupHeader1" Top="74.15" Width="1047.06" Height="37.8" StartNewPage="true" Guides="9.45" Condition="[OutofSRpt.WlName]" ResetPageNumber="true">

@@ -1,9 +1,10 @@
 ﻿#nullable disable
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
 using FastReport.Export.PdfSimple;
 using FastReport.Web;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using System.Text;
 using TNPSTOREWEB.Context;
 using TNPSTOREWEB.Core;
 using TNPSTOREWEB.Model;
@@ -49,13 +50,12 @@ namespace TNPSTOREWEB.Controllers
                     }
                 }
 
-                
 
+                menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
                 menu = Getreptdata(menu,"R");
                 if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
                 {
-                    menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
-                    menu.wls = menu.wls.Where(t=>t.WlId==menu.Selectedadd).ToList();
+                    menu.wls = menu.wls.Where(t=>t.WlId.Trim()==menu.Selectedadd).ToList();
                     menu.disable = "disable";
                 }
                 else
@@ -232,12 +232,12 @@ namespace TNPSTOREWEB.Controllers
                     }
                 }
 
-                
 
+                menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
                 menu = Getreptdata(menu,"O");
                 if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
                 {
-                    menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+                   
                     menu.wls = menu.wls.Where(t => t.WlId == menu.Selectedadd).ToList();
                     menu.disable = "disable";
                 }
@@ -307,6 +307,65 @@ namespace TNPSTOREWEB.Controllers
             }
 
         }
+
+        public IActionResult OutExportCsv(ModelLayout menu)
+        {
+
+            try
+            {
+                var csv = new StringBuilder();
+                menu.ModelClass = new();
+                if (menu.Id != 0)
+                {
+
+                    menu.ModelClass.Users = GetDBConnect.GetClassModel(menu.Id);
+
+                }
+                else
+                {
+
+                    return RedirectToAction("Login", "Authen");
+
+                }
+
+                menu = Getreptdata(menu, "O");
+
+                var result = menu.dataOutRpt
+                .GroupBy(o => new { o.GroupId, o.barcode,o.WlCode })
+                .Select(g => new
+                {
+                    g.Key.GroupId,
+                    g.Key.barcode,
+                    g.Key.WlCode,
+                    TotalQuantity = g.Sum(x => x.ItemQty)
+                })
+                .ToList();
+
+                if (result.Count > 0) {
+                    
+
+                    // Header
+                    
+
+                    foreach (var item in result) {
+                        csv.AppendLine($"{item.GroupId.Trim()},{item.WlCode.Trim()},{item.WlCode.Trim()},{item.barcode.Trim()},{item.TotalQuantity},");
+
+                    }
+                
+                }
+
+                var bytes = Encoding.UTF8.GetBytes(csv.ToString());
+                string filename = $"OutofStockReport{DateTime.Now.ToString("yyyyMMdd") + "_" + menu.wlcode.Trim()}";
+                return File(bytes, "text/csv", $"{filename}.csv");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("OutofSHistory", "RepReport", menu);
+
+            }
+            
+        }
+
 
         public IActionResult OutPreviewPDF(decimal Id, string barcode, string datefm, string dateto, string groupid, string statusid,string wl)
         {
@@ -404,12 +463,12 @@ namespace TNPSTOREWEB.Controllers
                     }
                 }
 
-                
 
+                menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
                 menu = Getreptdata(menu, "E");
                 if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
                 {
-                    menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+                   
                     menu.wls = menu.wls.Where(t => t.WlId == menu.Selectedadd).ToList();
                     menu.disable = "disable";
                 }
@@ -547,6 +606,8 @@ namespace TNPSTOREWEB.Controllers
             }
 
         }
+
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -692,7 +753,6 @@ namespace TNPSTOREWEB.Controllers
         }
 
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ExportFile(ModelLayout rdata, decimal? Id, string export)
@@ -787,6 +847,55 @@ namespace TNPSTOREWEB.Controllers
             rdata.Id = Id;
 
             return RedirectToAction("OutExportExcel", "RepReport", rdata);
+
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult OutCsvFile(ModelLayout rdata, decimal? Id, string export)
+        {
+            try
+            {
+
+                if (Id != 0)
+                {
+                    rdata.Saveflg = 0;
+                    rdata.Message = "";
+                    info = new();
+                    if (rdata.Options != null)
+                    {
+                        rdata.SelectedOption = rdata.Options[0];
+                    }
+                    else
+                    {
+                        rdata.SelectedOption = "1";
+                    }
+
+                    if (export == null)
+                    {
+                        export = "N";
+                    }
+                    else
+                    {
+                        rdata.Export = export;
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Authen");
+                }
+            }
+            catch (Exception ex)
+            {
+                rdata.Saveflg = 1;
+                rdata.Message = ex.Message;
+
+            }
+            rdata.Id = Id;
+
+            return RedirectToAction("OutExportCsv", "RepReport", rdata);
 
 
 
@@ -925,6 +1034,8 @@ namespace TNPSTOREWEB.Controllers
 
             return data;
         }
+
+        
 
     }
 }

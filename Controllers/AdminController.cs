@@ -308,5 +308,8 @@ namespace TNPSTOREWEB.Controllers
             return RedirectToAction("Userlogin", "Admin", rdata);
 
         }
+
+       
+        
     }
 }

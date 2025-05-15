@@ -21,7 +21,7 @@
     </XmlDataConnection>
     <Parameter Name="DateFm" DataType="System.String" AsString=""/>
     <Parameter Name="DateTo" DataType="System.String" AsString=""/>
-    <Parameter Name="WLName" DataType="System.String" AsString=""/>
+   
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" TopMargin="5" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">

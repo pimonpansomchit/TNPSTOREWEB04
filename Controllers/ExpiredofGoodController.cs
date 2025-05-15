@@ -9,7 +9,7 @@ using TNPSTOREWEB.Models;
 using TNPSTOREWEB.Models.Request;
 namespace TNPSTOREWEB.Controllers
 {
-    public class ExpiredofGood : Controller
+    public class ExpiredofGoodController : Controller
     {
         private TNPSTORESYSDBContext _dbs;
         private GetProdInfo info;
