@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/28/2025 15:17:31" ReportInfo.Modified="04/02/2025 03:08:40" ReportInfo.CreatorVersion="2025.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/28/2025 15:17:31" ReportInfo.Modified="05/16/2025 20:22:15" ReportInfo.CreatorVersion="2025.1.0.0">
   <Dictionary>
-    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqKf5RzgGWjk6SYgnsOh2z+/asM/o1f5xizrh/zW/N4ZGYSiRGomJrlqSH4tryk96tOKebIdN8kUh7g5zW3Wdg6AIeQDbLGj+0c0ClCQiH7OQ=">
+    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqKf5RzgGWjk6SYgnsOh2z+/asM/o1f5xizrh/zW/N4ZFJlTe1LL3LoEfAglw+H4FtyvzSGncrRNQrr6eu76SMKMvzfRRD67cHxImR45rYAV4=">
       <TableDataSource Name="ExpRpt" DataType="System.Int32" Enabled="true" TableName="ExpRpt">
         <Column Name="WlName" DataType="System.String"/>
         <Column Name="DocDate" DataType="System.String"/>
@@ -21,7 +21,6 @@
     </XmlDataConnection>
     <Parameter Name="DateFm" DataType="System.String" AsString=""/>
     <Parameter Name="DateTo" DataType="System.String" AsString=""/>
-   
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" TopMargin="5" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">

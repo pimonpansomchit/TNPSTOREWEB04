@@ -51,8 +51,9 @@ namespace TNPSTOREWEB.Controllers
                 }
 
 
-                menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+               
                 menu = Getreptdata(menu,"R");
+
                 if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
                 {
                     menu.wls = menu.wls.Where(t=>t.WlId.Trim()==menu.Selectedadd).ToList();
@@ -90,7 +91,7 @@ namespace TNPSTOREWEB.Controllers
                     return RedirectToAction("Login", "Authen");
 
                 }
-
+               
                 menu = Getreptdata(menu, "R");
 
                 using (var workbook = new XLWorkbook())
@@ -178,7 +179,6 @@ namespace TNPSTOREWEB.Controllers
                 string filepath = Path.Combine(_env.ContentRootPath, "Reports", "ReplRpt.xml");
                 intofile.SaveToXml(rdata.dataRpt, filepath.Trim());
 
-               
                 WebReport webReport = new WebReport();
                 string reportpath = Path.Combine(_env.ContentRootPath, "Reports", "Relreport.frx");
                 webReport.Report.Load(reportpath);
@@ -233,7 +233,7 @@ namespace TNPSTOREWEB.Controllers
                 }
 
 
-                menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+               
                 menu = Getreptdata(menu,"O");
                 if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
                 {
@@ -270,7 +270,7 @@ namespace TNPSTOREWEB.Controllers
                     return RedirectToAction("Login", "Authen");
 
                 }
-
+               
                 menu = Getreptdata(menu,"O");
 
                 using (var workbook = new XLWorkbook())
@@ -327,7 +327,7 @@ namespace TNPSTOREWEB.Controllers
                     return RedirectToAction("Login", "Authen");
 
                 }
-
+                
                 menu = Getreptdata(menu, "O");
 
                 var result = menu.dataOutRpt
@@ -464,7 +464,7 @@ namespace TNPSTOREWEB.Controllers
                 }
 
 
-                menu.Selectedadd = menu.ModelClass.Users.WLCode.Trim();
+               
                 menu = Getreptdata(menu, "E");
                 if (menu.ModelClass.Users.ClassId != "ADMIN" && menu.ModelClass.Users.ClassId != "HEADOFFICE")
                 {
@@ -515,10 +515,7 @@ namespace TNPSTOREWEB.Controllers
 
                 }
 
-
-
                 rdata = Getreptdata(rdata, "E");
-               
                 string filepath = Path.Combine(_env.ContentRootPath, "Reports", "ExpRpt.xml");
                 intofile.SaveToXml(rdata.dataExpRpt, filepath.Trim());
 
@@ -527,7 +524,6 @@ namespace TNPSTOREWEB.Controllers
                 webReport.Report.Load(reportpath);
                 webReport.Report.SetParameterValue("DateFm", datefm);
                 webReport.Report.SetParameterValue("DateTo", dateto);
-
                 webReport.Report.Prepare();
 
                 using (MemoryStream ms = new MemoryStream())
@@ -536,8 +532,6 @@ namespace TNPSTOREWEB.Controllers
 
                     webReport.Report.Export(pDFSimpleExport, ms);
                     ms.Position = 0;
-                    //string htmlContent =System.Text.Encoding.UTF8.GetString(ms.ToArray());
-                    //return Content(htmlContent, "text/html");
                     return File(ms.ToArray(), "application/pdf");
 
                 }
@@ -568,7 +562,7 @@ namespace TNPSTOREWEB.Controllers
                     return RedirectToAction("Login", "Authen");
 
                 }
-
+                
                 menu = Getreptdata(menu, "E");
 
                 using (var workbook = new XLWorkbook())
@@ -1009,8 +1003,15 @@ namespace TNPSTOREWEB.Controllers
                     data.DateTo = DateTime.Now.ToString("yyyy-MM-dd");
 
                 }
-
-               
+                if(data.Selectedadd=="0")
+                {
+                   if (data.ModelClass.Users.ClassId != "ADMIN" && data.ModelClass.Users.ClassId != "HEADOFFICE")
+                    {
+                        data.Selectedadd = data.ModelClass.Users.WLCode.Trim();
+                    }
+                   
+                }
+                
                 data.wlcode = data.ModelClass.Users.WLCode.Trim();
                 data.ModelClass.stClasses = getClassMenu.GetStClassesweb(data.ModelClass.Users.ClassId, 0, 0, 0, 0);
                 data.wls = getClassMenu.Getlis();
