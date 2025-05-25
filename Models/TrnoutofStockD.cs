@@ -43,5 +43,5 @@ public partial class TrnoutofStockD
 
     public decimal Logid { get; set; }
 
-    public DateTime? CreateDtime { get; set; }
+    public DateTime CreateDtime { get; set; }
 }

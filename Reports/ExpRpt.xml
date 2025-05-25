@@ -1,35 +1,323 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfExpRpt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ExpRpt>
-    <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocDate>15/05/2025</DocDate>
-    <Barcode>8850092283605</Barcode>
-    <ProductName>//ไฮยีนปรับผ้าเข้มข้น 480-540มล.มอร์นิ่งเฟรชฟ้า BTO</ProductName>
-    <GroupId>01</GroupId>
-    <UnitName>aถุง/1</UnitName>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>10/05/2568</DocDate>
+    <Barcode>8850871204333</Barcode>
+    <ProductName>เดลี่ไบรท์ ฝอยสเตนเลส แพ็ค3 E</ProductName>
+    <GroupId>05</GroupId>
+    <UnitName>a ชุด/1</UnitName>
     <LocIdtoName />
-    <ItemQty>10</ItemQty>
-    <Expdate>5/3/2026</Expdate>
+    <ItemQty>20</ItemQty>
+    <Expdate>03/05/2565</Expdate>
     <LotNo />
-    <CreateDtime>2025-05-15T09:46:06.803</CreateDtime>
-    <CreateUser>tnp01</CreateUser>
-    <Totalitem>2</Totalitem>
-    <WlCode>01</WlCode>
+    <CreateDtime>10/05/2568 16:39:52</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
   </ExpRpt>
   <ExpRpt>
-    <WlName>หอนาฬิกา (หอ)</WlName>
-    <DocDate>15/05/2025</DocDate>
-    <Barcode>8851818190542</Barcode>
-    <ProductName>ของแถม แอทแทค3D 180-225ก.ซอฟท์โรแมนติกเลิฟ(คาโอ)</ProductName>
-    <GroupId>901</GroupId>
-    <UnitName>a ถุง/1</UnitName>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>10/05/2568</DocDate>
+    <Barcode>8850871204333</Barcode>
+    <ProductName>เดลี่ไบรท์ ฝอยสเตนเลส แพ็ค3 E</ProductName>
+    <GroupId>05</GroupId>
+    <UnitName>a ชุด/1</UnitName>
     <LocIdtoName />
     <ItemQty>10</ItemQty>
-    <Expdate>6/14/2026</Expdate>
-    <LotNo>15052568</LotNo>
-    <CreateDtime>2025-05-15T09:46:46.307</CreateDtime>
-    <CreateUser>tnp01</CreateUser>
-    <Totalitem>2</Totalitem>
-    <WlCode>01</WlCode>
+    <Expdate>10/05/2568</Expdate>
+    <LotNo />
+    <CreateDtime>10/05/2568 16:48:51</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>10/05/2568</DocDate>
+    <Barcode>8850871204333</Barcode>
+    <ProductName>เดลี่ไบรท์ ฝอยสเตนเลส แพ็ค3 E</ProductName>
+    <GroupId>05</GroupId>
+    <UnitName>a ชุด/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>2</ItemQty>
+    <Expdate>16/05/2568</Expdate>
+    <LotNo />
+    <CreateDtime>10/05/2568 16:51:02</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>10/05/2568</DocDate>
+    <Barcode>8850387004014</Barcode>
+    <ProductName>ครีโมไพลอท ช็อกโกแลตสวิส  60ก. 25.- /P</ProductName>
+    <GroupId>12</GroupId>
+    <UnitName>aชิ้น/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>02/08/2569</Expdate>
+    <LotNo />
+    <CreateDtime>10/05/2568 11:53:11</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>10/05/2568</DocDate>
+    <Barcode>8850387004014</Barcode>
+    <ProductName>ครีโมไพลอท ช็อกโกแลตสวิส  60ก. 25.- /P</ProductName>
+    <GroupId>12</GroupId>
+    <UnitName>aชิ้น/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>02/08/2568</Expdate>
+    <LotNo />
+    <CreateDtime>10/05/2568 11:53:40</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>10/05/2568</DocDate>
+    <Barcode>8850387004014</Barcode>
+    <ProductName>ครีโมไพลอท ช็อกโกแลตสวิส  60ก. 25.- /P</ProductName>
+    <GroupId>12</GroupId>
+    <UnitName>aชิ้น/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>02/08/2569</Expdate>
+    <LotNo />
+    <CreateDtime>10/05/2568 11:53:48</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8850124070999</Barcode>
+    <ProductName>คาร์เนชั่น 385ก.นมสด (เอ็กซ์ตร้า) ADTO</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>aกระป๋อง/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>15/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 12:08:45</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8851012011315</Barcode>
+    <ProductName>คาร์เนชั่น 388ก.ครีมเทียมข้นหวาน BDTO</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>aกป/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>12</ItemQty>
+    <Expdate>16/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 12:07:01</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8850127058475</Barcode>
+    <ProductName>คาร์เนชั่น1+(สูตร3) 850ก. วานิลลา CD</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>aถุง/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>2</ItemQty>
+    <Expdate>27/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 12:02:00</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8852756304053</Barcode>
+    <ProductName>เคลล็อกส์ 275ก.คอร์นเฟลกส์ /W</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>a กล่อง/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>2</ItemQty>
+    <Expdate>14/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 12:03:22</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8852756304053</Barcode>
+    <ProductName>เคลล็อกส์ 275ก.คอร์นเฟลกส์ /W</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>a กล่อง/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>2</ItemQty>
+    <Expdate>14/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 12:03:36</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8858705613023</Barcode>
+    <ProductName>ทีพอทเอ็กซ์ตร้า 1000มล. ครีมเทียมพร่องไขมัน C</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>aกล่อง/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>2</ItemQty>
+    <Expdate>19/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 12:06:30</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8850188803106</Barcode>
+    <ProductName>นกเหยี่ยว 1000มล.สำหรับตีฟองCTO</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>aกล่อง/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>6</ItemQty>
+    <Expdate>02/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 11:33:02</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>16/05/2568</DocDate>
+    <Barcode>8850127007183</Barcode>
+    <ProductName>เนสท์ที 18*13ก.ชามะนาว ED</ProductName>
+    <GroupId>08</GroupId>
+    <UnitName>aห่อ/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>2</ItemQty>
+    <Expdate>21/07/2568</Expdate>
+    <LotNo />
+    <CreateDtime>16/05/2568 12:00:25</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>17/05/2568</DocDate>
+    <Barcode>0038850343000173</Barcode>
+    <ProductName>ไฮนซ์ ซอสมะเขือเทศ 600ก.ET</ProductName>
+    <GroupId>09</GroupId>
+    <UnitName>bแพ็ค/3</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>17/05/2568</Expdate>
+    <LotNo>1</LotNo>
+    <CreateDtime>17/05/2568 15:20:41</CreateDtime>
+    <CreateUser>tnp39_01</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>18/05/2568</DocDate>
+    <Barcode>1</Barcode>
+    <ProductName>2</ProductName>
+    <GroupId>60</GroupId>
+    <UnitName>a ชุด/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>13/05/2568</Expdate>
+    <LotNo>1</LotNo>
+    <CreateDtime>18/05/2568 13:35:16</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>18/05/2568</DocDate>
+    <Barcode>1</Barcode>
+    <ProductName>2</ProductName>
+    <GroupId>60</GroupId>
+    <UnitName>a ชุด/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>16/05/2568</Expdate>
+    <LotNo>1</LotNo>
+    <CreateDtime>18/05/2568 13:35:46</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>18/05/2568</DocDate>
+    <Barcode>1</Barcode>
+    <ProductName>2</ProductName>
+    <GroupId>60</GroupId>
+    <UnitName>a ชุด/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>17/05/2568</Expdate>
+    <LotNo>1</LotNo>
+    <CreateDtime>18/05/2568 14:06:35</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>18/05/2568</DocDate>
+    <Barcode>1</Barcode>
+    <ProductName>2</ProductName>
+    <GroupId>60</GroupId>
+    <UnitName>a ชุด/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>16/05/2568</Expdate>
+    <LotNo>1</LotNo>
+    <CreateDtime>18/05/2568 14:25:13</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
+  </ExpRpt>
+  <ExpRpt>
+    <WlName>สาขา แม่ใจ</WlName>
+    <DocDate>19/05/2568</DocDate>
+    <Barcode>1</Barcode>
+    <ProductName>2</ProductName>
+    <GroupId>60</GroupId>
+    <UnitName>a ชุด/1</UnitName>
+    <LocIdtoName />
+    <ItemQty>1</ItemQty>
+    <Expdate>19/05/2568</Expdate>
+    <LotNo>1</LotNo>
+    <CreateDtime>19/05/2568 13:21:32</CreateDtime>
+    <CreateUser>tnp39</CreateUser>
+    <Totalitem>20</Totalitem>
+    <WlCode>39</WlCode>
   </ExpRpt>
 </ArrayOfExpRpt>

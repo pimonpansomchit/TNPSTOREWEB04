@@ -34,8 +34,8 @@ namespace TNPSTOREWEB.Model
         public string? LotNo { get; set; }
 
         [XmlElement("CreateDtime")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
-        public DateTime? CreateDtime { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
+        public string? CreateDtime { get; set; }
 
         [XmlElement("CreateUser")]
         public string? CreateUser { get; set; }

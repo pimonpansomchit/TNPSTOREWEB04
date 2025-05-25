@@ -33,14 +33,14 @@ namespace TNPSTOREWEB.Model
         public string? TranStatusname { get; set; }
 
         [XmlElement("CreateDtime")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
-        public DateTime? CreateDtime { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
+        public string? CreateDtime { get; set; }
         [XmlElement("CreateUser")]
         public string? CreateUser { get; set; }
         [XmlElement("ChangeDtime")]
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
-        public DateTime? ChangeDtime { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
+        public string? ChangeDtime { get; set; }
         [XmlElement("ChangeUser")]
         public string? ChangeUser { get; set; }
 

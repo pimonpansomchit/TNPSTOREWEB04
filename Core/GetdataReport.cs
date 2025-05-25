@@ -132,12 +132,18 @@ namespace TNPSTOREWEB.Core
                                 }
                             }
 
+                           
+                            int buddhistYear = i.CreateDtime.Year + 543;
+                            int buddhistChYear = i.ChangeDtime.Year + 543;
+                            string docdate = i.CreateDtime.ToString("dd/MM") + $"/{buddhistYear}";
+                            string create = i.CreateDtime.ToString("dd/MM") + $"/{buddhistYear} {i.CreateDtime.ToString("HH:mm:ss")}";
+                            string change = i.ChangeDtime.ToString("dd/MM") + $"/{buddhistYear} {i.ChangeDtime.ToString("HH:mm:ss")}";
 
                             query.dataRpt.Add(new ReplRpt
                             {
                                 WlName = db.MstWls.Where(t => t.WlId == i.Wlid.Trim()).Select(t => t.WlName).First(),
                                 DocNo = i.DocNo,
-                                DocDate = i.CreateDtime.ToString(),
+                                DocDate = docdate.ToString(),
                                 barcode = i.Barcode.Trim(),
                                 productName = i.ItemName.Trim(),
                                 LocIdfmName = mapfm,
@@ -147,9 +153,9 @@ namespace TNPSTOREWEB.Core
                                 ItemQty = i.ItemQty,
                                 ItemQtyRep = i.ItemQtyRep,
                                 TranStatusname = statusname,
-                                CreateDtime = i.CreateDtime,
+                                CreateDtime = create.Trim(),
                                 CreateUser = i.CreateUser,
-                                ChangeDtime = i.ChangeDtime,
+                                ChangeDtime = change,
                                 ChangeUser = i.ChangeUser,
                                 Totalitem = datalist.Where(t => t.Wlid == i.Wlid.Trim()).Count(),
                                 WlCode = i.Wlid,
@@ -165,7 +171,7 @@ namespace TNPSTOREWEB.Core
                                 DateTime datastarts = Convert.ToDateTime(query.DateFm + " 00:00:00");
                                 DateTime dataends = Convert.ToDateTime(query.DateTo + " 23:59:59");
 
-                                var orderdata = query.dataRpt.Where(t => t.CreateDtime >= datastarts).Where(t => t.CreateDtime<= dataends).ToList().OrderBy(t => t.DocNo);
+                                var orderdata = query.dataRpt.Where(t => Convert.ToDateTime(t.CreateDtime) >= datastarts).Where(t => Convert.ToDateTime(t.CreateDtime) <= dataends).ToList().OrderBy(t => t.DocNo);
                                 query.dataRpt = orderdata.ToList();
                             }
                             query.dataRpt= query.dataRpt.ToList().OrderBy(t=>t.WlCode).ThenBy(t => t.DocDate).ThenBy(t => t.GroupId).ThenBy(t => t.productName).ToList();
@@ -306,10 +312,15 @@ namespace TNPSTOREWEB.Core
                                 }
                             }
 
+                            int buddhistYear = i.TranDate.Year + 543;
+                            string docdate = i.TranDate.ToString("dd/MM") + $"/{buddhistYear}";
+                            int buddhistChYear = i.CreateDtime.Year + 543;
+                            string create = i.CreateDtime.ToString("dd/MM") + $"/{buddhistYear} {i.CreateDtime.ToString("HH:mm:ss")}";
+                          
                             query.dataOutRpt.Add(new OutofSRpt
                             {
                                 WlName = db.MstWls.Where(t => t.WlId == i.Wlid.Trim()).Select(t => t.WlName).First(),
-                                DocDate = i.TranDate.ToString("dd/MM/yyyy"),
+                                DocDate = docdate,
                                 barcode = i.Barcode.Trim(),
                                 productName = i.ItemName.Trim(),
                                 GroupId = i.GroupId.Trim(),
@@ -317,7 +328,7 @@ namespace TNPSTOREWEB.Core
                                 LocIdtoName = mapto,
                                 ItemQty = j,
                                 CreateUser = i.CreateUser,
-                                CreateDtime = i.CreateDtime,
+                                CreateDtime = create,
                                 Totalitem = datalist.Where(t => t.Wlid == i.Wlid.Trim()).Count(),
                                  WlCode = i.Wlid,
                             });
@@ -460,20 +471,31 @@ namespace TNPSTOREWEB.Core
                                     }
                                 }
                             }
+
+                            int buddhistYear = i.TranDate.Year + 543;
+                            string docdate = i.TranDate.ToString("dd/MM") + $"/{buddhistYear}";
+                            int buddhistChYear = i.CreateDtime.Year + 543;
+                            string create = i.CreateDtime.ToString("dd/MM") + $"/{buddhistYear} {i.CreateDtime.ToString("HH:mm:ss")}";
+                            string ExprieYear = i.ExprieDate.ToString();
+                            DateTime DtExprieYear = Convert.ToDateTime(ExprieYear);
+                            int buddhistYearEx = DtExprieYear.Year + 543;
+                            string ExprieDatebudd = DtExprieYear.ToString("dd/MM") + $"/{buddhistYearEx}";
+
+
                             query.dataExpRpt.Add(new ExpRpt
                             {
                                 WlName = db.MstWls.Where(t=>t.WlId==i.Wlid.Trim()).Select(t=>t.WlName).First(),
-                                DocDate = i.TranDate.ToString("dd/MM/yyyy"),
+                                DocDate = docdate,
                                 barcode = i.Barcode.Trim(),
                                 productName = i.ItemName.Trim(),
                                 GroupId = i.GroupId.Trim(),
                                 UnitName = i.UnitName.Trim(),
                                 LocIdtoName = mapto,
                                 ItemQty = i.ItemQty,
-                                Expdate=i.ExprieDate.ToString(),
+                                Expdate= ExprieDatebudd.Trim(),
                                 LotNo = i.LotNo.Trim(),
                                 CreateUser = i.CreateUser,
-                                CreateDtime = i.CreateDtime,
+                                CreateDtime = create,
                                 Totalitem = datalist.Where(t => t.Wlid == i.Wlid.Trim()).Count(),
                                 WlCode = i.Wlid,
                             });

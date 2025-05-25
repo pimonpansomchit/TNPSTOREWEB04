@@ -47,5 +47,5 @@ public partial class TrnexpiredofGoodD
 
     public decimal Logid { get; set; }
 
-    public DateTime? CreateDtime { get; set; }
+    public DateTime CreateDtime { get; set; }
 }

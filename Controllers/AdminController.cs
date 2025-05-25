@@ -210,54 +210,65 @@ namespace TNPSTOREWEB.Controllers
 
                 using (TNPSTORESYSDBContext _dbs = new())
                 {
-                    var data = _dbs.StUserlogins.Where(t => t.WlCode ==(rdata.SelectedOption.Trim()) && t.UserName == rdata.addusr.UserName).FirstOrDefault();
-                    if (data == null)
+                    var dataname = _dbs.StUserlogins.Where(t => t.UserName == rdata.addusr.UserName).FirstOrDefault();
+                    var data = _dbs.StUserlogins.Where(t => t.WlCode == (rdata.SelectedOption.Trim()) && t.UserName == rdata.addusr.UserName).FirstOrDefault();
+                   
+                    if(dataname==null)
                     {
-                        rdata.addusr.WlKey = _db.MstWls.Where(t => t.WlId == (rdata.SelectedOption.Trim())).Select(t => t.WlKey).First();
-                        rdata.addusr.WlCode = (rdata.SelectedOption.Trim());
-                        rdata.addusr.WlName = _db.MstWls.Where(t => t.WlId == (rdata.SelectedOption.Trim())).Select(t => t.WlName).First();
-                        rdata.addusr.ClassId = _dbs.StClassinfos.Where(t=>t.ClassCode==rdata.SelectGroupNo.Trim()).Select(t=>t.ClassName).First();
-                        rdata.addusr.CreateDtime = DateTime.Now;
-                        rdata.addusr.CreateUser = rdata.ModelClass.Users.UserName;
-                        rdata.addusr.ChangeDtime = DateTime.Now;
-                        rdata.addusr.ChangeUser = rdata.ModelClass.Users.UserName;
-                        rdata.addusr.SessionType = "M";
-                        rdata.addusr.Whid = rdata.ModelClass.Users.WHcode.Trim();
-                        rdata.addusr.TbNewlabel = "tb_new" + rdata.addusr.WlCode.Trim();
-                        rdata.addusr.DbName = rdata.ModelClass.Users.DBKey;
-                        rdata.addusr.Language = "T";
-                        rdata.addusr.ArprbCode = _dbs.StWlprices.Where(t => t.WlCode == rdata.addusr.WlCode).Select(t => t.ArprbCode).First();
-                        _dbs.Add(rdata.addusr);
-                        _dbs.SaveChanges();
-                        rdata.actions = "A";
-                        rdata.addusr = new();
-                        rdata.SelectGroupNo = "0";
-                        rdata.SelectedOption = "0";
-                        rdata.Saveflg = 0;
-                        rdata.Message = "บันทึกข้อมูลสำเร็จ";
-                    }
-                    else
-                    {
-                        if(rdata.actions == "M")
+                        if (data == null)
                         {
+                            rdata.addusr.WlKey = _db.MstWls.Where(t => t.WlId == (rdata.SelectedOption.Trim())).Select(t => t.WlKey).First();
+                            rdata.addusr.WlCode = (rdata.SelectedOption.Trim());
+                            rdata.addusr.WlName = _db.MstWls.Where(t => t.WlId == (rdata.SelectedOption.Trim())).Select(t => t.WlName).First();
+                            rdata.addusr.ClassId = _dbs.StClassinfos.Where(t => t.ClassCode == rdata.SelectGroupNo.Trim()).Select(t => t.ClassName).First();
+                            rdata.addusr.CreateDtime = DateTime.Now;
+                            rdata.addusr.CreateUser = rdata.ModelClass.Users.UserName;
                             rdata.addusr.ChangeDtime = DateTime.Now;
                             rdata.addusr.ChangeUser = rdata.ModelClass.Users.UserName;
+                            rdata.addusr.SessionType = "M";
+                            rdata.addusr.Whid = rdata.ModelClass.Users.WHcode.Trim();
+                            rdata.addusr.TbNewlabel = "tb_new" + rdata.addusr.WlCode.Trim();
+                            rdata.addusr.DbName = rdata.ModelClass.Users.DBKey;
+                            rdata.addusr.Language = "T";
+                            rdata.addusr.ArprbCode = _dbs.StWlprices.Where(t => t.WlCode == rdata.addusr.WlCode).Select(t => t.ArprbCode).First();
+                            _dbs.Add(rdata.addusr);
                             _dbs.SaveChanges();
                             rdata.actions = "A";
                             rdata.addusr = new();
+                            rdata.SelectGroupNo = "0";
+                            rdata.SelectedOption = "0";
                             rdata.Saveflg = 0;
                             rdata.Message = "บันทึกข้อมูลสำเร็จ";
-                           
                         }
                         else
                         {
-                            rdata.Saveflg = 1;
-                            rdata.Message = "ไม่สามารถ เพิ่มข้อมุลได้";
+                            if (rdata.actions == "M")
+                            {
+                                rdata.addusr.ChangeDtime = DateTime.Now;
+                                rdata.addusr.ChangeUser = rdata.ModelClass.Users.UserName;
+                                _dbs.SaveChanges();
+                                rdata.actions = "A";
+                                rdata.addusr = new();
+                                rdata.Saveflg = 0;
+                                rdata.Message = "บันทึกข้อมูลสำเร็จ";
+
+                            }
+                            else
+                            {
+                                rdata.Saveflg = 1;
+                                rdata.Message = "ไม่สามารถ เพิ่มข้อมุลได้";
+                            }
                         }
                     }
+                    else
+                    {
+                        rdata.Saveflg = 1;
+                        rdata.Message = "ไม่สามารถ เพิ่มข้อมุลได้ เนื่องจากมี username นี้ในระบบแล้ว";
+                    }
 
-                    
-                    rdata.Id = Id;
+
+
+                        rdata.Id = Id;
                 }
 
                 //Add

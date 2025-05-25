@@ -51,9 +51,9 @@ public partial class TrnreplenishD
 
     public string? CreateUser { get; set; }
 
-    public DateTime? CreateDtime { get; set; }
+    public DateTime CreateDtime { get; set; }
 
     public string? ChangeUser { get; set; }
 
-    public DateTime? ChangeDtime { get; set; }
+    public DateTime ChangeDtime { get; set; }
 }

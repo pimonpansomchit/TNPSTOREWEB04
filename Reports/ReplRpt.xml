@@ -3,7 +3,7 @@
   <ReplRpt>
     <WlName>หอนาฬิกา (หอ)</WlName>
     <DocNo>RPL0125050001</DocNo>
-    <DocDate>5/15/2025 9:30:49 AM</DocDate>
+    <DocDate>15/05/2568</DocDate>
     <Barcode>8850124091963</Barcode>
     <ProductName>เนสท์เล่ 330 มล. น้ำดื่ม ATO</ProductName>
     <GroupId>07</GroupId>
@@ -13,17 +13,17 @@
     <ItemQty>10</ItemQty>
     <ItemQtyRep>8</ItemQtyRep>
     <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
-    <CreateDtime>2025-05-15T09:30:49.62</CreateDtime>
+    <CreateDtime>15/05/2568 09:30:49</CreateDtime>
     <CreateUser>tnp01</CreateUser>
-    <ChangeDtime>2025-05-15T09:32:23.67</ChangeDtime>
+    <ChangeDtime>15/05/2568 09:32:23</ChangeDtime>
     <ChangeUser>tnp01</ChangeUser>
-    <Totalitem>2</Totalitem>
+    <Totalitem>8</Totalitem>
     <WlCode>01</WlCode>
   </ReplRpt>
   <ReplRpt>
     <WlName>หอนาฬิกา (หอ)</WlName>
     <DocNo>RPL0125050001</DocNo>
-    <DocDate>5/15/2025 9:30:49 AM</DocDate>
+    <DocDate>15/05/2568</DocDate>
     <Barcode>8858779903051</Barcode>
     <ProductName>ของแถม กระดาษทิชชู่เบลล์ 230 แผ่น*48 (เบอร์ลีย์เซลล็อกซ์)</ProductName>
     <GroupId>901</GroupId>
@@ -31,13 +31,133 @@
     <LocIdfmName />
     <LocIdtoName />
     <ItemQty>10</ItemQty>
-    <ItemQtyRep>5</ItemQtyRep>
-    <TranStatusname>จัดสินค้าบางส่วน</TranStatusname>
-    <CreateDtime>2025-05-15T09:30:49.727</CreateDtime>
+    <ItemQtyRep>15</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>15/05/2568 09:30:49</CreateDtime>
     <CreateUser>tnp01</CreateUser>
-    <ChangeDtime>2025-05-15T09:32:31.053</ChangeDtime>
+    <ChangeDtime>17/05/2568 09:24:15</ChangeDtime>
     <ChangeUser>tnp01</ChangeUser>
-    <Totalitem>2</Totalitem>
+    <Totalitem>8</Totalitem>
+    <WlCode>01</WlCode>
+  </ReplRpt>
+  <ReplRpt>
+    <WlName>หอนาฬิกา (หอ)</WlName>
+    <DocNo>RPL0125050002</DocNo>
+    <DocDate>17/05/2568</DocDate>
+    <Barcode>8850999321004</Barcode>
+    <ProductName>สิงห์ 600มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
+    <LocIdtoName>โซน:1 เบย์:1 ชั้น:1</LocIdtoName>
+    <ItemQty>40</ItemQty>
+    <ItemQtyRep>40</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>17/05/2568 09:24:44</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+    <ChangeDtime>17/05/2568 09:27:00</ChangeDtime>
+    <ChangeUser>tnp01</ChangeUser>
+    <Totalitem>8</Totalitem>
+    <WlCode>01</WlCode>
+  </ReplRpt>
+  <ReplRpt>
+    <WlName>หอนาฬิกา (หอ)</WlName>
+    <DocNo>RPL0125050003</DocNo>
+    <DocDate>17/05/2568</DocDate>
+    <Barcode>8850999321004</Barcode>
+    <ProductName>สิงห์ 600มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
+    <LocIdtoName>โซน:1 เบย์:1 ชั้น:1</LocIdtoName>
+    <ItemQty>20</ItemQty>
+    <ItemQtyRep>20</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>17/05/2568 09:27:37</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+    <ChangeDtime>17/05/2568 09:28:23</ChangeDtime>
+    <ChangeUser>tnp01</ChangeUser>
+    <Totalitem>8</Totalitem>
+    <WlCode>01</WlCode>
+  </ReplRpt>
+  <ReplRpt>
+    <WlName>หอนาฬิกา (หอ)</WlName>
+    <DocNo>RPL0125050004</DocNo>
+    <DocDate>17/05/2568</DocDate>
+    <Barcode>8850124091963</Barcode>
+    <ProductName>เนสท์เล่ 330 มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
+    <LocIdtoName>โซน:1 เบย์:1 ชั้น:1</LocIdtoName>
+    <ItemQty>30</ItemQty>
+    <ItemQtyRep>30</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>17/05/2568 09:29:50</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+    <ChangeDtime>17/05/2568 09:30:14</ChangeDtime>
+    <ChangeUser>tnp01</ChangeUser>
+    <Totalitem>8</Totalitem>
+    <WlCode>01</WlCode>
+  </ReplRpt>
+  <ReplRpt>
+    <WlName>หอนาฬิกา (หอ)</WlName>
+    <DocNo>RPL0125050004</DocNo>
+    <DocDate>17/05/2568</DocDate>
+    <Barcode>8850999321004</Barcode>
+    <ProductName>สิงห์ 600มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
+    <LocIdtoName>โซน:1 เบย์:1 ชั้น:1</LocIdtoName>
+    <ItemQty>10</ItemQty>
+    <ItemQtyRep>10</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>17/05/2568 09:29:50</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+    <ChangeDtime>17/05/2568 09:30:22</ChangeDtime>
+    <ChangeUser>tnp01</ChangeUser>
+    <Totalitem>8</Totalitem>
+    <WlCode>01</WlCode>
+  </ReplRpt>
+  <ReplRpt>
+    <WlName>หอนาฬิกา (หอ)</WlName>
+    <DocNo>RPL0125050005</DocNo>
+    <DocDate>17/05/2568</DocDate>
+    <Barcode>8850999321004</Barcode>
+    <ProductName>สิงห์ 600มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
+    <LocIdtoName>โซน:1 เบย์:1 ชั้น:1</LocIdtoName>
+    <ItemQty>50</ItemQty>
+    <ItemQtyRep>50</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>17/05/2568 09:31:17</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+    <ChangeDtime>17/05/2568 09:31:52</ChangeDtime>
+    <ChangeUser>tnp01</ChangeUser>
+    <Totalitem>8</Totalitem>
+    <WlCode>01</WlCode>
+  </ReplRpt>
+  <ReplRpt>
+    <WlName>หอนาฬิกา (หอ)</WlName>
+    <DocNo>RPL0125050006</DocNo>
+    <DocDate>17/05/2568</DocDate>
+    <Barcode>8850999321004</Barcode>
+    <ProductName>สิงห์ 600มล. น้ำดื่ม ATO</ProductName>
+    <GroupId>07</GroupId>
+    <UnitName>a ขวด/1</UnitName>
+    <LocIdfmName>โซน:1 เบย์:1 ชั้น:1</LocIdfmName>
+    <LocIdtoName>โซน:1 เบย์:1 ชั้น:1</LocIdtoName>
+    <ItemQty>50</ItemQty>
+    <ItemQtyRep>50</ItemQtyRep>
+    <TranStatusname>เติมสินค้าเรียบร้อย</TranStatusname>
+    <CreateDtime>17/05/2568 09:32:11</CreateDtime>
+    <CreateUser>tnp01</CreateUser>
+    <ChangeDtime>17/05/2568 09:32:29</ChangeDtime>
+    <ChangeUser>tnp01</ChangeUser>
+    <Totalitem>8</Totalitem>
     <WlCode>01</WlCode>
   </ReplRpt>
 </ArrayOfReplRpt>
