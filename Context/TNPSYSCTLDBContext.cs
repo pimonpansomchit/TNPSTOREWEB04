@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TNPSTOREWEB.Models;
+using TNPWMSWEB.Models;
 
-namespace TNPSTOREWEB.Context;
+namespace TNPWMSWEB.Context;
 
 public partial class TNPSYSCTLDBContext : DbContext
 {
@@ -18,7 +18,6 @@ public partial class TNPSYSCTLDBContext : DbContext
 
     
     public virtual DbSet<MstWl> MstWls { get; set; }
-
     public virtual DbSet<MstProd> MstProds { get; set; }
     public virtual DbSet<MstProdgroup> MstProdgroups { get; set; }
     public virtual DbSet<MstBarcode> MstBarcodes { get; set; }

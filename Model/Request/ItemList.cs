@@ -1,4 +1,4 @@
-﻿namespace TNPSTOREWEB.Model.Request
+﻿namespace TNPWMSWEB.Model.Request
 {
     public class ItemList
     {    

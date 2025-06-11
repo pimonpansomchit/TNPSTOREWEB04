@@ -1,51 +1,21 @@
 #nullable disable
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TNPSTOREWEB.Context;
-using TNPSTOREWEB.Core;
-using TNPSTOREWEB.Model;
-using TNPSTOREWEB.Models;
-using TNPSTOREWEB.Models.Request;
-namespace TNPSTOREWEB.Controllers
+using TNPWMSWEB.Context;
+using TNPWMSWEB.Core;
+using TNPWMSWEB.Model;
+using TNPWMSWEB.Model.Request;
+using TNPWMSWEB.Models;
+namespace TNPWMSWEB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly TNPSTORESYSDBContext _db;
-        public HomeController(TNPSTORESYSDBContext db)
+        private readonly TNPWMSSYSDBContext _db;
+        GetClassMenu getClassMenu = new();
+
+        public HomeController(TNPWMSSYSDBContext db)
         {
             _db = db;
-        }
-
-        public IActionResult Index(ClassModel model, decimal? Id)
-        {
-            ClassMenu menu = new();
-            GetClassMenu getClassMenu = new();
-
-
-          
-
-            if (model.logid != 0) {
-
-                menu.Users = GetDBConnect.GetClassModel(model.logid);
-                ViewData["Logid"] = model.logid;
-            }
-            else
-            {
-                if (Id == 0)
-                {
-                    return RedirectToAction("Login", "Authen");
-                }
-                else
-                {
-                    menu.Users = GetDBConnect.GetClassModel(Id);
-                    ViewData["Logid"] = Id;
-
-                }
-            }
-
-            menu.stClasses = getClassMenu.GetStClasses(menu.Users.ClassId, 0, 0, 0, 0);
-            return View(menu);
-
         }
 
         public IActionResult Privacy()
@@ -58,12 +28,12 @@ namespace TNPSTOREWEB.Controllers
             if (Id == null)
             { return NotFound(); }
 
-            using (var dts = new TNPSTORESYSDBContext())
+            using (var dts = new TNPWMSSYSDBContext())
             {
                 var username = dts.SysDatalogs.Where(t =>
                 t.LogId == Id).FirstOrDefault().UserLogin;
 
-                var data = _db.StUserlogins.Where(t =>
+                var data = _db.Ctluserlogins.Where(t =>
                 t.UserName == username).FirstOrDefault();
                 return View(data);
             }
@@ -72,41 +42,30 @@ namespace TNPSTOREWEB.Controllers
         //index into web
         public IActionResult Indexweb(ModelLayout menu, decimal? Id)
         {
-           
-            GetClassMenu getClassMenu = new();
-           
 
-            if (menu.ModelClass != null)
+            GetClassMenu getClassMenu = new();
+
+
+            if (menu != null)
             {
-               
-                menu.ModelClass.Users = GetDBConnect.GetClassModel(menu.ModelClass.Users.logid);
-                ViewData["Logid"] = menu.ModelClass.Users.logid;
-                menu.Id = menu.ModelClass.Users.logid;
+
+                menu.ModelClass = getClassMenu.GetStClassesweb(menu);
+
             }
             else
             {
-                if (Id == 0)
-                {
-                    return RedirectToAction("Login", "Authen");
-                }
-                else
-                {
-                    menu.ModelClass = new();
-                    menu.ModelClass.Users = GetDBConnect.GetClassModel(Id);
-                    menu.Id = Id;
-                    ViewData["Logid"] = Id;
 
-                }
+                return RedirectToAction("Login", "Authen");
+
             }
 
-            menu.ModelClass.stClasses = getClassMenu.GetStClassesweb(menu.ModelClass.Users.ClassId, 0, 0, 0, 0);
             return View(menu);
 
         }
 
         public IActionResult LogOut(decimal? Id)
         {
-            TNPSTORESYSDBContext _dbs = new TNPSTORESYSDBContext();
+            TNPWMSSYSDBContext _dbs = new TNPWMSSYSDBContext();
 
             if (Id == 0)
             {
@@ -143,42 +102,14 @@ namespace TNPSTOREWEB.Controllers
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Indexweb(decimal? Id)
+        public IActionResult Indexweb(decimal Id)
         {
             ModelLayout menu = new();
             GetClassMenu getClassMenu = new();
-            ClassMenuWeb model = new();
-
-            model.Users = new();
-
-                if (Id == 0 && Id ==null)
-                {
-                    return RedirectToAction("Login", "Authen");
-                }
-                else
-                {
-                     model.Users.logid = (decimal)Id;
-                     model.Users= GetDBConnect.GetClassModel(Id);
-                     model.stClasses = getClassMenu.GetStClassesweb(model.Users.ClassId, 0, 0, 0, 0);
-                    menu.Id = Id;
-                    menu.ModelClass = model;
-                     
-                     return View(menu);
-                
-                }
-            
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult PageRequest(decimal Id,int datakey,string actkey ,string controlkey,int submenukey)
-        {
-            
-            ClassModel model = new();
-           
+            TNPWMSSYSDBContext db = new();
 
             if (Id == 0)
             {
@@ -186,20 +117,22 @@ namespace TNPSTOREWEB.Controllers
             }
             else
             {
-                model = GetDBConnect.GetClassModel(Id);
-                model.menukey = datakey;
-                model.submenukey = submenukey;
-                model.logid = Id;
-                ViewData["Logid"] = Id;
-                ViewData["Menukey"] = datakey;
-                return RedirectToAction(actkey, controlkey, model);
-                   
+
+                var userinfo = (from t in db.SysDatalogs
+                                join t2 in db.Ctluserlogins
+                                on t.UserLogin equals t2.UserName
+                                where t.LogId == Id
+                                select t2).First();
+
+                menu.classid = userinfo.ClassId;
+                menu.username = userinfo.UserName;
+
+                return RedirectToAction("Indexweb", "Home", menu);
+
             }
 
-
-            
-
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

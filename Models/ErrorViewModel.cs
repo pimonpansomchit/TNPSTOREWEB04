@@ -1,4 +1,4 @@
-namespace TNPSTOREWEB.Models
+namespace TNPWMSWEB.Models
 {
     public class ErrorViewModel
     {

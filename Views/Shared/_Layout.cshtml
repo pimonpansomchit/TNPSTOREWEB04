@@ -1,6 +1,6 @@
 ﻿
 @using Microsoft.AspNetCore;
-@model TNPSTOREWEB.Model.ModelLayout;
+@model TNPWMSWEB.Model.ModelLayout;
 <!DOCTYPE html>
 <html data-navigation-type="default" data-navbar-horizontal-shape="default" lang="en-US" dir="ltr">
 
@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/TNPSTOREWEB.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TNPWMSWEB.styles.css" asp-append-version="true" />
     <style>
         #grad1 {
         height: 100%;
@@ -67,16 +67,10 @@
     <!-- ===============================================-->
     <!--    Sweetalert Stylesheets and Script-->
     <!-- ===============================================-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert-dev.js"></script>
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/sweetalert2/6.3.8/sweetalert2.min.js'> </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src='~/js/sweetalert2.min.js'> </script>
+    <link rel="stylesheet" href='~/js/sweetalert2.min.css' media="screen" />
+    <link rel="stylesheet" href='~/js/sweetalert2.css' media="screen" />
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href='https://cdn.jsdelivr.net/sweetalert2/6.3.8/sweetalert2.min.css' media="screen" />
-    <link rel="stylesheet" href='https://cdn.jsdelivr.net/sweetalert2/6.3.8/sweetalert2.css' media="screen" />
 
 
  
@@ -117,7 +111,7 @@
                     <div class="navbar-vertical-content">
                         <ul class="navbar-nav flex-column" id="navbarVerticalNav">
 
-                            @foreach (var root in Model.ModelClass.stClasses.Where(t => t.RootKey == 0 && t.ParentKey == 0 && t.Menutype == 0).ToList().OrderBy(o => o.Menuseq))
+                            @foreach (var root in Model.ModelClass.wmsClasses.Where(t => t.RootKey == 0 && t.ParentKey == 0 && t.Menutype == 0).ToList().OrderBy(o => o.Menuseq))
                             {
                                 <li class="nav-item">
                                     @* Heder Menu name *@
@@ -125,7 +119,7 @@
                                         @Html.DisplayFor(modelItem => root.ThaiName)
                                     </p>
                                     <hr class="navbar-vertical-line">
-                                    @foreach (var menu in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.ParentKey == 0).ToList().OrderBy(o => o.Menuseq))
+                                    @foreach (var menu in Model.ModelClass.wmsClasses.Where(t => t.RootKey == root.Menukey && t.ParentKey == 0).ToList().OrderBy(o => o.Menuseq))
                                     {
                                         @if (menu.Menutype == 0)
                                         {
@@ -142,7 +136,7 @@
                                                             MenuList
                                                         </li>
 
-                                                        @foreach (var progrm in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.ParentKey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
+                                                        @foreach (var progrm in Model.ModelClass.wmsClasses.Where(t => t.RootKey == root.Menukey && t.ParentKey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
 
                                                         {
                                                             <li class="nav-item">
@@ -163,10 +157,10 @@
                                         }
                                         else
                                         {
-                                        
-                                           
-                                            @foreach (var progrm in Model.ModelClass.stClasses.Where(t => t.RootKey == root.Menukey && t.Menukey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
-                                            {
+
+
+                                        @foreach (var progrm in Model.ModelClass.wmsClasses.Where(t => t.RootKey == root.Menukey && t.Menukey == menu.Menukey && t.Menutype == 1).ToList().OrderBy(o => o.Menuseq))
+                                        {
                                                     <div class="nav-item-wrapper">
                                                         <a class="nav-link active label-1" aria-expanded="false" role="button" data-bs-toggle="" asp-controller="@progrm.Controllerid" asp-action="@progrm.Actionid" asp-route-id="@Model.Id" asp-route-menukey="@progrm.Menukey" asp-route-root="@root.Menukey" asp-route-parent="@menu.Menukey">
                                                                 <div class="d-flex align-items-center">
@@ -187,18 +181,12 @@
 
                         </ul>
 
-                        <div class="nav-item-wrapper pb-0 pt-4 p-4">
-                            <a class="nav-link dropdown-indicator label-1 active" aria-expanded="false" role="button" asp-controller="Home" asp-action="LogOut" asp-route-id="@ViewData["Id"]">
-                                <div class="d-flex align-items-center">
-                                    <span class="nav-link-icon"><span class="fas fa-sign-in-alt text-danger"></span></span><span class="nav-link-text mbs-submenu-font-thai">ออกจากโปรแกรม</span>
-                                </div>
-                            </a>
-                        </div>
+                       
                     </div>
                 </div>
                 @* End MenuList *@
                 <div class="navbar-vertical-footer">
-
+                
                     <button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center"><span class="uil uil-left-arrow-to-left fs-8"></span><span class="uil uil-arrow-from-right fs-8"></span><span class="navbar-vertical-footer-text ms-2">Collapsed View</span></button>
                 </div>
                 @* End MenuList *@
@@ -214,7 +202,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex align-items-center">
                                             <img src="~/assets/img/logos/Logo02.png" alt="phoenix" width="27" />
-                                              <p class="logo-text ms-2 d-none d-sm-block text-primary mbs-submenu-font-thai" style="font-size:small">ระบบจัดการหน้าร้าน</p>
+                                              <p class="logo-text ms-2 d-none d-sm-block text-primary mbs-submenu-font-thai" style="font-size:small">ระบบจัดการคลังสินค้า</p>
 
                                         </div>
                                     </div>
@@ -224,13 +212,19 @@
 
                           </div>
 
-
+                
                         <ul class="navbar-nav navbar-nav-icons flex-row">
                     <li class="nav-item">
                         <div class="theme-control-toggle fa-icon-wait px-2">
-                            <p class="logo-text ms-2 d-none d-sm-block mbs-submenu-font-thai fs-9">สาขา @Model.ModelClass.Users.WLCode @Model.ModelClass.Users.WLName Id: @Model.Id</p>
+                            <p class="logo-text ms-2 d-none d-sm-block mbs-submenu-font-thai fs-9">คลัง @Model.ModelClass.Users.WLCode @Model.ModelClass.Users.WLName Id: @Model.Id</p>
+                            <a class="nav-link dropdown-indicator label-1 active" aria-expanded="false" role="button" asp-controller="Home" asp-action="LogOut" asp-route-id="@ViewData["Id"]">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-icon"><span class="fas fa-sign-in-alt text-danger"></span></span><span class="nav-link-text mbs-submenu-font-thai">ออกจากโปรแกรม</span>
 
+                                </div>
+                            </a>
                         </div>
+                      
                     </li>
                     </ul>
                         

@@ -1,146 +1,108 @@
 ﻿#nullable disable
-using TNPSTOREWEB.Context;
-using TNPSTOREWEB.Model;
-using TNPSTOREWEB.Models;
+using TNPWMSWEB.Context;
+using TNPWMSWEB.Model;
+using TNPWMSWEB.Model.Request;
+using TNPWMSWEB.Models;
 
-namespace TNPSTOREWEB.Core
+namespace TNPWMSWEB.Core
 {
     public class GetClassMenu
     {
-        public List<StClass> GetStClasses(string Classid, int Level,int Parent,int Root,int submenukey) {
+        public ClassMenuWeb GetStClassesweb(ModelLayout model) {
 
-            TNPSTORESYSDBContext db = new();
-            List<StClass> Model = new();
+            TNPWMSSYSDBContext db = new();
+            ClassMenuWeb modelClass = new ClassMenuWeb()
+            {
+                wmsClasses=new(),
+                Users=new(),
+            };
+                
 
             try
             {
-                if (submenukey == 0)
-                {
-                    Model = db.StClasses.Where(t =>
-                                   t.Classid == Classid
-                                   && t.Menutype == Level
-                                   && t.Actionflg == "Y"
-                                   && t.ParentKey == Parent
-                                   && t.RootKey == Root
-                                   ).OrderBy(t => t.Menuseq).ToList();
+                modelClass.Users = GetClassModel(model.Id);
 
-                }
-                else
-                {
-                    var menu = db.StClasses.Where(t =>
-                                  t.Classid == Classid
-                                  && t.Menutype == Level
-                                  && t.Actionflg == "Y"
-                                  && t.Menukey == Parent
-                                  ).Select(x => x.ParentKey).FirstOrDefault();
+                modelClass.wmsClasses = db.Ctlclasswebs.Where(t =>
+                                    t.Classid == modelClass.Users.ClassId
+                                    && t.Actionflg == "Y"
+                                    ).OrderBy(t => t.Menuseq).ToList();
 
-                    Model = db.StClasses.Where(t =>
-                                  t.Classid == Classid
-                                  && t.Menutype == Level
-                                  && t.Actionflg == "Y"
-                                  && t.ParentKey == menu
-                                  ).OrderBy(t => t.Menuseq).ToList();
 
-                }
+               
 
             } catch (Exception) {
             
             }
-
-            return Model;
+            
+            return modelClass;
         }
 
-        public List<StClassweb> GetStClassesweb(string Classid, int Level, int Parent, int Root, int submenukey)
-        {
 
-            TNPSTORESYSDBContext db = new();
-            List<StClassweb> Model = new();
+        public static ClassUserLogin GetClassModel(decimal? Logid)
+        {
+            TNPWMSSYSDBContext db = new();
+            ClassUserLogin Model = new();
+
+
 
             try
             {
-                if (submenukey == 0)
-                {
-                    Model = db.StClasswebs.Where(t =>
-                                   t.Classid == Classid
-                                   //&& t.Menutype == Level
-                                   && t.Actionflg == "Y"
-                                   //&& t.ParentKey == Parent
-                                   //&& t.RootKey == Root
-                                   ).OrderBy(t => t.Menuseq).ToList();
+                SysDatalog data = new();
+                var sysUserLog = db.SysDatalogs.Where(t =>
+                t.LogId == Logid
+                ).FirstOrDefault();
 
+                if (sysUserLog != null)
+                {
+                    var flgService = (from t in db.SysDatalogs
+                                      join t2 in db.Ctlconfigs
+                                      on t.Whid equals t2.Whid
+                                      join t3 in db.Ctluserlogins
+                                      on t.UserLogin equals t3.UserName
+                                      where t.UserLogin == sysUserLog.UserLogin
+                                      select new { t.UserLogin, t.Whid,t3.Dcid, t2.Whdb,t2.Whconnect, t2.MainMstDb, t2.Mainconnect,t3.ClassId }).FirstOrDefault();
+
+
+
+
+                    if (flgService != null)
+                    {
+                        Model.UserName = flgService.UserLogin;
+                        Model.ClassId = flgService.ClassId;
+                        Model.DBKey = flgService.Whdb;
+                        Model.ConnectString = flgService.Whconnect;
+                        Model.Connectmain = flgService.Mainconnect;
+                        Model.MainDB = flgService.MainMstDb;
+                        Model.DCcode = flgService.Dcid;
+                        Model.WHcode = flgService.Whid;
+                        Model.WLCode = flgService.Whid;
+        
+                        if (Logid != null)
+                        {
+                            Model.logid = (decimal)Logid;
+                        }
+                        else { Model.logid = 0; }
+                       
+                        return Model;
+                    }
+                    else
+                    { return null; }
                 }
-             
+                else
+                { return null; }
+
 
             }
             catch (Exception)
             {
 
+                return null;
             }
 
-            return Model;
+           
         }
+       
 
 
-        public ModelLayout Getuserlogin(ModelLayout data)
-        {
-            data.usr = new();
-            data.wls = new();
-            data.cinfo = new();
-            GetClassMenu getClassMenu = new();
-            TNPSYSCTLDBContext dbc = new();
-            using (var db = new TNPSTORESYSDBContext())
-            {
-                if(data.actions !="A")
-                {
-                    var datalist = db.StUserlogins.OrderBy(t => t.WlCode).ToList();
-                    if (datalist != null)
-                    {
-                        if (data.SelectedOption != "0")
-                        {
-                            datalist = datalist.Where(t => t.WlCode == (data.SelectedOption).Trim()).ToList();
-                        }
-
-                        if (data.SelectGroupNo != "0" && data.SelectGroupNo != null)
-                        {
-                            var clssid = db.StClassinfos.Where(t => t.ClassCode == data.SelectGroupNo.Trim()).Select(t => t.ClassName).First();
-
-                            datalist = datalist.Where(t => t.ClassId == clssid.Trim()).ToList();
-
-                        }
-                        if(data.Selectedadd != null)
-                        {
-                            datalist = datalist.Where(t => t.UserName == data.Selectedadd.Trim()).ToList();
-                        }
-                        data.usr = datalist;
-                        if (data.actions == "M")
-                        {
-                            if(datalist != null)
-                            {
-                                data.addusr = datalist.First();
-                            }
-                           
-                        }
-                    }
-                }
-
-
-                data.wls = Getlis();
-                data.cinfo = db.StClassinfos.OrderBy(t => t.ClassCode).ToList();
-                data.ModelClass.stClasses = getClassMenu.GetStClassesweb(data.ModelClass.Users.ClassId, 0, 0, 0, 0);
-
-
-            }
-            return data;
-        }
-
-        public List<MstWl> Getlis()
-        {
-           List<MstWl> wl = new();
-            TNPSYSCTLDBContext db = new();
-                wl= db.MstWls.OrderBy(t => t.WlId).ToList();
-
-            return wl;
-
-        }
     }
 }

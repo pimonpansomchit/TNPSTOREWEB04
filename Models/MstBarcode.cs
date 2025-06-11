@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TNPSTOREWEB.Models;
+namespace TNPWMSWEB.Models;
 
 public partial class MstBarcode
 {

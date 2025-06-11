@@ -1,13 +1,11 @@
 ﻿
 #nullable disable
 using Microsoft.Data.SqlClient;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Identity;
-using System.Configuration;
 using System.Data;
-using TNPSTOREWEB.Context;
-using TNPSTOREWEB.Models;
-using TNPSTOREWEB.Models.Request;
-namespace TNPSTOREWEB.Core
+using TNPWMSWEB.Context;
+using TNPWMSWEB.Model.Request;
+using TNPWMSWEB.Models;
+namespace TNPWMSWEB.Core
 {
     public class GetDBConnect
     {
@@ -23,73 +21,7 @@ namespace TNPSTOREWEB.Core
         public string DbName;
         public string ErrStrg;
 
-        public static ClassModel GetClassModel(decimal? Logid)
-        {
-            TNPSTORESYSDBContext db = new();
-            TNPSYSCTLDBContext dbs = new();
-            ClassModel Model = new();
-            
-              
-
-                try
-                {
-                    SysDatalog data = new();
-                    var sysUserLog = db.SysDatalogs.Where(t =>
-                    t.LogId == Logid
-                    ).FirstOrDefault();
-
-                    if (sysUserLog != null)
-                    {
-                        var flgService = (from t in db.StUserlogins join 
-                                          t1 in db.StWlprices
-                                          on t.WlCode equals t1.WlCode
-                                          join t2 in db.Ctlconfigs
-                                          on t.DbName equals t2.StoreDb
-                                          where t.UserName == sysUserLog.UserLogin
-                                          select new { t.UserName, t.ClassId, t.WlCode, t.DbName,t1.DbNameString,t2.MainMstDb,t2.Dcid,t2.Whid,t.WlKey,t2.Mainconnect }).FirstOrDefault();
-
-
-
-
-                        if (flgService != null)
-                        {
-                            Model.UserName = flgService.UserName;
-                            Model.ClassId = flgService.ClassId;
-                            Model.DBKey = flgService.DbName;
-                            Model.WLCode = flgService.WlCode;
-                            Model.ConnectString = flgService.DbNameString;
-                            Model.MainDB= flgService.MainMstDb;
-                            Model.DCcode = flgService.Dcid;
-                            Model.WHcode=flgService.Whid;
-                            Model.WLName = (from t in dbs.MstWls 
-                                            where t.WlId.Trim() == Model.WLCode.Trim() 
-                                            select  t.WlName).FirstOrDefault().ToString();
-                            if (Logid != null)
-                            {
-                                Model.logid = (decimal)Logid;
-                            }
-                            else { Model.logid = 0; }
-                            Model.wlKey = flgService.WlKey;
-                            Model.Connectmain = flgService.Mainconnect;
-                        return Model;
-                    }
-                        else
-                        { return null; }
-                }
-                else
-                { return null; }
-
-
-            }
-                catch (Exception)
-                {
-
-                    return null;
-                }
-
-            
-        }
-
+       
         public SqlCommand GetCommand(string sqlStr, string DbConnect)
         {
             SqlCommand TextCmd;
@@ -100,7 +32,6 @@ namespace TNPSTOREWEB.Core
 
             return TextCmd;
         }
-
         public bool ExecuteReadData(string sqlState, string DbConnect)
         {
             bool chk = false;
@@ -138,7 +69,6 @@ namespace TNPSTOREWEB.Core
 
             return chk;
         }
-
         public bool ExecuteTransData(string sqlState, string DbConnect)
         {
             bool chk = false;
@@ -168,7 +98,6 @@ namespace TNPSTOREWEB.Core
 
             return chk;
         }
-
         public void CloseDB()
         {
             try

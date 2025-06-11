@@ -1,25 +1,25 @@
 ﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
-using TNPSTOREWEB.Context;
-using TNPSTOREWEB.Model;
-using TNPSTOREWEB.Models;
-using TNPSTOREWEB.Models.Request;
+using TNPWMSWEB.Context;
+using TNPWMSWEB.Model;
+using TNPWMSWEB.Models;
+using TNPWMSWEB.Models.Request;
 using Wangkanai.Detection.Services;
 
 
-namespace TNPSTOREWEB.Controllers
+namespace TNPWMSWEB.Controllers
 {
     public class AuthenController : Controller
     {
 
 
-        private readonly TNPSTORESYSDBContext _db;
+        private readonly TNPWMSSYSDBContext _db;
         private readonly IHttpContextAccessor _accessor;
         private readonly IDetectionService _detection;
   
 
-        public AuthenController(IHttpContextAccessor accessor, TNPSTORESYSDBContext db, IDetectionService detection)
+        public AuthenController(IHttpContextAccessor accessor, TNPWMSSYSDBContext db, IDetectionService detection)
         {
             _db = db;
             _accessor = accessor;
@@ -41,7 +41,7 @@ namespace TNPSTOREWEB.Controllers
         public IActionResult Login(LoginModel obj)
         {
             ModelLayout layout = new ModelLayout();
-            StUserlogin _Userobj;
+            Ctluserlogin _Userobj;
             _Userobj = ISFoundInUserLogin(obj);
 
 
@@ -52,12 +52,12 @@ namespace TNPSTOREWEB.Controllers
                 try
                 {
                         layout.Id = GetIpLogin(_Userobj, Get_accessor());
-                        layout.wlcode = _Userobj.WlCode;
+                        layout.wlcode = _Userobj.Whid;
                         layout.ModelClass.Users.logid= (decimal)layout.Id;
-                        layout.ModelClass.Users.WLCode = _Userobj.WlCode;
+                        layout.ModelClass.Users.WLCode = _Userobj.Whid; //same wlcode
                         layout.ModelClass.Users.UserName = _Userobj.UserName;
                         layout.ModelClass.Users.ClassId = _Userobj.ClassId;
-                        layout.ModelClass.Users.language = _Userobj.Language;
+                        layout.ModelClass.Users.language = _Userobj.LangId;
                         return RedirectToAction("Indexweb", "Home", layout);
                 }
                 catch (Exception)
@@ -71,12 +71,12 @@ namespace TNPSTOREWEB.Controllers
         }
 
       
-        private StUserlogin ISFoundInUserLogin(LoginModel user)
+        private Ctluserlogin ISFoundInUserLogin(LoginModel user)
         {
 
-            StUserlogin data = new StUserlogin();
+            Ctluserlogin data = new Ctluserlogin();
 
-                var sysUser = _db.StUserlogins.Where(t =>
+                var sysUser = _db.Ctluserlogins.Where(t =>
                     t.UserName == user.USERNAME
                     && t.CurrPasswd == user.PASSWORD
                     ).FirstOrDefault();
@@ -94,15 +94,15 @@ namespace TNPSTOREWEB.Controllers
             return _accessor;
         }
 
-        private decimal GetIpLogin(StUserlogin st, IHttpContextAccessor _accessor)
+        private decimal GetIpLogin(Ctluserlogin st, IHttpContextAccessor _accessor)
         {
-              TNPSTORESYSDBContext _dbs = new TNPSTORESYSDBContext();
+              TNPWMSSYSDBContext _dbs = new TNPWMSSYSDBContext();
             try
             {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 SysDatalog data = new();
                 data.Whid = st.Whid;
-                data.WlCode = st.WlCode;
+                data.WlCode = st.Whid;
                 data.ServerIp = _db.Ctlconfigs.Select(t => t.ServerIp).FirstOrDefault();
                 //data.ServerIp = _accessor.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString();
                 //data.IpAddress = _accessor.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
@@ -114,7 +114,7 @@ namespace TNPSTOREWEB.Controllers
                 //data.Identify = _accessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 data.BrowserType = _detection.Browser.Name.ToString();
                 data.SessionType = st.SessionType;
-                data.LogId = Convert.ToDecimal(DateTime.Now.ToString("yyMMddHHmmssfff")+"2" + st.WlCode.Trim());
+                data.LogId = Convert.ToDecimal(DateTime.Now.ToString("yyMMddHHmmssfff")+"2" + st.Whid.Trim());
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
                 if (data != null)

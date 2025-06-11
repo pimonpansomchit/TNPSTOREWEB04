@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TNPSTOREWEB.Models;
+namespace TNPWMSWEB.Models;
 
 public partial class Ctlconfig
 {
     public string? MainMstDb { get; set; }
 
-    public string? StoreDb { get; set; }
+    public string? Whdb { get; set; }
 
     public string? Dcid { get; set; }
 
@@ -16,4 +16,10 @@ public partial class Ctlconfig
     public string? ServerIp { get; set; }
 
     public string? Mainconnect { get; set; }
+
+    public string? Whconnect { get; set; }
+
+    public string? Maindcid { get; set; }
+
+    public string? Mainwhid { get; set; }
 }

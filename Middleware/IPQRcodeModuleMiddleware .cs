@@ -1,4 +1,4 @@
-﻿namespace TNPSTOREWEB.Middleware
+﻿namespace TNPWMSWEB.Middleware
 {
     public class IPQRcodeModuleMiddleware
     {

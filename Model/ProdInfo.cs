@@ -1,15 +1,14 @@
 ﻿using Microsoft.Extensions.Primitives;
-using TNPSTOREWEB.Models;
+using TNPWMSWEB.Models;
 
-namespace TNPSTOREWEB.Model
+namespace TNPWMSWEB.Model
 {
     public class ProdInfo
     {
+        public string GropId { get; set; } = string.Empty;
+        public MstProd MstProd { get; set; } = new();
+        public MstBarcode MstBarcode { get; set; } = new();
+        public List<BarcodesInfo> Listsku { get; set; } = new();
         
-        public MstProd? MstProd { get; set; }
-        public MstBarcode? MstBarcode { get; set; }
-        public List<StLoctype>? stLoctypes { get; set; }
-        public Locprdd prodinv { get; set; }
-        public Locprdd iprodinv { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model TNPSTOREWEB.Model.ModelLayout
+﻿@model TNPWMSWEB.Model.ModelLayout
 @{
 
 
@@ -54,7 +54,7 @@ else
 
             <div class="btn-group position-static form-check-inline" role="group">
 
-                <button class="btn btn-primary btn-sm" type="sumbit" asp-action="UserloginAdd" asp-route-id="@Model.Id" asp-route-actionx="A" asp-route-cat="@Model.Loccat"> <span class="fas fa-plus pe-2 fs-10"></span>สร้างใหม่</button>
+                <button class="btn btn-primary btn-sm" type="sumbit" asp-action="UserloginAdd" asp-route-id="@Model.Id" asp-route-actionx="A" > <span class="fas fa-plus pe-2 fs-10"></span>สร้างใหม่</button>
             </div>
 
         </div>
@@ -62,13 +62,13 @@ else
     @*//End Section*@
 
     <div class="mx-n4 px-4 mx-lg-n4 px-lg-4 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
-        <div id="orderTable" data-list='{"valueNames":["WlCode","WlName","ClassId","UserName","Firstname","Lastname","CurrPasswd"],"page":10,"pagination":true}'>
+        <div id="orderTable" data-list='{"valueNames":["Whid","WhName","ClassId","UserName","Firstname","Lastname","CurrPasswd"],"page":10,"pagination":true}'>
             <div class="table-responsive scrollbar mx-n1 px-1">
                 <table class="table table-sm fs-9 mb-0">
                     <thead class="bg-primary-subtle">
                         <tr>
 
-                            <th class="sort align-middle ps-2" scope="col" data-sort="WlCode" style="width:80px;">รหัสร้านสาขา</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="Whid" style="width:80px;">รหัสร้านสาขา</th>
                             <th class="sort align-middle ps-2" scope="col"  style="width:150px;">ชื่อสาขา</th>
                             <th class="sort align-middle ps-2" scope="col" data-sort="ClassId" style="width:120px;">กลู่มผู้ใช้งาน</th>
                             <th class="sort align-middle ps-2" scope="col" data-sort="UserName" style="width:100px;">รหัสผู้ใช้งาน</th>
@@ -88,10 +88,10 @@ else
                                 <tr class="hover-actions-trigger btn-reveal-trigger position-static mb-0">
 
                                     <td class="fs-9 align-middle ps-2">
-                                        <p class="WlCode fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.WlCode)</p>
+                                        <p class="Whid fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.Whid)</p>
                                     </td>
                                     <td class="fs-9 align-middle">
-                                        <p class="fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.WlName)</p>
+                                        <p class="WhName fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.WhName)</p>
                                     </td>
 
                                     <td class="fs-9 align-middle">
@@ -103,10 +103,10 @@ else
                                     </td>
 
                                     <td class="fs-9 align-middle">
-                                        <p class="Firstname fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.Firstname)</p>
+                                        <p class="Firstname fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.FirstName)</p>
                                     </td>
                                     <td class="fs-9 align-middle">
-                                        <p class="fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.Lastname)</p>
+                                        <p class="fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LastName)</p>
                                     </td>
 
                                     <td class="fs-9 align-middle">
@@ -115,7 +115,7 @@ else
 
                                     <td class="align-middle">
 
-                                        <button class="btn btn-sm" asp-action="UserloginAdd" asp-route-actionx="M" asp-route-id="@Model.Id" asp-route-wl="@item.WlCode" asp-route-usernames="@item.UserName" asp-route-classid="@item.ClassId" asp-route-passwd="@item.CurrPasswd">
+                                        <button class="btn btn-sm" asp-action="UserloginAdd" asp-route-actionx="M" asp-route-id="@Model.Id" asp-route-wl="@item.Whid" asp-route-usernames="@item.UserName" asp-route-classid="@item.ClassId" asp-route-passwd="@item.CurrPasswd">
                                                 <span class="fas fa-edit text-info fs-9"></span>
                                             </button>
                                        
@@ -123,7 +123,7 @@ else
 
                                     </td>
                                     <td class="align-middle">
-                                        <button class="btn btn-sm" asp-action="Delete" asp-route-actionx="D" asp-route-id="@Model.Id" asp-route-wl="@item.WlCode" asp-route-usernames="@item.UserName">
+                                        <button class="btn btn-sm" asp-action="Delete" asp-route-actionx="D" asp-route-id="@Model.Id" asp-route-wl="@item.Whid" asp-route-usernames="@item.UserName">
                                             <span class="far fa-trash-alt text-danger fs-9"></span>
                                         </button>
                                     </td>

@@ -1,5 +1,5 @@
 ﻿
-@model TNPSTOREWEB.Model.ModelLayout
+@model TNPWMSWEB.Model.ModelLayout
 @{
    
     Layout = "~/Views/Shared/_MyLayoutMnt.cshtml";
@@ -22,7 +22,7 @@ else
 
 <div class="container">
 
-    <form method="POST" asp-controller="Admin" asp-action="UserloginAdd" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-actions="A" asp-route-loccat="@Model.Loccat" id="searchForm">
+    <form method="POST" asp-controller="Admin" asp-action="UserloginAdd" asp-route-id="@Model.Id" asp-route-datakey="@Model.menukey" asp-route-actions="A" id="searchForm">
         <div class="card bg-body-highlight">
             <div class="card-body">
                 @if(Model !=null)
@@ -35,7 +35,7 @@ else
                                    
                                         <select class="form-select mbs-label-font-thai fs-9" id="groupselect" asp-for="SelectedOption"
                                                 asp-items="@(new SelectList(Model.wls, "WlId", "WlName"))">
-                                            <option value="0">---เลือกร้านสาขา---</option>
+                                            <option value="0">---เลือกคลังสินค้า---</option>
                                         </select>
                                   
                                 </div>
@@ -48,11 +48,11 @@ else
                                    
                                 </div>
                                 <div class="col-sm-6 col-md-6">
-                                    <input class="form-control mbs-label-font-thai fs-8" id="ifirstname" placeholder="ชื่อ" type="text" asp-for="addusr.Firstname" autocomplete="off" />
+                                    <input class="form-control mbs-label-font-thai fs-8" id="ifirstname" placeholder="ชื่อ" type="text" asp-for="addusr.FirstName" autocomplete="off" />
                                 </div>
                                 <div class="col-sm-6 col-md-6">
 
-                                    <input class="form-control mbs-label-font-thai" id="ilastname" placeholder="นามสกุล" type="text" asp-for="addusr.Lastname" autocomplete="off" />
+                                    <input class="form-control mbs-label-font-thai" id="ilastname" placeholder="นามสกุล" type="text" asp-for="addusr.LastName" autocomplete="off" />
 
                                   
                                 </div>

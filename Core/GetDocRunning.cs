@@ -1,7 +1,7 @@
 ﻿#nullable disable
-using TNPSTOREWEB.Model;
+using TNPWMSWEB.Model;
 
-namespace TNPSTOREWEB.Core
+namespace TNPWMSWEB.Core
 {
     public class GetDocRunning
     {

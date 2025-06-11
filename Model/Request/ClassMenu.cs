@@ -1,13 +1,13 @@
 ﻿#nullable disable
-using TNPSTOREWEB.Models;
-using TNPSTOREWEB.Models.Request;
+using TNPWMSWEB.Models;
+using TNPWMSWEB.Model.Request;
 
-namespace TNPSTOREWEB.Model
+namespace TNPWMSWEB.Model
 {
     public class ClassMenu
     {
         public ClassModel Users {  get; set; }
-        public  List<StClass> stClasses { get; set; }
+        public  List<Ctlclass> stClasses { get; set; }
       
     }
 }

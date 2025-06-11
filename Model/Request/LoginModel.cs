@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TNPSTOREWEB.Models.Request
+namespace TNPWMSWEB.Models.Request
 {
     public partial class LoginModel
     {

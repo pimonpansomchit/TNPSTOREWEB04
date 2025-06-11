@@ -1,4 +1,4 @@
-﻿namespace TNPSTOREWEB.Model
+﻿namespace TNPWMSWEB.Model
 {
     public class Mstgroup
     {

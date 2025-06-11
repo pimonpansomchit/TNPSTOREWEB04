@@ -1,13 +1,13 @@
 ﻿#nullable disable
 
 using Microsoft.EntityFrameworkCore;
-using TNPSTOREWEB.Context;
-using TNPSTOREWEB.Middleware;
-using TNPSTOREWEB.Model.Request;
+using TNPWMSWEB.Context;
+using TNPWMSWEB.Middleware;
+using TNPWMSWEB.Model.Request;
 using FastReport.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-namespace TNPSTOREWEB
+namespace TNPWMSWEB
 {
     public class Startup(IConfiguration configuration)
     {
@@ -23,7 +23,7 @@ namespace TNPSTOREWEB
 
 
             var ConnectionString =  Configuration.GetConnectionString("TNPConnection");
-            var ConnectionStringst = Configuration.GetConnectionString("STOREConnection");
+            var ConnectionStringst = Configuration.GetConnectionString("WMSConnection");
 
 
 
@@ -51,7 +51,7 @@ namespace TNPSTOREWEB
             services.AddDbContext<TNPSYSCTLDBContext>(options => options.UseSqlServer(ConnectionString));
 
             services.AddControllersWithViews();
-            services.AddDbContext<TNPSTORESYSDBContext>(options => options.UseSqlServer(ConnectionStringst));
+            services.AddDbContext<TNPWMSSYSDBContext>(options => options.UseSqlServer(ConnectionStringst));
 
 
             services.AddDistributedMemoryCache();

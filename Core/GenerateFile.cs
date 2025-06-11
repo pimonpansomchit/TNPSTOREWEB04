@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-namespace TNPSTOREWEB.Core
+namespace TNPWMSWEB.Core
 {
     public class GenerateFile
     {

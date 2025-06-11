@@ -6,7 +6,7 @@ command : dotnet run
 
 dotnet ef dbcontext scaffold "Server=localhost;Database=WMS_TNP;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models --context-dir Context  --context TMPreplenishDBContext --force --table TMPreplenishD
 
-dotnet ef dbcontext scaffold "Server=localhost;Database=TNPSTORESYS;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models --context-dir Context  --context MSTlocationDBContext --force --table MSTlocation
+dotnet ef dbcontext scaffold "Server=localhost;Database=TNPWMSSYS;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models --context-dir Context  --context MSTlocationDBContext --force --table MSTlocation
 
 $(document).ready(function () {
       // Logic to handle selection (optional)
@@ -17,3 +17,5 @@ $(document).ready(function () {
     }
    
 });
+
+dotnet ef dbcontext scaffold "Server=localhost;Database=TNPWMSSYS;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models --context-dir Context  --context TNPWMSSYSDBContext --force

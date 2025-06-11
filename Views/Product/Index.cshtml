@@ -1,0 +1,230 @@
+﻿@model TNPWMSWEB.Model.ModelLayout
+@{
+
+
+    await Html.RenderPartialAsync("~/Views/Shared/_MyLaoutMenu.cshtml", Model);
+
+}
+<h5 class ="ps-3">กำหนดรายละเอียดสินค้าคงคลัง</h5>
+
+@if (Model.Saveflg is 0)
+{
+    <p class="ps-3 text-success">@Model.Message</p>
+
+}
+else
+{
+    <p class="ps-3 text-warning-dark">
+        @Model.Message
+    </p>
+}
+
+<form class="mb-3 mbs-label-font-thai" method="POST" asp-controller="Product" id="searchForm">
+
+
+    @* //section Serach *@
+
+
+    <div class="row gx-3 ps-2 form-check">
+        <div class=" col-md-10">
+
+            <div class="form-check-inline col-md-3">
+                <select class="form-select mbs-label-font-thai fs-9" id="groupselect" asp-for="Selectedadd" 
+                        asp-items="@(new SelectList(Model.wls, "WlId", "WlName"))" >
+                    <option value="0">---เลือกร้านสาขา---</option>
+                </select>
+            </div>
+
+           
+            <div class="form-check-inline col-md-3">
+                <input class="form-control" id="inputBarcode" placeholder="ค้นหา อ่านบาร์โค้ด /ชื่อสินค้า" type="text" asp-for="barcode" autocomplete="off" />
+            </div>
+
+            <div class="form-check-inline col-md-1">
+                <button class="btn btn-link text-secondary-light me-4 px-0" asp-action="Index" asp-route-clear="Y">เคลียร</button>
+
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap gap-3 mb-4 ps-2">
+
+        <div class="scrollbar overflow-hidden-y">
+            <div class="btn-group position-static" role="group">
+                <div class="btn-group position-static text-nowrap">
+                    <select class="form-select mbs-label-font-thai fs-9" id="groupselect" asp-for="SelectGroupNo"
+                            asp-items="@(new SelectList(Model.prdgrp, "GroupId", "GroupName"))">
+                        <option value="0">---เลือกหมวด---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="btn-group position-static ps-2" role="group">
+                <p class="fs-9">วันที่เริ่มต้น</p>
+            </div>
+            <div class="btn-group position-static ps-2" role="group">
+                <input class="form-control datetimepicker " id="startDatepicker" type="date" asp-for="DateFm"  autocomplete="off" value="@Model.DateFm" />
+            </div>
+            <div class="btn-group position-static ps-2" role="group">
+                <p class="fs-9">สิ้นสุด</p>
+            </div>
+            <div class="btn-group position-static ps-2" role="group">
+                <input class="form-control datetimepicker " id="EndDatepicker" type="date" asp-for="DateTo" autocomplete="off" value="@Model.DateTo"/>
+            </div>
+            <div class="btn-group position-static ps-2" role="group">
+                <button class="btn btn-link  text-info me-4 px-0" asp-action="RepHistory" asp-route-clear="S"><span class="fa-solid far fab fa-sistrix fs-8 me-2"></span>ค้นหา</button>
+
+            </div>
+           
+        </div>
+
+    </div>
+    @*//End Section*@
+
+    <div class="mx-n3 px-3 mx-lg-n8 px-lg-8 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
+        <div id="orderTable" data-list='{"valueNames":["DocNo","barcode","productName","GroupId","UnitName","LocIdfmName","LocIdtoName","ItemQty","ItemQtyRep","ChangeDtime","TranStatusname","WlName"],"page":10,"pagination":true}'>
+            <div class="table-responsive scrollbar mx-n1 px-1">
+                <table class="table table-sm fs-9 mb-0">
+                    <thead class="bg-primary-subtle">
+                        <tr>
+
+                            <th class="sort align-middle ps-2" scope="col" data-sort="DocNo"  style="width:150px;">เลขที่เอกสาร</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="barcode" style="width:150px;">รหัสสินค้า</th>
+                            <th class="sort white-space-nowrap align-middle ps-4"  scope="col" style="width:420px;" data-sort="productName">ชื่อ</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="GroupId" style="width:80px;">หมวด</th>
+                            <th class="sort align-middle ps-2" scope="col"  style="width:100px;">หน่วย</th>
+                            <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:180px;">ตำแหน่งจัด</th>
+                            <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:180px;">ตำแหน่งเติม</th>
+                            <th class="sort align-middle ps-2" scope="col"  style="width:100px;">สั่งเติม</th>
+                            <th class="sort align-middle ps-2" scope="col"  style="width:100px;">จัดเติม</th>
+                            <th class="sort align-middle ps-4" scope="col" data-sort="ChangeDtime" style="width:180px;">เวลาปรับปรุง</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="TranStatus" style="width:100px;">สถานะ</th>
+                            <th class="sort align-middle ps-2" scope="col" data-sort="WlName" style="width:100px;">เลขที่เอกสาร</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list" id="order-table-body">
+
+                        @if (Model.dataRpt != null)
+                        {
+                            @foreach (var item in Model.dataRpt.ToList().OrderBy(t => t.DocNo))
+                            {
+                                <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                                    <td class="fs-9 align-middle">
+                                        <p class="DocNo fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.DocNo)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="barcode fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.barcode)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="productName fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.productName)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="GrouId fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.GroupId)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="UnitName fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.UnitName)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9  font-body-mbsthai  mb-0">@Html.DisplayFor(modelItem => item.LocIdfmName)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.LocIdtoName)</p>
+                                    </td>
+
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9 ps-1  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ItemQty)</p>
+                                    </td>
+
+                                    <td class="fs-9 align-middle">
+                                        <p class="fs-9 ps-1 font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ItemQtyRep)</p>
+                                    </td>
+
+                                    <td class="fs-9 align-middle">
+                                        <p class="CreateDtime fs-10  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.ChangeDtime)</p>
+                                    </td>
+                                    <td class="fs-9 align-middle">
+                                        @if (item.TranStatusname == "ยกเลิกสั่งเติมสินค้า")
+                                        {
+                                            <p class="TranStatusname fs-10  font-body-mbsthai text-danger mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                        }else{
+                                            @if (item.TranStatusname == "เติมสินค้าเรียบร้อย")
+                                            {
+                                                <p class="TranStatusname fs-10  font-body-mbsthai text-success mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                            }
+                                            else
+                                            {
+                                                @if (item.TranStatusname == "จัดสินค้าบางส่วน")
+                                                {
+                                                    <p class="TranStatusname fs-10  font-body-mbsthai text-warning mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                                }
+                                                else
+                                                {
+                                                    @if (item.TranStatusname == "สร้างงานสั่งเติม")
+                                                    {
+                                                        <p class="TranStatusname fs-10  font-body-mbsthai text-info mb-0">@Html.DisplayFor(modelItem => item.TranStatusname)</p>
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                </td>
+                                    <td class="fs-9 align-middle">
+                                        <p class="CreateDtime fs-10  font-body-mbsthai mb-0">@Html.DisplayFor(modelItem => item.WlName)</p>
+                                    </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                </table>
+            </div>
+        <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
+            <div class="col-auto d-flex">
+                <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+            </div>
+            <div class="col-auto d-flex">
+                <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                <ul class="mb-0 pagination"></ul>
+                <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+            </div>
+        </div>
+       </div>
+       </div>
+   
+ </form>
+@section Scripts {
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+           
+           var inputBarcodevalue =$('#inputBarcode').val();
+            if(inputBarcodevalue === "")
+             {
+                $('#inputBarcode').focus();
+             }
+         
+            // Logic to handle selection (optional)
+            $('#inputBarcode').on('keypress', function (e) {
+            if (e.which == 13) { // Check for "Enter" key
+                e.preventDefault(); // Prevent the default form submission
+                var barcodevalue =$(this).val();
+                if(barcodevalue === "")
+                {
+                    $('#inputBarcode').focus();
+                }else{
+                     $('#searchForm').submit(); // Submit the form via AJAX
+                }
+                windoq
+            }
+           });
+
+
+          
+            
+         });
+
+    </script>
+    
+}
+

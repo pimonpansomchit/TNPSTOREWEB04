@@ -1,11 +1,12 @@
 ﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
-using TNPSTOREWEB.Context;
-using TNPSTOREWEB.Core;
-using TNPSTOREWEB.Model;
-using TNPSTOREWEB.Models.Request;
+using TNPWMSWEB.Context;
+using TNPWMSWEB.Core;
+using TNPWMSWEB.Model;
+using TNPWMSWEB.Model.Request;
+using TNPWMSWEB.Models.Request;
 
-namespace TNPSTOREWEB.Controllers
+namespace TNPWMSWEB.Controllers
 {
     public class AdminController : Controller
     {
@@ -165,13 +166,13 @@ namespace TNPSTOREWEB.Controllers
             menu.actions = actionx;
             menu.Clear = "N";
             menu.Id = Id;
-            TNPSTORESYSDBContext db = new();
+            TNPWMSSYSDBContext db = new();
             try
             {
                 if (menu.actions == "M")
                 {
                     menu.addusr = new();
-                    menu.SelectGroupNo = db.StClassinfos.Where(t => t.ClassName == classid.Trim()).Select(t=>t.ClassCode).First();
+                    menu.SelectGroupNo = db.Ctlclassinfos.Where(t => t.ClassName == classid.Trim()).Select(t=>t.ClassCode).First();
                     menu.Selectedadd = usernames.Trim();
                     menu.SelectedOption = wl.ToString();
                    
@@ -208,29 +209,25 @@ namespace TNPSTOREWEB.Controllers
                 rdata.ModelClass.Users = GetDBConnect.GetClassModel(Id);
                 TNPSYSCTLDBContext _db = new();
 
-                using (TNPSTORESYSDBContext _dbs = new())
+                using (TNPWMSSYSDBContext _dbs = new())
                 {
-                    var dataname = _dbs.StUserlogins.Where(t => t.UserName == rdata.addusr.UserName).FirstOrDefault();
-                    var data = _dbs.StUserlogins.Where(t => t.WlCode == (rdata.SelectedOption.Trim()) && t.UserName == rdata.addusr.UserName).FirstOrDefault();
+                    var dataname = _dbs.Ctluserlogins.Where(t => t.UserName == rdata.addusr.UserName).FirstOrDefault();
+                    var data = _dbs.Ctluserlogins.Where(t => t.Whid == (rdata.SelectedOption.Trim()) && t.UserName == rdata.addusr.UserName).FirstOrDefault();
                    
                     if(dataname==null)
                     {
                         if (data == null)
                         {
-                            rdata.addusr.WlKey = _db.MstWls.Where(t => t.WlId == (rdata.SelectedOption.Trim())).Select(t => t.WlKey).First();
-                            rdata.addusr.WlCode = (rdata.SelectedOption.Trim());
-                            rdata.addusr.WlName = _db.MstWls.Where(t => t.WlId == (rdata.SelectedOption.Trim())).Select(t => t.WlName).First();
-                            rdata.addusr.ClassId = _dbs.StClassinfos.Where(t => t.ClassCode == rdata.SelectGroupNo.Trim()).Select(t => t.ClassName).First();
-                            rdata.addusr.CreateDtime = DateTime.Now;
-                            rdata.addusr.CreateUser = rdata.ModelClass.Users.UserName;
-                            rdata.addusr.ChangeDtime = DateTime.Now;
-                            rdata.addusr.ChangeUser = rdata.ModelClass.Users.UserName;
+                           
+                            rdata.addusr.WhName = _db.MstWls.Where(t => t.WlId == rdata.ModelClass.Users.WHcode.Trim()).Select(t => t.WlName).First();
+                            rdata.addusr.ClassId = _dbs.Ctlclassinfos.Where(t => t.ClassCode == rdata.SelectGroupNo.Trim()).Select(t => t.ClassName).First();
+                            rdata.addusr.Createdtime = DateTime.Now;
+                            rdata.addusr.Createuser = rdata.ModelClass.Users.UserName;
+                            rdata.addusr.Changedtime = DateTime.Now;
+                            rdata.addusr.Changeuser = rdata.ModelClass.Users.UserName;
                             rdata.addusr.SessionType = "M";
                             rdata.addusr.Whid = rdata.ModelClass.Users.WHcode.Trim();
-                            rdata.addusr.TbNewlabel = "tb_new" + rdata.addusr.WlCode.Trim();
-                            rdata.addusr.DbName = rdata.ModelClass.Users.DBKey;
-                            rdata.addusr.Language = "T";
-                            rdata.addusr.ArprbCode = _dbs.StWlprices.Where(t => t.WlCode == rdata.addusr.WlCode).Select(t => t.ArprbCode).First();
+                            rdata.addusr.LangId = "T";
                             _dbs.Add(rdata.addusr);
                             _dbs.SaveChanges();
                             rdata.actions = "A";
@@ -244,8 +241,8 @@ namespace TNPSTOREWEB.Controllers
                         {
                             if (rdata.actions == "M")
                             {
-                                rdata.addusr.ChangeDtime = DateTime.Now;
-                                rdata.addusr.ChangeUser = rdata.ModelClass.Users.UserName;
+                                rdata.addusr.Changedtime = DateTime.Now;
+                                rdata.addusr.Changeuser = rdata.ModelClass.Users.UserName;
                                 _dbs.SaveChanges();
                                 rdata.actions = "A";
                                 rdata.addusr = new();
@@ -287,9 +284,9 @@ namespace TNPSTOREWEB.Controllers
             {
                 
 
-                using (TNPSTORESYSDBContext _dbs = new())
+                using (TNPWMSSYSDBContext _dbs = new())
                 {
-                    var data = _dbs.StUserlogins.Where(t => t.UserName == usernames.Trim() && t.WlCode==wl.Trim()).FirstOrDefault();
+                    var data = _dbs.Ctluserlogins.Where(t => t.UserName == usernames.Trim() && t.Whid==wl.Trim()).FirstOrDefault();
 
                     var tdata = _dbs.SysDatalogs.Where(t => t.UserLogin == usernames.Trim() && t.WlCode == wl.Trim()).FirstOrDefault();
 
